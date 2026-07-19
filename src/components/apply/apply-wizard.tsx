@@ -102,10 +102,20 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={htmlFor} className="eyebrow mb-2 block">
-        {label}
-      </label>
-      {children}
+      {htmlFor ? (
+        <>
+          <label htmlFor={htmlFor} className="eyebrow mb-2 block">
+            {label}
+          </label>
+          {children}
+        </>
+      ) : (
+        // No id supplied — nest the control so the label associates implicitly.
+        <label className="block">
+          <span className="eyebrow mb-2 block">{label}</span>
+          {children}
+        </label>
+      )}
       {hint && !error && <p className="mt-1.5 text-micro text-stone">{hint}</p>}
       {error && <p className="mt-1.5 text-micro text-error">{error}</p>}
     </div>
@@ -237,6 +247,7 @@ export function ApplyWizard() {
                 </span>
                 <button
                   type="button"
+                  aria-current={active ? "step" : undefined}
                   onClick={() => goTo(i)}
                   disabled={!reachable || i >= step}
                   className={cn(

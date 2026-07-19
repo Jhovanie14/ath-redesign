@@ -116,13 +116,22 @@ export default function PricingPage() {
               <table className="w-full min-w-[560px] border-collapse text-left">
                 <thead>
                   <tr className="border-b border-linen">
-                    <th className="px-6 py-4 text-small font-medium text-ink-soft">
+                    <th
+                      scope="col"
+                      className="px-6 py-4 text-small font-medium text-ink-soft"
+                    >
                       Feature
                     </th>
-                    <th className="w-40 px-4 py-4 text-center eyebrow">
+                    <th
+                      scope="col"
+                      className="w-40 px-4 py-4 text-center eyebrow"
+                    >
                       Standard
                     </th>
-                    <th className="w-40 bg-gold-tint/50 px-4 py-4 text-center eyebrow !text-gold-deep">
+                    <th
+                      scope="col"
+                      className="w-40 bg-gold-tint/50 px-4 py-4 text-center eyebrow !text-gold-deep"
+                    >
                       Premium
                     </th>
                   </tr>
@@ -133,9 +142,12 @@ export default function PricingPage() {
                       key={row.feature}
                       className={i > 0 ? "border-t border-linen" : undefined}
                     >
-                      <td className="px-6 py-3.5 text-small text-ink-soft">
+                      <th
+                        scope="row"
+                        className="px-6 py-3.5 text-left text-small font-normal text-ink-soft"
+                      >
                         {row.feature}
-                      </td>
+                      </th>
                       <td className="px-4 py-3.5 text-center">
                         <ComparisonCell value={row.standard} />
                       </td>

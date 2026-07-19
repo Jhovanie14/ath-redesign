@@ -2,11 +2,14 @@ import type { Trainer } from "@/lib/types";
 import { formatMonthYear } from "@/lib/utils";
 import { RatingStars } from "@/components/rating-stars";
 import { VerifiedSeal } from "@/components/verified-seal";
+import { SectionEyebrow } from "@/components/section-eyebrow";
 
 export function ReviewList({ trainer }: { trainer: Trainer }) {
   return (
     <section id="reviews" className="scroll-mt-24">
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+      <SectionEyebrow>Reviews</SectionEyebrow>
+      <h2 className="sr-only">Reviews</h2>
+      <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
         <div className="flex items-baseline gap-3">
           <span className="font-data text-display-md font-medium text-ink">
             {trainer.rating.toFixed(1)}
