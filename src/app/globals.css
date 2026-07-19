@@ -166,6 +166,14 @@
   from { height: var(--radix-accordion-content-height); }
   to { height: 0; }
 }
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes floatSlower {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
 @keyframes goldPulse {
   0% { box-shadow: 0 0 0 0 rgb(185 154 91 / 0.45); }
   70% { box-shadow: 0 0 0 12px rgb(185 154 91 / 0); }
