@@ -158,6 +158,14 @@
   from { opacity: 0; transform: translateY(100%); }
   to { opacity: 1; transform: translateY(0); }
 }
+@keyframes accordionDown {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+@keyframes accordionUp {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
 @keyframes goldPulse {
   0% { box-shadow: 0 0 0 0 rgb(185 154 91 / 0.45); }
   70% { box-shadow: 0 0 0 12px rgb(185 154 91 / 0); }
