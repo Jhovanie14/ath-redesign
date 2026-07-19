@@ -1,0 +1,644 @@
+[
+  {
+    "slug": "dr-test-trainer",
+    "name": "Dr Test Trainer",
+    "headline": "Aesthetic Medical Practitioner & Trainer",
+    "city": "Manchester",
+    "lat": 53.4808,
+    "lng": -2.2426,
+    "tier": "standard",
+    "rating": 4.7,
+    "reviewCount": 9,
+    "yearsExperience": 8,
+    "studentsTrained": 240,
+    "fromPriceGBP": 550,
+    "bio": "A GMC-registered doctor who moved into aesthetics after eight years in emergency medicine, and now trains small cohorts out of a clinic in the Northern Quarter. Sessions stay hands-on: no more than six delegates, live models for every practical, and a follow-up call once you start treating your own clients.",
+    "categories": ["foundation", "lip-filler", "anti-wrinkle"],
+    "courses": [
+      {
+        "id": "dr-test-trainer-c1",
+        "title": "Foundation in Facial Aesthetics",
+        "category": "foundation",
+        "priceGBP": 550,
+        "durationDays": 2,
+        "cpdAccredited": true,
+        "maxDelegates": 6,
+        "summary": "Two days covering facial anatomy, consultation, consent and complication management, with live-model practical on both anti-wrinkle and dermal filler."
+      },
+      {
+        "id": "dr-test-trainer-c2",
+        "title": "Lip Filler Masterclass",
+        "category": "lip-filler",
+        "priceGBP": 795,
+        "durationDays": 1,
+        "cpdAccredited": true,
+        "maxDelegates": 4,
+        "summary": "A one-day intensive on lip anatomy, injection technique and managing vascular occlusion, capped at four delegates so everyone treats two models."
+      },
+      {
+        "id": "dr-test-trainer-c3",
+        "title": "Anti-Wrinkle Fundamentals",
+        "category": "anti-wrinkle",
+        "priceGBP": 650,
+        "durationDays": 1,
+        "cpdAccredited": true,
+        "maxDelegates": 6,
+        "summary": "Upper-face botulinum toxin from first principles: dosing, injection points, and how to handle asymmetry and brow ptosis if it happens."
+      }
+    ],
+    "reviews": [
+      {
+        "id": "dr-test-trainer-r1",
+        "studentInitials": "L.M.",
+        "rating": 5,
+        "courseTitle": "Foundation in Facial Aesthetics",
+        "date": "2026-05-12",
+        "body": "There were five of us over the two days, so I injected four live models rather than watching from the back. The complications session was the part I was dreading and it ended up being the most useful — I left knowing what hyaluronidase is actually for.",
+        "bookingVerified": true
+      },
+      {
+        "id": "dr-test-trainer-r2",
+        "studentInitials": "S.K.",
+        "rating": 4,
+        "courseTitle": "Lip Filler Masterclass",
+        "date": "2026-03-28",
+        "body": "Small group of four and I treated two models by the end of the day. I'd have liked a bit more time on aftercare protocols, but the injection technique teaching was genuinely careful and I felt safe to start on my own clients.",
+        "bookingVerified": true
+      },
+      {
+        "id": "dr-test-trainer-r3",
+        "studentInitials": "A.P.",
+        "rating": 5,
+        "courseTitle": "Anti-Wrinkle Fundamentals",
+        "date": "2026-02-09",
+        "body": "The follow-up call two weeks after was the thing that set this apart. I'd treated my first paying client and had a question about dosing — got a proper answer within the day.",
+        "bookingVerified": true
+      }
+    ],
+    "verification": {
+      "insuranceCheckedAt": "2026-01-14",
+      "qualificationCheckedAt": "2025-11-30",
+      "professionalRegistration": { "body": "GMC", "number": "7000199" },
+      "humanReviewedAt": "2026-01-16",
+      "nextRenewalDue": "2027-01-14"
+    },
+    "availabilityNote": "Next cohort: March 2026"
+  },
+  {
+    "slug": "dr-amara-okafor",
+    "name": "Dr Amara Okafor",
+    "headline": "Cosmetic Doctor & Advanced Injectables Trainer",
+    "city": "London",
+    "lat": 51.5074,
+    "lng": -0.1278,
+    "tier": "premium",
+    "rating": 4.9,
+    "reviewCount": 41,
+    "yearsExperience": 12,
+    "studentsTrained": 610,
+    "fromPriceGBP": 850,
+    "bio": "Dr Okafor runs an advanced training studio near Marylebone, focused on the injectors who have their foundation certificate and want to treat the mid-face and jawline safely. She keeps a waiting list rather than overfilling cohorts, and every advanced course includes cannula work on live models.",
+    "categories": ["advanced-injectables", "dermal-filler", "advanced", "lip-filler"],
+    "courses": [
+      {
+        "id": "dr-amara-okafor-c1",
+        "title": "Advanced Cheek & Midface Filler",
+        "category": "advanced-injectables",
+        "priceGBP": 1450,
+        "durationDays": 2,
+        "cpdAccredited": true,
+        "maxDelegates": 4,
+        "summary": "Structural mid-face assessment, cannula and needle technique for the cheek and tear trough, and a full vascular-danger-zone walkthrough on live models."
+      },
+      {
+        "id": "dr-amara-okafor-c2",
+        "title": "Jawline & Chin Definition",
+        "category": "dermal-filler",
+        "priceGBP": 1250,
+        "durationDays": 1,
+        "cpdAccredited": true,
+        "maxDelegates": 4,
+        "summary": "Contouring the lower face with a focus on proportion, product selection and avoiding the marginal mandibular nerve."
+      },
+      {
+        "id": "dr-amara-okafor-c3",
+        "title": "Masterclass: Full-Face Assessment",
+        "category": "advanced",
+        "priceGBP": 1850,
+        "durationDays": 2,
+        "cpdAccredited": true,
+        "maxDelegates": 3,
+        "summary": "For established injectors: treating the face as one canvas, sequencing treatments across sessions, and building a bespoke plan for a real patient."
+      },
+      {
+        "id": "dr-amara-okafor-c4",
+        "title": "Lip Filler Refinement",
+        "category": "lip-filler",
+        "priceGBP": 850,
+        "durationDays": 1,
+        "cpdAccredited": true,
+        "maxDelegates": 4,
+        "summary": "A day for injectors who already treat lips and want to correct migration, improve definition and get consistent, natural results."
+      }
+    ],
+    "reviews": [
+      {
+        "id": "dr-amara-okafor-r1",
+        "studentInitials": "R.T.",
+        "rating": 5,
+        "courseTitle": "Advanced Cheek & Midface Filler",
+        "date": "2026-06-18",
+        "body": "I'd done two years of lips and tox and was nervous about going near the tear trough. Amara made me map the vasculature on my model before I touched a needle. Four of us, two full days, and I came away treating the mid-face with a plan rather than by feel.",
+        "bookingVerified": true
+      },
+      {
+        "id": "dr-amara-okafor-r2",
+        "studentInitials": "J.N.",
+        "rating": 5,
+        "courseTitle": "Masterclass: Full-Face Assessment",
+        "date": "2026-04-22",
+        "body": "Only three of us on the masterclass, which is the whole point. We each built a full treatment plan for a real patient and defended it to the group. It changed how I consult — I stopped selling syringes and started planning faces.",
+        "bookingVerified": true
+      },
+      {
+        "id": "dr-amara-okafor-r3",
+        "studentInitials": "H.C.",
+        "rating": 5,
+        "courseTitle": "Jawline & Chin Definition",
+        "date": "2026-02-15",
+        "body": "The nerve-avoidance teaching was meticulous. She had us palpate landmarks repeatedly until it was second nature. Expensive, but I've had zero complications on jawlines since and my results look intentional.",
+        "bookingVerified": true
+      }
+    ],
+    "verification": {
+      "insuranceCheckedAt": "2026-02-02",
+      "qualificationCheckedAt": "2025-12-11",
+      "professionalRegistration": { "body": "GMC", "number": "7412088" },
+      "humanReviewedAt": "2026-02-04",
+      "nextRenewalDue": "2027-02-02"
+    },
+    "availabilityNote": "Waiting list — next dates released quarterly"
+  },
+  {
+    "slug": "dr-priya-raman",
+    "name": "Dr Priya Raman",
+    "headline": "Aesthetic GP & Foundation Trainer",
+    "city": "Leeds",
+    "lat": 53.8008,
+    "lng": -1.5491,
+    "tier": "premium",
+    "rating": 4.8,
+    "reviewCount": 33,
+    "yearsExperience": 10,
+    "studentsTrained": 420,
+    "fromPriceGBP": 595,
+    "bio": "A GP by background, Dr Raman built her training around the delegates most courses rush: complete beginners. Her foundation programme runs over two weekends with a supervised clinic day in between, so you treat clients under her eye before you are signed off.",
+    "categories": ["foundation", "anti-wrinkle", "lip-filler", "skin-boosters"],
+    "courses": [
+      {
+        "id": "dr-priya-raman-c1",
+        "title": "Foundation Programme: Tox & Filler",
+        "category": "foundation",
+        "priceGBP": 1195,
+        "durationDays": 3,
+        "cpdAccredited": true,
+        "maxDelegates": 6,
+        "summary": "Two teaching weekends plus a supervised clinic day, covering anti-wrinkle and dermal filler from anatomy through to running a safe consultation."
+      },
+      {
+        "id": "dr-priya-raman-c2",
+        "title": "Anti-Wrinkle for Beginners",
+        "category": "anti-wrinkle",
+        "priceGBP": 595,
+        "durationDays": 1,
+        "cpdAccredited": true,
+        "maxDelegates": 6,
+        "summary": "A gentle, thorough first day on botulinum toxin for the upper face, built for people who have never held a syringe."
+      },
+      {
+        "id": "dr-priya-raman-c3",
+        "title": "Skin Boosters & Polynucleotides",
+        "category": "skin-boosters",
+        "priceGBP": 695,
+        "durationDays": 1,
+        "cpdAccredited": true,
+        "maxDelegates": 5,
+        "summary": "Injectable skin quality treatments: product differences, layering with other treatments, and setting realistic patient expectations."
+      }
+    ],
+    "reviews": [
+      {
+        "id": "dr-priya-raman-r1",
+        "studentInitials": "M.D.",
+        "rating": 5,
+        "courseTitle": "Foundation Programme: Tox & Filler",
+        "date": "2026-05-30",
+        "body": "I came in having never injected anything. The supervised clinic day between the two weekends is what made it work — I treated three real clients with Priya beside me before she signed me off. Six of us, and she knew all our names and weak spots by the end.",
+        "bookingVerified": true
+      },
+      {
+        "id": "dr-priya-raman-r2",
+        "studentInitials": "F.A.",
+        "rating": 5,
+        "courseTitle": "Anti-Wrinkle for Beginners",
+        "date": "2026-03-14",
+        "body": "Genuinely paced for a beginner. She reteaches the forehead anatomy three different ways until it clicks. I left able to explain to a client why I was placing each injection, which is more than my colleague got from a bigger, cheaper course.",
+        "bookingVerified": true
+      },
+      {
+        "id": "dr-priya-raman-r3",
+        "studentInitials": "K.W.",
+        "rating": 4,
+        "courseTitle": "Skin Boosters & Polynucleotides",
+        "date": "2026-01-27",
+        "body": "Clear and honest about which products are hype and which have evidence behind them. The cohort was five and we all injected. Only reason it's four stars is I'd have wanted a printed protocol to take away.",
+        "bookingVerified": true
+      }
+    ],
+    "verification": {
+      "insuranceCheckedAt": "2026-01-20",
+      "qualificationCheckedAt": "2025-10-18",
+      "professionalRegistration": { "body": "GMC", "number": "7309145" },
+      "humanReviewedAt": "2026-01-22",
+      "nextRenewalDue": "2027-01-20"
+    },
+    "availabilityNote": "Next foundation weekend: April 2026"
+  },
+  {
+    "slug": "grace-adeyemi",
+    "name": "Grace Adeyemi",
+    "headline": "Aesthetic Nurse Prescriber & Trainer",
+    "city": "Birmingham",
+    "lat": 52.4862,
+    "lng": -1.8904,
+    "tier": "standard",
+    "rating": 4.6,
+    "reviewCount": 18,
+    "yearsExperience": 9,
+    "studentsTrained": 300,
+    "fromPriceGBP": 595,
+    "bio": "An NMC-registered nurse prescriber who trains out of a CQC-registered clinic in the Jewellery Quarter. Grace is known for her consultation teaching — she thinks most complications start with a rushed conversation, so she spends the first morning of every course on assessment and consent.",
+    "categories": ["anti-wrinkle", "lip-filler", "microneedling"],
+    "courses": [
+      {
+        "id": "grace-adeyemi-c1",
+        "title": "Anti-Wrinkle & Lip Combined",
+        "category": "anti-wrinkle",
+        "priceGBP": 895,
+        "durationDays": 2,
+        "cpdAccredited": true,
+        "maxDelegates": 6,
+        "summary": "Two days covering the two most-requested treatments, with a full morning on consultation and consent before any needles come out."
+      },
+      {
+        "id": "grace-adeyemi-c2",
+        "title": "Lip Filler Foundation",
+        "category": "lip-filler",
+        "priceGBP": 595,
+        "durationDays": 1,
+        "cpdAccredited": true,
+        "maxDelegates": 6,
+        "summary": "A first lip course: anatomy, product choice, technique for a natural finish, and how to spot and manage a vascular event."
+      },
+      {
+        "id": "grace-adeyemi-c3",
+        "title": "Microneedling & Skin Health",
+        "category": "microneedling",
+        "priceGBP": 425,
+        "durationDays": 1,
+        "cpdAccredited": true,
+        "maxDelegates": 8,
+        "summary": "Device settings, depth by skin area, contraindications, and building a course of treatments rather than selling single sessions."
+      }
+    ],
+    "reviews": [
+      {
+        "id": "grace-adeyemi-r1",
+        "studentInitials": "D.O.",
+        "rating": 5,
+        "courseTitle": "Anti-Wrinkle & Lip Combined",
+        "date": "2026-06-02",
+        "body": "The consultation morning felt slow at the time and I now understand why she does it. Six of us, everyone injected both days. She role-played a difficult client with me until I could say no to an unrealistic request without losing them.",
+        "bookingVerified": true
+      },
+      {
+        "id": "grace-adeyemi-r2",
+        "studentInitials": "N.B.",
+        "rating": 4,
+        "courseTitle": "Lip Filler Foundation",
+        "date": "2026-04-09",
+        "body": "Solid first lip course. The vascular-event drill was properly hands-on rather than a slide. I marked it down slightly because the day ran long, but I never felt rushed on the practical, which matters more.",
+        "bookingVerified": true
+      },
+      {
+        "id": "grace-adeyemi-r3",
+        "studentInitials": "C.E.",
+        "rating": 5,
+        "courseTitle": "Microneedling & Skin Health",
+        "date": "2026-02-21",
+        "body": "Practical and honest. She talked us out of over-treating and showed how to build a sensible course for a client. Eight of us but she still checked everyone's depth technique individually.",
+        "bookingVerified": true
+      }
+    ],
+    "verification": {
+      "insuranceCheckedAt": "2026-03-05",
+      "qualificationCheckedAt": "2025-12-01",
+      "professionalRegistration": { "body": "NMC", "number": "90A0042B" },
+      "humanReviewedAt": "2026-03-07",
+      "nextRenewalDue": "2027-03-05"
+    },
+    "availabilityNote": "Monthly cohorts — next: February 2026"
+  },
+  {
+    "slug": "dr-callum-frost",
+    "name": "Dr Callum Frost",
+    "headline": "Cosmetic Doctor & Injectables Trainer",
+    "city": "Glasgow",
+    "lat": 55.8642,
+    "lng": -4.2518,
+    "tier": "standard",
+    "rating": 4.5,
+    "reviewCount": 12,
+    "yearsExperience": 7,
+    "studentsTrained": 180,
+    "fromPriceGBP": 650,
+    "bio": "Dr Frost trains in Glasgow's west end with a bias towards the science — expect to leave able to justify every dose and injection point with the anatomy behind it. He runs deliberately small groups and shares his own complication cases so you learn from real events, not just ideal outcomes.",
+    "categories": ["anti-wrinkle", "dermal-filler", "foundation"],
+    "courses": [
+      {
+        "id": "dr-callum-frost-c1",
+        "title": "Foundation: Anti-Wrinkle & Dermal Filler",
+        "category": "foundation",
+        "priceGBP": 650,
+        "durationDays": 2,
+        "cpdAccredited": true,
+        "maxDelegates": 5,
+        "summary": "A grounded first course built around facial anatomy, with equal practical time on toxin and filler and a full session on managing what can go wrong."
+      },
+      {
+        "id": "dr-callum-frost-c2",
+        "title": "Dermal Filler: Nasolabial & Marionette",
+        "category": "dermal-filler",
+        "priceGBP": 750,
+        "durationDays": 1,
+        "cpdAccredited": true,
+        "maxDelegates": 4,
+        "summary": "Treating the lower face folds safely, with product and layer selection and a clear map of the vessels to respect."
+      }
+    ],
+    "reviews": [
+      {
+        "id": "dr-callum-frost-r1",
+        "studentInitials": "P.M.",
+        "rating": 5,
+        "courseTitle": "Foundation: Anti-Wrinkle & Dermal Filler",
+        "date": "2026-05-08",
+        "body": "He shared two of his own complication cases with photos and how he managed them, which no other course I looked at was willing to do. Five delegates, plenty of model time. I finished understanding the why, not just the where.",
+        "bookingVerified": true
+      },
+      {
+        "id": "dr-callum-frost-r2",
+        "studentInitials": "S.R.",
+        "rating": 4,
+        "courseTitle": "Dermal Filler: Nasolabial & Marionette",
+        "date": "2026-03-19",
+        "body": "Very anatomy-led, which suited me. Group of four and we each treated a model. I'd have liked more on marketing and pricing, but that's not really what he's selling — he's teaching you to inject safely and he does that well.",
+        "bookingVerified": true
+      }
+    ],
+    "verification": {
+      "insuranceCheckedAt": "2026-02-11",
+      "qualificationCheckedAt": "2025-11-14",
+      "professionalRegistration": { "body": "GMC", "number": "7188203" },
+      "humanReviewedAt": "2026-02-13",
+      "nextRenewalDue": "2027-02-11"
+    },
+    "availabilityNote": "Next available: 1:1 dates in March 2026"
+  },
+  {
+    "slug": "elena-marchetti",
+    "name": "Elena Marchetti",
+    "headline": "Advanced Aesthetic Practitioner & Trainer",
+    "city": "Bristol",
+    "lat": 51.4545,
+    "lng": -2.5879,
+    "tier": "standard",
+    "rating": 4.4,
+    "reviewCount": 7,
+    "yearsExperience": 6,
+    "studentsTrained": 130,
+    "fromPriceGBP": 395,
+    "bio": "Elena trains skin-first treatments from a studio in Clifton, and is a good fit for beauty therapists moving into aesthetics. Her courses are the most affordable on this list without cutting the safety teaching, and she runs a private group where past delegates keep asking questions long after the day ends.",
+    "categories": ["microneedling", "chemical-peels", "skin-boosters"],
+    "courses": [
+      {
+        "id": "elena-marchetti-c1",
+        "title": "Microneedling Foundation",
+        "category": "microneedling",
+        "priceGBP": 395,
+        "durationDays": 1,
+        "cpdAccredited": true,
+        "maxDelegates": 8,
+        "summary": "A first device course covering skin assessment, depth selection, aftercare and the contraindications you must not miss."
+      },
+      {
+        "id": "elena-marchetti-c2",
+        "title": "Chemical Peels: Superficial to Medium",
+        "category": "chemical-peels",
+        "priceGBP": 450,
+        "durationDays": 1,
+        "cpdAccredited": true,
+        "maxDelegates": 6,
+        "summary": "Acid types, choosing depth by skin type and concern, neutralising safely, and building a peel course for pigmentation and acne."
+      },
+      {
+        "id": "elena-marchetti-c3",
+        "title": "Skin Boosters Introduction",
+        "category": "skin-boosters",
+        "priceGBP": 525,
+        "durationDays": 1,
+        "cpdAccredited": false,
+        "maxDelegates": 6,
+        "summary": "An entry to injectable skin quality treatments for practitioners already comfortable with needling and peels."
+      }
+    ],
+    "reviews": [
+      {
+        "id": "elena-marchetti-r1",
+        "studentInitials": "T.H.",
+        "rating": 5,
+        "courseTitle": "Microneedling Foundation",
+        "date": "2026-04-30",
+        "body": "I'm a beauty therapist and this was my first step into skin treatments. Nothing was assumed. Eight of us but the practical was well run and she checked my depth on every facial zone. The follow-up group is genuinely active.",
+        "bookingVerified": true
+      },
+      {
+        "id": "elena-marchetti-r2",
+        "studentInitials": "G.L.",
+        "rating": 4,
+        "courseTitle": "Chemical Peels: Superficial to Medium",
+        "date": "2026-02-26",
+        "body": "Good value and clearly taught. The neutralising drill was hands-on and she was strict about it, which I appreciated. I'd have liked a second model each to build confidence, but for the price it was fair.",
+        "bookingVerified": true
+      }
+    ],
+    "verification": {
+      "insuranceCheckedAt": "2026-03-22",
+      "qualificationCheckedAt": "2026-01-09",
+      "humanReviewedAt": "2026-03-24",
+      "nextRenewalDue": "2027-03-22"
+    },
+    "availabilityNote": "Now booking spring 2026 dates"
+  },
+  {
+    "slug": "sofia-bianchi",
+    "name": "Sofia Bianchi",
+    "headline": "Aesthetic Nurse & Foundation Trainer",
+    "city": "Liverpool",
+    "lat": 53.4084,
+    "lng": -2.9916,
+    "tier": "standard",
+    "rating": 4.3,
+    "reviewCount": 6,
+    "yearsExperience": 5,
+    "studentsTrained": 95,
+    "fromPriceGBP": 475,
+    "bio": "An NMC-registered nurse who trains near the Baltic Triangle and focuses on getting first-time injectors to a genuinely safe standard. Sofia is newer to teaching than others here, and prices accordingly, but keeps cohorts to four so no one leaves having only watched.",
+    "categories": ["foundation", "anti-wrinkle", "lip-filler"],
+    "courses": [
+      {
+        "id": "sofia-bianchi-c1",
+        "title": "Anti-Wrinkle Foundation",
+        "category": "anti-wrinkle",
+        "priceGBP": 475,
+        "durationDays": 1,
+        "cpdAccredited": true,
+        "maxDelegates": 4,
+        "summary": "A careful first toxin day for the upper face, kept to four delegates so everyone treats two live models."
+      },
+      {
+        "id": "sofia-bianchi-c2",
+        "title": "Lip Filler Foundation",
+        "category": "lip-filler",
+        "priceGBP": 550,
+        "durationDays": 1,
+        "cpdAccredited": true,
+        "maxDelegates": 4,
+        "summary": "First lip course covering anatomy, a natural technique, aftercare and step-by-step vascular occlusion management."
+      }
+    ],
+    "reviews": [
+      {
+        "id": "sofia-bianchi-r1",
+        "studentInitials": "A.J.",
+        "rating": 4,
+        "courseTitle": "Anti-Wrinkle Foundation",
+        "date": "2026-05-16",
+        "body": "Four of us and I treated two models, which is exactly what I wanted from a first course. Sofia is calm and patient. The slides could be tidier, but the teaching itself was safe and clear and I felt ready.",
+        "bookingVerified": true
+      },
+      {
+        "id": "sofia-bianchi-r2",
+        "studentInitials": "R.D.",
+        "rating": 5,
+        "courseTitle": "Lip Filler Foundation",
+        "date": "2026-03-03",
+        "body": "She talked us through a real occlusion she'd managed and made us rehearse the protocol out loud. For a smaller, cheaper course I was surprised how thorough the safety side was. Small group, lots of hands-on.",
+        "bookingVerified": true
+      }
+    ],
+    "verification": {
+      "insuranceCheckedAt": "2026-04-01",
+      "qualificationCheckedAt": "2026-01-22",
+      "professionalRegistration": { "body": "NMC", "number": "88C0117D" },
+      "humanReviewedAt": "2026-04-03",
+      "nextRenewalDue": "2027-04-01"
+    },
+    "availabilityNote": "Small cohorts — next: February 2026"
+  },
+  {
+    "slug": "dr-marcus-bello",
+    "name": "Dr Marcus Bello",
+    "headline": "Cosmetic Dentist & Aesthetics Trainer",
+    "city": "Newcastle",
+    "lat": 54.9783,
+    "lng": -1.6178,
+    "tier": "standard",
+    "rating": 4.6,
+    "reviewCount": 21,
+    "yearsExperience": 11,
+    "studentsTrained": 350,
+    "fromPriceGBP": 720,
+    "bio": "A GDC-registered dentist whose perioral anatomy teaching draws injectors from across the North East. Dr Bello trains from a practice in Jesmond and is especially strong on the lower face — lips, chin and the smile — where his dental background shows.",
+    "categories": ["lip-filler", "dermal-filler", "anti-wrinkle", "advanced"],
+    "courses": [
+      {
+        "id": "dr-marcus-bello-c1",
+        "title": "Perioral & Lip Masterclass",
+        "category": "lip-filler",
+        "priceGBP": 950,
+        "durationDays": 1,
+        "cpdAccredited": true,
+        "maxDelegates": 5,
+        "summary": "Lips, corners of the mouth and the smile line, taught with the dental-grade anatomy that makes the difference around the mouth."
+      },
+      {
+        "id": "dr-marcus-bello-c2",
+        "title": "Anti-Wrinkle: Upper & Lower Face",
+        "category": "anti-wrinkle",
+        "priceGBP": 720,
+        "durationDays": 1,
+        "cpdAccredited": true,
+        "maxDelegates": 6,
+        "summary": "Beyond the upper face into the perioral area and masseter, with clear dosing and the cautions each new region needs."
+      },
+      {
+        "id": "dr-marcus-bello-c3",
+        "title": "Advanced Chin & Jaw Contouring",
+        "category": "advanced",
+        "priceGBP": 1350,
+        "durationDays": 1,
+        "cpdAccredited": true,
+        "maxDelegates": 4,
+        "summary": "For confident injectors: defining the lower face with filler, respecting the vessels and nerve, and balancing chin projection to profile."
+      }
+    ],
+    "reviews": [
+      {
+        "id": "dr-marcus-bello-r1",
+        "studentInitials": "E.S.",
+        "rating": 5,
+        "courseTitle": "Perioral & Lip Masterclass",
+        "date": "2026-06-11",
+        "body": "His anatomy of the mouth is a level above anything I'd been taught. Five of us and we each treated a model with him correcting technique in real time. My lip results are more even and last better since the day.",
+        "bookingVerified": true
+      },
+      {
+        "id": "dr-marcus-bello-r2",
+        "studentInitials": "W.K.",
+        "rating": 4,
+        "courseTitle": "Advanced Chin & Jaw Contouring",
+        "date": "2026-04-04",
+        "body": "Genuinely advanced — I wouldn't come to this without solid filler experience. Four delegates, one model each, and the profile-balancing teaching was excellent. Marked down only because the room was warm and the day was intense with few breaks.",
+        "bookingVerified": true
+      },
+      {
+        "id": "dr-marcus-bello-r3",
+        "studentInitials": "I.F.",
+        "rating": 5,
+        "courseTitle": "Anti-Wrinkle: Upper & Lower Face",
+        "date": "2026-01-31",
+        "body": "The masseter and perioral teaching was the reason I booked and it delivered. He is careful about dosing in these newer areas and explained who not to treat. Six of us, all hands-on.",
+        "bookingVerified": true
+      }
+    ],
+    "verification": {
+      "insuranceCheckedAt": "2026-01-28",
+      "qualificationCheckedAt": "2025-11-07",
+      "professionalRegistration": { "body": "GDC", "number": "300481" },
+      "humanReviewedAt": "2026-01-30",
+      "nextRenewalDue": "2027-01-28"
+    },
+    "availabilityNote": "Next cohort: March 2026"
+  }
+]
