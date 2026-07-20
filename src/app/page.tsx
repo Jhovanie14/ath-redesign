@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { getRepository } from "@/lib/repository";
+import { resolveImage } from "@/lib/media";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SectionEyebrow } from "@/components/section-eyebrow";
@@ -141,6 +142,8 @@ export default async function HomePage() {
                 <EditorialImage
                   variant="hero"
                   priority
+                  src={resolveImage("images/hero")}
+                  alt="A trainer demonstrating an aesthetics technique in a warm studio"
                   className="h-[380px] w-full rounded-[22px] border border-linen shadow-e2 sm:h-[460px] lg:h-[540px]"
                 >
                   <div className="absolute right-4 top-4 flex items-center gap-2 rounded-full border border-linen bg-paper/80 px-3 py-1.5 shadow-e1 backdrop-blur-sm motion-safe:animate-[floatSlower_7s_ease-in-out_infinite]">
@@ -210,12 +213,16 @@ export default async function HomePage() {
             </h2>
           </Reveal>
           <RevealGroup className="mt-12 grid gap-5 md:grid-cols-3">
-            {STEPS.map((step) => (
+            {STEPS.map((step, i) => (
               <RevealItem
                 key={step.n}
                 className="overflow-hidden rounded-card border border-linen bg-paper shadow-e2"
               >
-                <EditorialImage variant={step.variant} className="relative h-24">
+                <EditorialImage
+                  variant={step.variant}
+                  src={resolveImage(`images/steps/step-${i + 1}`)}
+                  className="relative h-24"
+                >
                   <span className="absolute left-5 top-3 font-data text-display-md text-ink/55">
                     {step.n}
                   </span>

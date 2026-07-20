@@ -9,6 +9,7 @@ import {
   EditorialImage,
   type EditorialVariant,
 } from "@/components/media/editorial-image";
+import { resolveImage } from "@/lib/media";
 
 const VARIANTS: EditorialVariant[] = ["hero", "warm", "gold", "stone"];
 
@@ -24,6 +25,8 @@ export function SpecialismsStrip() {
         >
           <EditorialImage
             variant={VARIANTS[i % VARIANTS.length]}
+            src={resolveImage(`images/specialisms/${cat}`)}
+            alt=""
             className="absolute inset-0 h-full w-full transition-transform duration-500 ease-out motion-safe:group-hover:scale-[1.06]"
           />
           <div

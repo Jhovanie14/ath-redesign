@@ -115,38 +115,24 @@ _(All three: append style + negative. Low contrast so the overlaid number stays 
 
 ---
 
-## How to wire in (once you have images)
+## How to add the images — no code needed
 
-**Hero** — `src/app/page.tsx`, the hero `<EditorialImage variant="hero" …>`:
+The slots are already wired to **auto-detect** files via `resolveImage()`
+(`src/lib/media.ts`). Just drop your generated files at the paths below and
+rebuild (or they appear live under `next dev`). No file → the craft art shows,
+so nothing ever breaks. Extension can be **`.jpg`, `.jpeg`, `.png`, `.webp` or
+`.avif`** — whichever you export.
 
-```tsx
-<EditorialImage
-  variant="hero"
-  priority
-  src="/images/hero.jpg"
-  alt="A trainer demonstrating an aesthetics technique in a warm studio"
-  className="h-[380px] w-full rounded-[22px] border border-linen shadow-e2 sm:h-[460px] lg:h-[540px]"
->
-```
+| Slot | Put the file at |
+|---|---|
+| Hero | `public/images/hero.<ext>` |
+| Specialism tiles (×9) | `public/images/specialisms/<key>.<ext>` — keys: `lip-filler`, `anti-wrinkle`, `dermal-filler`, `skin-boosters`, `microneedling`, `chemical-peels`, `advanced-injectables`, `foundation`, `advanced` |
+| How-it-works bands (×3) | `public/images/steps/step-1.<ext>`, `step-2.<ext>`, `step-3.<ext>` |
 
-**How-it-works** — add a `src` to each entry in the `STEPS` array in
-`src/app/page.tsx` and pass it: `<EditorialImage variant={step.variant} src={step.src} …>`.
+Then: `npm run build` (or just refresh in `npm run dev`). Local files under
+`public/` need no config; a subtle film-grain overlay is kept on top of photos
+for cohesion. Only if you ever load photos from a remote host, add its domain to
+`images.remotePatterns` in `next.config.ts`.
 
-**Specialisms** — in `src/components/home/specialisms-strip.tsx`, add a map and
-pass it to the tile’s `<EditorialImage>`:
-
-```tsx
-const IMAGES: Record<CourseCategory, string> = {
-  "lip-filler": "/images/specialisms/lip-filler.jpg",
-  // …one per key…
-};
-// then: <EditorialImage variant={…} src={IMAGES[cat]} alt={CATEGORY_LABELS[cat]} … />
-```
-
-`EditorialImage` already renders `<Image fill className="object-cover">` when a
-`src` is present — no other change needed. If any real photos ever come from a
-remote host, add its domain to `images.remotePatterns` in `next.config.ts`
-(local files under `public/` need nothing).
-
-> Want me to make all these wiring edits now (rendering craft art until the
-> files land), or generate the images for you once a `GEMINI_API_KEY` is set?
+_(Trainer-card covers and the CTA background are not auto-wired — they still use
+the signature duotone / ink treatment. Ask if you want those swappable too.)_
