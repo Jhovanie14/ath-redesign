@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getRepository } from "@/lib/repository";
+import { resolveImage } from "@/lib/media";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SectionEyebrow } from "@/components/section-eyebrow";
@@ -13,7 +14,7 @@ import { ReviewList } from "@/components/trainer/review-list";
 import { VerificationPanel } from "@/components/trainer/verification-panel";
 import { EnquiryDialog } from "@/components/trainer/enquiry-dialog";
 
-const CONTAINER = "mx-auto w-full max-w-[1120px] px-5 sm:px-8";
+const CONTAINER = "mx-auto w-full max-w-[1600px] px-5 sm:px-8";
 
 export async function generateStaticParams() {
   const trainers = await getRepository().getAll();
@@ -53,8 +54,12 @@ export default async function TrainerPage({
     <>
       <SiteHeader />
       <main className="flex-1">
-        <div className={`${CONTAINER} pb-16 pt-6 sm:pt-8`}>
-          <ProfileHero trainer={trainer} />
+        <div className={`${CONTAINER} pb-20 pt-8 sm:pt-10`}>
+          <ProfileHero
+            trainer={trainer}
+            coverSrc={resolveImage(`trainers/${trainer.slug}`)}
+            headshotSrc={resolveImage(`trainers/headshots/${trainer.slug}`)}
+          />
 
           <div className="mt-12 grid gap-10 lg:mt-16 lg:grid-cols-[1.65fr_1fr] lg:gap-12">
             {/* Main */}
@@ -82,8 +87,9 @@ export default async function TrainerPage({
                   Ask about a course
                 </h3>
                 <p className="mt-2 text-small leading-relaxed text-ink-soft">
-                  Tell {trainer.name.split(" ").slice(-1)} what you&rsquo;re
-                  looking for and they&rsquo;ll reply directly.
+                  Tell {trainer.name.split(" ").slice(-1)[0]}{" "}
+                  what you&rsquo;re looking for and they&rsquo;ll reply
+                  directly.
                 </p>
                 <EnquiryDialog trainer={trainer}>
                   <Button className="mt-4 w-full">Ask about a course</Button>
@@ -97,10 +103,10 @@ export default async function TrainerPage({
           </div>
         </div>
 
-        {/* More trainers nearby */}
+        {/* More trainers nearby (tinted, full-bleed) */}
         {nearby.length > 0 && (
-          <section className="border-t border-linen bg-ivory">
-            <div className={`${CONTAINER} py-16 sm:py-20`}>
+          <section className="w-full border-y border-linen/70 bg-linen">
+            <div className={`${CONTAINER} py-20 sm:py-28`}>
               <Reveal>
                 <SectionEyebrow>More trainers nearby</SectionEyebrow>
                 <h2 className="mt-4 font-display text-display-md text-ink">
@@ -110,7 +116,11 @@ export default async function TrainerPage({
               <RevealGroup className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {nearby.map((t) => (
                   <RevealItem key={t.slug}>
-                    <TrainerCard trainer={t} />
+                    <TrainerCard
+                      trainer={t}
+                      coverSrc={resolveImage(`trainers/${t.slug}`)}
+                      headshotSrc={resolveImage(`trainers/headshots/${t.slug}`)}
+                    />
                   </RevealItem>
                 ))}
               </RevealGroup>

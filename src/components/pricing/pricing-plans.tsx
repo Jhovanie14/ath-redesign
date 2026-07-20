@@ -52,15 +52,25 @@ function PriceBlock({ plan, cycle }: { plan: Plan; cycle: Cycle }) {
   const saving = plan.price.monthly * 12 - plan.price.annual;
   return (
     <div>
-      <div className="flex items-baseline gap-1.5">
-        <span className="font-data text-display-md font-medium text-ink">
+      <div className="flex items-baseline gap-2">
+        <span
+          className={cn(
+            "font-data text-display-lg font-medium",
+            plan.premium ? "text-ivory" : "text-ink",
+          )}
+        >
           {formatGBP(amount)}
         </span>
-        <span className="text-small text-stone">
+        <span className={cn("text-body", plan.premium ? "text-ivory/60" : "text-stone")}>
           /{cycle === "annual" ? "year" : "month"}
         </span>
       </div>
-      <p className="mt-1 font-data text-micro text-stone">
+      <p
+        className={cn(
+          "mt-1.5 font-data text-small",
+          plan.premium ? "text-ivory/60" : "text-stone",
+        )}
+      >
         {cycle === "annual"
           ? `${formatGBP(Math.round(perMonth))} a month, billed annually · save ${formatGBP(saving)}`
           : "billed monthly, cancel anytime"}
@@ -112,13 +122,15 @@ export function PricingPlans() {
       </div>
 
       {/* Tier cards */}
-      <div className="mx-auto mt-10 grid max-w-3xl gap-6 md:grid-cols-2">
+      <div className="mx-auto mt-10 grid max-w-5xl gap-8 md:grid-cols-2">
         {PLANS.map((plan) => (
           <div
             key={plan.name}
             className={cn(
-              "relative flex flex-col rounded-card border bg-paper p-8 shadow-e2",
-              plan.premium ? "border-gold/40" : "border-linen",
+              "relative flex flex-col rounded-card border p-10",
+              plan.premium
+                ? "border-ink bg-ink text-ivory"
+                : "border-linen bg-paper",
             )}
           >
             {plan.premium && (
@@ -127,36 +139,67 @@ export function PricingPlans() {
                   aria-hidden
                   className="pointer-events-none absolute inset-0 rounded-card ring-1 ring-inset ring-gold/40"
                 />
-                <span className="absolute -top-3 left-8 inline-flex items-center rounded-full bg-gold-tint px-3 py-1 text-micro font-medium text-gold-deep ring-1 ring-gold/30">
+                <span className="absolute -top-3 left-10 inline-flex items-center rounded-full bg-gold-tint px-3 py-1 text-micro font-medium text-gold-deep ring-1 ring-gold/30">
                   Recommended
                 </span>
               </>
             )}
 
             <div className="flex items-center justify-between">
-              <h3 className="font-display text-title text-ink">{plan.name}</h3>
+              <h3
+                className={cn(
+                  "font-display text-display-md",
+                  plan.premium ? "text-ivory" : "text-ink",
+                )}
+              >
+                {plan.name}
+              </h3>
               <TierBadge type={plan.premium ? "premium" : "verified"} />
             </div>
-            <p className="mt-1 text-small text-stone">{plan.tagline}</p>
+            <p
+              className={cn(
+                "mt-1.5 text-body",
+                plan.premium ? "text-ivory/70" : "text-stone",
+              )}
+            >
+              {plan.tagline}
+            </p>
 
-            <div className="mt-6">
+            <div className="mt-8">
               <PriceBlock plan={plan} cycle={cycle} />
             </div>
 
-            <ul className="mt-6 flex flex-col gap-3">
+            <ul className="mt-8 flex flex-col gap-3.5">
               {plan.features.map((f) => (
-                <li key={f} className="flex items-start gap-2.5 text-small text-ink-soft">
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-ink" strokeWidth={2.5} />
+                <li
+                  key={f}
+                  className={cn(
+                    "flex items-start gap-3 text-body",
+                    plan.premium ? "text-ivory/85" : "text-ink-soft",
+                  )}
+                >
+                  <Check
+                    className={cn(
+                      "mt-0.5 h-5 w-5 shrink-0",
+                      plan.premium ? "text-ivory" : "text-ink",
+                    )}
+                    strokeWidth={2.5}
+                  />
                   {f}
                 </li>
               ))}
             </ul>
 
-            <div className="mt-8 flex flex-col gap-3">
-              <Button asChild variant={plan.premium ? "primary" : "outline"}>
+            <div className="mt-10 flex flex-col gap-3">
+              <Button asChild variant={plan.premium ? "paper" : "outline"} size="lg">
                 <Link href="/apply">List your training</Link>
               </Button>
-              <p className="text-center text-micro text-stone">
+              <p
+                className={cn(
+                  "text-center text-micro",
+                  plan.premium ? "text-ivory/60" : "text-stone",
+                )}
+              >
                 Vetting included · no charge until approved
               </p>
             </div>

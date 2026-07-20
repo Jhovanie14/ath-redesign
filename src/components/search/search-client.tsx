@@ -39,9 +39,14 @@ interface Chip {
 export function SearchClient({
   trainers,
   initial,
+  coverSrcBySlug,
+  headshotSrcBySlug,
 }: {
   trainers: Trainer[];
   initial: FilterState;
+  /** Resolved server-side — SearchClient is a client component and can't read /public itself. */
+  coverSrcBySlug: Record<string, string | undefined>;
+  headshotSrcBySlug: Record<string, string | undefined>;
 }) {
   const router = useRouter();
   const [filters, setFilters] = useState<FilterState>(initial);
@@ -158,7 +163,7 @@ export function SearchClient({
       <div className="mt-6 lg:flex lg:gap-8">
         {/* Rail */}
         <aside className="hidden lg:block lg:w-[280px] lg:shrink-0">
-          <div className="sticky top-[88px] max-h-[calc(100vh-108px)] overflow-y-auto rounded-card border border-linen bg-paper p-6 pr-4">
+          <div className="no-scrollbar sticky top-[88px] max-h-[calc(100vh-108px)] overflow-y-auto rounded-card border border-linen bg-paper p-6">
             <FilterRail
               state={filters}
               onChange={patch}
@@ -205,6 +210,8 @@ export function SearchClient({
               activeSlug={activeSlug}
               onHoverChange={setActiveSlug}
               columns={mapVisible ? 2 : 3}
+              coverSrcBySlug={coverSrcBySlug}
+              headshotSrcBySlug={headshotSrcBySlug}
             />
           ) : (
             <EmptyState

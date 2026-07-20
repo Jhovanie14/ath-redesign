@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter, IBM_Plex_Mono } from "next/font/google";
+import { Fraunces, Inter, DM_Mono } from "next/font/google";
+import { DesignTweakPanel } from "@/components/dev/design-tweak-panel";
+import { FloatingChat } from "@/components/floating-chat";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -15,8 +17,8 @@ const inter = Inter({
   display: "swap",
 });
 
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
+const dmMono = DM_Mono({
+  variable: "--font-dm-mono",
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500"],
@@ -41,10 +43,12 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${fraunces.variable} ${inter.variable} ${plexMono.variable} h-full`}
+      className={`${fraunces.variable} ${inter.variable} ${dmMono.variable} h-full`}
     >
       <body className="flex min-h-full flex-col bg-ivory text-ink-soft antialiased">
         {children}
+        <FloatingChat />
+        <DesignTweakPanel />
       </body>
     </html>
   );

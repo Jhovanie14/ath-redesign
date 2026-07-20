@@ -11,6 +11,8 @@ export interface ResultsGridProps {
   activeSlug: string | null;
   onHoverChange: (slug: string | null) => void;
   columns: 2 | 3;
+  coverSrcBySlug: Record<string, string | undefined>;
+  headshotSrcBySlug: Record<string, string | undefined>;
 }
 
 export function ResultsGrid({
@@ -18,6 +20,8 @@ export function ResultsGrid({
   activeSlug,
   onHoverChange,
   columns,
+  coverSrcBySlug,
+  headshotSrcBySlug,
 }: ResultsGridProps) {
   const reduce = useReducedMotion();
   return (
@@ -40,6 +44,8 @@ export function ResultsGrid({
             trainer={trainer}
             active={trainer.slug === activeSlug}
             onHoverChange={onHoverChange}
+            coverSrc={coverSrcBySlug[trainer.slug]}
+            headshotSrc={headshotSrcBySlug[trainer.slug]}
           />
         </motion.div>
       ))}

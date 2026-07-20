@@ -109,6 +109,12 @@ export interface EditorialImageProps {
   grain?: boolean;
   motif?: boolean;
   priority?: boolean;
+  /** Override the responsive `sizes` hint — default assumes a 50vw desktop slot. */
+  sizes?: string;
+  /** CSS `object-position` for the photo — e.g. "75% center" to keep a
+   * subject sitting toward one edge of the source from being cropped out
+   * by `object-cover`. Defaults to centred. */
+  objectPosition?: string;
 }
 
 export function EditorialImage({
@@ -120,6 +126,8 @@ export function EditorialImage({
   grain = true,
   motif = true,
   priority,
+  sizes = "(max-width: 1024px) 100vw, 50vw",
+  objectPosition,
 }: EditorialImageProps) {
   const spec = VARIANTS[variant];
   return (
@@ -131,7 +139,8 @@ export function EditorialImage({
           fill
           priority={priority}
           className="object-cover"
-          sizes="(max-width: 1024px) 100vw, 50vw"
+          style={objectPosition ? { objectPosition } : undefined}
+          sizes={sizes}
         />
       ) : (
         <>

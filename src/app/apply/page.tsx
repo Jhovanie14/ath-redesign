@@ -10,14 +10,14 @@ export const metadata: Metadata = {
     "Apply to list your aesthetics training on the Hub. Pass vetting — insurance, qualifications and a human review — and go live. You're not charged until approved.",
 };
 
-const CONTAINER = "mx-auto w-full max-w-[1120px] px-5 sm:px-8";
+const CONTAINER = "mx-auto w-full max-w-[1600px] px-5 sm:px-8";
 
 export default function ApplyPage() {
   return (
     <>
       <SiteHeader />
       <main className="flex-1">
-        <section className={`${CONTAINER} pb-8 pt-14 sm:pt-16`}>
+        <section className={`${CONTAINER} pb-10 pt-16 sm:pt-20`}>
           <div className="max-w-2xl">
             <SectionEyebrow>List your training</SectionEyebrow>
             <h1 className="mt-6 font-display text-display-lg text-ink">
@@ -30,7 +30,7 @@ export default function ApplyPage() {
             </p>
           </div>
         </section>
-        <section className={`${CONTAINER} pb-24`}>
+        <section className={`${CONTAINER} pb-28`}>
           <ApplyWizard />
         </section>
       </main>

@@ -40,7 +40,7 @@
 
   --font-display: var(--font-fraunces);
   --font-sans: var(--font-inter);
-  --font-mono: var(--font-plex-mono);
+  --font-mono: var(--font-dm-mono);
 
   --radius-card: 14px;
   --radius-pill: 999px;
@@ -49,25 +49,25 @@
   --shadow-e2: var(--shadow-e2-raw);
   --shadow-e2-hover: var(--shadow-e2-hover-raw);
 
-  /* Editorial type scale (fluid) */
-  --text-display-xl: clamp(2.75rem, 2.3rem + 1.9vw, 4rem);
-  --text-display-xl--line-height: 1.04;
-  --text-display-xl--letter-spacing: -0.022em;
+  /* Editorial type scale (fluid) — Framer/Wix-scaled: bigger, bolder jumps */
+  --text-display-xl: clamp(3rem, 2.1rem + 4.4vw, 6.25rem);
+  --text-display-xl--line-height: 1.01;
+  --text-display-xl--letter-spacing: -0.026em;
 
-  --text-display-lg: clamp(2.125rem, 1.85rem + 1.2vw, 2.75rem);
-  --text-display-lg--line-height: 1.07;
-  --text-display-lg--letter-spacing: -0.018em;
+  --text-display-lg: clamp(2.5rem, 2rem + 2.6vw, 4rem);
+  --text-display-lg--line-height: 1.03;
+  --text-display-lg--letter-spacing: -0.02em;
 
-  --text-display-md: clamp(1.625rem, 1.45rem + 0.75vw, 2rem);
-  --text-display-md--line-height: 1.12;
-  --text-display-md--letter-spacing: -0.012em;
+  --text-display-md: clamp(1.875rem, 1.65rem + 1.1vw, 2.5rem);
+  --text-display-md--line-height: 1.08;
+  --text-display-md--letter-spacing: -0.014em;
 
-  --text-title: clamp(1.25rem, 1.2rem + 0.2vw, 1.375rem);
-  --text-title--line-height: 1.18;
-  --text-title--letter-spacing: -0.005em;
+  --text-title: clamp(1.3rem, 1.25rem + 0.3vw, 1.5rem);
+  --text-title--line-height: 1.16;
+  --text-title--letter-spacing: -0.006em;
 
-  --text-body: 1rem;
-  --text-body--line-height: 1.6;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.65;
   --text-small: 0.875rem;
   --text-small--line-height: 1.55;
   --text-micro: 0.75rem;
@@ -123,7 +123,7 @@
   /* Small-caps eyebrow label */
   .eyebrow {
     font-family: var(--font-sans), sans-serif;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -143,6 +143,15 @@
     mask: radial-gradient(circle 6px at 6px 0, transparent 0 6px, #000 6px) repeat-x 0 0 /
       12px 100%;
   }
+
+  /* Hides the scrollbar while keeping the element scrollable */
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* Overlay / dialog entrance keyframes (referenced via animate-[...]) */
@@ -150,13 +159,30 @@
   from { opacity: 0; }
   to { opacity: 1; }
 }
+/* Content's rest position is centred via the -translate-x-1/2 -translate-y-1/2
+ * utility classes, which set the standalone `translate` property (Tailwind
+ * v4). This keyframe must only touch `scale`/`opacity` — animating
+ * `transform: translate(...)` here as well would compose on top of that
+ * utility's `translate`, doubling the offset. */
 @keyframes dialogContentIn {
-  from { opacity: 0; transform: translate(-50%, -48%) scale(0.97); }
-  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  from { opacity: 0; scale: 0.97; }
+  to { opacity: 1; scale: 1; }
 }
 @keyframes dialogSheetIn {
-  from { opacity: 0; transform: translateY(100%); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; translate: 0 100%; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes dialogFullscreenIn {
+  from { opacity: 0; scale: 0.98; }
+  to { opacity: 1; scale: 1; }
+}
+@keyframes chatPanelIn {
+  from { opacity: 0; scale: 0.96; translate: 0 12px; }
+  to { opacity: 1; scale: 1; translate: 0 0; }
+}
+@keyframes chatDot {
+  0%, 60%, 100% { opacity: 0.3; }
+  30% { opacity: 1; }
 }
 @keyframes accordionDown {
   from { height: 0; }

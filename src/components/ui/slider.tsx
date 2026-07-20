@@ -20,7 +20,7 @@ const Slider = React.forwardRef<
       <SliderPrimitive.Range className="absolute h-full bg-ink" />
     </SliderPrimitive.Track>
     <SliderPrimitive.Thumb
-      className="block h-5 w-5 rounded-full border border-linen bg-paper shadow-e1 transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:pointer-events-none"
+      className="block h-5 w-5 rounded-full border border-linen bg-paper shadow-e1 transition-[scale] hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:pointer-events-none"
       aria-label="Minimum rating"
     />
   </SliderPrimitive.Root>

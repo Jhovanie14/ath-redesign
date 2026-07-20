@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import {
@@ -18,22 +19,31 @@ const NAV = [
   { href: "/search", label: "Find training" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/contact", label: "Contact us" },
 ];
 
-function Wordmark({ onNavigate }: { onNavigate?: () => void }) {
+function Wordmark({
+  onNavigate,
+  variant = "ink",
+}: {
+  onNavigate?: () => void;
+  /** "ink" for light backgrounds (default), "stone" for dark backgrounds. */
+  variant?: "ink" | "stone";
+}) {
   return (
     <Link
       href="/"
       onClick={onNavigate}
-      className="flex flex-col leading-none"
       aria-label="Aesthetic Training Hub — home"
     >
-      <span className="font-display text-[22px] font-medium text-ink">
-        Aesthetic
-      </span>
-      <span className="-mt-0.5 text-[10px] font-medium uppercase tracking-[0.22em] text-stone">
-        Training Hub
-      </span>
+      <Image
+        src={`/logos/wordmark-${variant}.png`}
+        alt="Aesthetic Training Hub"
+        width={123}
+        height={40}
+        priority
+        className="h-9 w-auto"
+      />
     </Link>
   );
 }
@@ -59,7 +69,7 @@ export function SiteHeader() {
           : "border-transparent bg-ivory",
       )}
     >
-      <div className="mx-auto flex h-[68px] max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-[68px] max-w-[1600px] items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
         <Wordmark />
 
         <nav
@@ -97,7 +107,7 @@ export function SiteHeader() {
           >
             Sign in
           </Link>
-          <Button asChild size="sm">
+          <Button asChild>
             <Link href="/apply">List your training</Link>
           </Button>
         </div>
@@ -113,28 +123,51 @@ export function SiteHeader() {
                 <Menu className="h-5 w-5" />
               </button>
             </DialogTrigger>
-            <DialogContent position="sheet" className="p-6">
-              <DialogTitle className="text-title">Menu</DialogTitle>
-              <nav className="mt-5 flex flex-col" aria-label="Mobile">
+            <DialogContent
+              position="fullscreen"
+              showClose={false}
+              className="flex flex-col p-6"
+            >
+              <DialogTitle className="sr-only">Menu</DialogTitle>
+              <div className="flex items-center justify-between">
+                <Wordmark
+                  variant="stone"
+                  onNavigate={() => setOpen(false)}
+                />
+                <DialogClose asChild>
+                  <button
+                    className="flex h-11 w-11 items-center justify-center rounded-full text-ivory/70 transition-colors hover:bg-ivory/10 hover:text-ivory"
+                    aria-label="Close menu"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </DialogClose>
+              </div>
+
+              <nav
+                className="mt-16 flex flex-1 flex-col gap-1"
+                aria-label="Mobile"
+              >
                 {NAV.map((item) => (
                   <DialogClose asChild key={item.href}>
                     <Link
                       href={item.href}
-                      className="border-b border-linen py-3.5 text-body text-ink"
+                      className="border-b border-ivory/10 py-5 font-display text-display-md text-ivory transition-colors hover:text-ivory/70"
                     >
                       {item.label}
                     </Link>
                   </DialogClose>
                 ))}
               </nav>
-              <div className="mt-6 flex flex-col gap-3">
+
+              <div className="flex flex-col gap-3 pb-4">
                 <DialogClose asChild>
-                  <Button asChild>
+                  <Button asChild variant="paper" size="lg">
                     <Link href="/apply">List your training</Link>
                   </Button>
                 </DialogClose>
                 <DialogClose asChild>
-                  <Button asChild variant="outline">
+                  <Button asChild variant="ghostInk" size="lg">
                     <Link href="/apply">Sign in</Link>
                   </Button>
                 </DialogClose>

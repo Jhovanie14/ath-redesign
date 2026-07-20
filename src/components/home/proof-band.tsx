@@ -13,7 +13,7 @@ export interface ProofStat {
 /** Animated, data-driven credibility band. */
 export function ProofBand({ stats }: { stats: ProofStat[] }) {
   return (
-    <div className="relative overflow-hidden rounded-card border border-linen bg-paper shadow-e2">
+    <div className="relative overflow-hidden rounded-card border border-linen bg-paper">
       <div
         aria-hidden
         className="absolute inset-0"

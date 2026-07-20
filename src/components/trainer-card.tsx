@@ -1,9 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import type { Trainer } from "@/lib/types";
-import { cn, formatGBP } from "@/lib/utils";
+import { cn, formatGBP, initials } from "@/lib/utils";
 import { DuotoneCover } from "./duotone-cover";
 import { TierBadge } from "./tier-badge";
 import { Star } from "./rating-stars";
@@ -14,6 +15,10 @@ export interface TrainerCardProps {
   /** Highlighted (e.g. its map marker is active). */
   active?: boolean;
   onHoverChange?: (slug: string | null) => void;
+  /** Resolved server-side — TrainerCard is a client component and can't read /public itself. */
+  coverSrc?: string;
+  /** A real face portrait, distinct from `coverSrc` — sits as a badge in the cover's bottom-right corner. */
+  headshotSrc?: string;
 }
 
 export function TrainerCard({
@@ -21,6 +26,8 @@ export function TrainerCard({
   className,
   active,
   onHoverChange,
+  coverSrc,
+  headshotSrc,
 }: TrainerCardProps) {
   const isPremium = trainer.tier === "premium";
   return (
@@ -31,11 +38,8 @@ export function TrainerCard({
       onFocus={() => onHoverChange?.(trainer.slug)}
       onBlur={() => onHoverChange?.(null)}
       className={cn(
-        "group relative flex flex-col overflow-hidden rounded-card border bg-paper shadow-e2 transition-[transform,box-shadow,border-color] duration-300 ease-out",
-        "hover:border-stone/40 hover:shadow-e2-hover motion-safe:hover:-translate-y-[3px]",
-        active
-          ? "border-stone/50 shadow-e2-hover -translate-y-[3px]"
-          : "border-linen",
+        "group relative flex flex-col overflow-hidden rounded-card bg-paper",
+        active && "ring-2 ring-inset ring-stone/40",
         className,
       )}
     >
@@ -47,7 +51,13 @@ export function TrainerCard({
       )}
 
       {/* Cover */}
-      <DuotoneCover name={trainer.name} className="h-40" initialsSize={104}>
+      <DuotoneCover
+        name={trainer.name}
+        className="h-52"
+        initialsSize={120}
+        src={coverSrc}
+        alt={`${trainer.name} — training environment`}
+      >
         <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
           {isPremium && <TierBadge type="premium" />}
           <TierBadge type="verified" />
@@ -57,6 +67,25 @@ export function TrainerCard({
             <MapPin className="h-3 w-3 text-stone" />
             {trainer.city}
           </span>
+        </div>
+        <div className="absolute bottom-3 right-3">
+          <div className="h-11 w-11 overflow-hidden rounded-full bg-linen ring-2 ring-paper">
+            {headshotSrc ? (
+              <Image
+                src={headshotSrc}
+                alt={`${trainer.name} — portrait`}
+                width={44}
+                height={44}
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center">
+                <span className="font-display text-micro text-ink/70">
+                  {initials(trainer.name)}
+                </span>
+              </div>
+            )}
+          </div>
         </div>
       </DuotoneCover>
 
@@ -90,7 +119,7 @@ export function TrainerCard({
               {formatGBP(trainer.fromPriceGBP)}
             </span>
           </span>
-          <span className="flex h-9 w-9 items-center justify-center rounded-full border border-linen text-ink transition-colors group-hover:border-ink group-hover:bg-ink group-hover:text-ivory">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full border border-linen text-ink transition-colors duration-300 ease-out group-hover:border-ink group-hover:bg-ink group-hover:text-ivory">
             <ArrowUpRight className="h-4 w-4" />
           </span>
         </div>

@@ -33,7 +33,7 @@ export function HomeSearch() {
   return (
     <form
       onSubmit={submit}
-      className="rounded-[18px] border border-linen bg-paper p-2 shadow-e2 sm:rounded-full"
+      className="rounded-[18px] border border-linen bg-paper p-2 sm:rounded-full"
     >
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
         <div className="flex-1 sm:pl-2">

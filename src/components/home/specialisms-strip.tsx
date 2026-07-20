@@ -21,13 +21,13 @@ export function SpecialismsStrip() {
         <Link
           key={cat}
           href={`/search?category=${cat}`}
-          className="group relative flex h-36 flex-col justify-end overflow-hidden rounded-card border border-linen shadow-e2 transition-[transform,box-shadow] duration-300 ease-out hover:shadow-e2-hover motion-safe:hover:-translate-y-[3px] sm:h-40"
+          className="group relative flex h-52 flex-col justify-end overflow-hidden rounded-card border border-linen transition-[translate,border-color] duration-300 ease-out hover:border-stone/50 motion-safe:hover:-translate-y-[3px] sm:h-64"
         >
           <EditorialImage
             variant={VARIANTS[i % VARIANTS.length]}
             src={resolveImage(`images/specialisms/${cat}`)}
             alt=""
-            className="absolute inset-0 h-full w-full transition-transform duration-500 ease-out motion-safe:group-hover:scale-[1.06]"
+            className="absolute inset-0 h-full w-full transition-[scale] duration-300 ease-out motion-safe:group-hover:scale-[1.06]"
           />
           <div
             aria-hidden
@@ -37,7 +37,7 @@ export function SpecialismsStrip() {
             <h3 className="font-display text-title leading-tight text-ink">
               {CATEGORY_LABELS[cat]}
             </h3>
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-ink/15 bg-paper/70 text-ink backdrop-blur-sm transition-colors group-hover:border-ink group-hover:bg-ink group-hover:text-ivory">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-ink/15 bg-paper/70 text-ink backdrop-blur-sm transition-colors duration-300 ease-out group-hover:border-ink group-hover:bg-ink group-hover:text-ivory">
               <ArrowUpRight className="h-4 w-4" />
             </span>
           </div>

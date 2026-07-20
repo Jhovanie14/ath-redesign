@@ -49,11 +49,11 @@ export function FilterRail({ state, onChange, locationMatched }: FilterRailProps
   }
 
   return (
-    <div className="flex flex-col gap-7">
+    <div className="flex flex-col">
       {/* Search */}
       <div>
         <FieldLabel>Search</FieldLabel>
-        <div className="flex h-11 items-center gap-2 rounded-full border border-linen bg-paper px-4">
+        <div className="flex h-11 items-center gap-2 rounded-full border border-linen bg-paper px-4 transition-colors focus-within:border-stone">
           <Search className="h-4 w-4 shrink-0 text-stone" />
           <input
             value={state.q}
@@ -66,9 +66,9 @@ export function FilterRail({ state, onChange, locationMatched }: FilterRailProps
       </div>
 
       {/* Listing type */}
-      <div>
+      <div className="mt-7 border-t border-linen pt-7">
         <FieldLabel>Listing type</FieldLabel>
-        <div className="flex gap-1 rounded-full border border-linen bg-paper p-1">
+        <div className="grid grid-cols-3 gap-1 rounded-full border border-linen bg-paper p-1">
           {TIERS.map((t) => {
             const active = state.tier === t.value;
             return (
@@ -78,7 +78,7 @@ export function FilterRail({ state, onChange, locationMatched }: FilterRailProps
                 aria-pressed={active}
                 onClick={() => onChange({ tier: t.value })}
                 className={cn(
-                  "flex-1 rounded-full px-3 py-1.5 text-small font-medium transition-colors",
+                  "overflow-hidden rounded-full px-1.5 py-1.5 text-center text-micro font-medium whitespace-nowrap transition-colors",
                   active
                     ? "bg-ink text-ivory"
                     : "text-ink-soft hover:bg-linen",
@@ -92,7 +92,7 @@ export function FilterRail({ state, onChange, locationMatched }: FilterRailProps
       </div>
 
       {/* Min rating */}
-      <div>
+      <div className="mt-7 border-t border-linen pt-7">
         <div className="mb-3 flex items-center justify-between">
           <span className="eyebrow">Minimum rating</span>
           <span className="font-data text-small text-ink">
@@ -110,7 +110,7 @@ export function FilterRail({ state, onChange, locationMatched }: FilterRailProps
       </div>
 
       {/* Specialism */}
-      <div>
+      <div className="mt-7 border-t border-linen pt-7">
         <FieldLabel>Specialism</FieldLabel>
         <ul className="flex flex-col gap-1">
           {ALL_CATEGORIES.map((cat) => {
@@ -136,14 +136,14 @@ export function FilterRail({ state, onChange, locationMatched }: FilterRailProps
       </div>
 
       {/* Location */}
-      <div>
+      <div className="mt-7 border-t border-linen pt-7">
         <FieldLabel>Location</FieldLabel>
         <input
           value={state.location}
           onChange={(e) => onChange({ location: e.target.value })}
           placeholder="City or postcode"
           aria-label="Location"
-          className="h-11 w-full rounded-full border border-linen bg-paper px-4 text-small text-ink placeholder:text-stone focus:outline-none focus-visible:border-stone"
+          className="h-11 w-full rounded-full border border-linen bg-paper px-4 text-small text-ink placeholder:text-stone transition-colors focus:outline-none focus-visible:border-stone"
         />
         <div className="mt-3">
           <label htmlFor="radius" className="sr-only">

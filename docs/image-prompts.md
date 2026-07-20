@@ -34,18 +34,39 @@ gloved hands, or an over-the-shoulder crop only — never a recognisable face.
 
 ## 1. Hero (the flagship)
 
-- **Slot:** hero right-column panel · **Ratio:** `3:4` (portrait) · **Size:** 2K–4K
-- **File:** `public/images/hero.jpg`
-- **Composition note:** keep the focal subject **centred/upper**. Leave the
-  **lower-left soft/uncluttered** (the Verification Passport card overlaps
-  there) and the **top-right corner calm** (a floating rating chip sits there).
+- **Slot:** shared by both hero variants — the split hero's right-side panel
+  *and* the full-bleed overlay hero's background · **File:** `public/images/hero.jpg`
+  (same file, no code change either way)
+- **Ratio:** `4:5` (portrait) · **Size:** 3K–4K minimum
+- **Why portrait, and why bigger than before:** the hero section now stretches
+  to fill the full viewport height (`calc(100dvh-68px)`), not a fixed ~700px
+  band. `object-cover` will crop this photo across everything from a short
+  wide laptop window to a tall narrow one, so the source needs real vertical
+  range to draw from — a landscape-leaning source runs out of usable height
+  and over-magnifies. No more floating passport/rating-chip cards to leave
+  room for (those were removed) — the only remaining constraint is text
+  legibility.
+- **Composition note:** put the subject — gloved hands + practice mannequin —
+  in the **right two-thirds of the frame**, and give it genuine vertical
+  extent: interest running from the upper third down through the lower third
+  (hands/tools placed at different heights), not one clustered mid-frame
+  moment surrounded by empty counter and ceiling. That way a very tall crop
+  reveals *more of the same scene* top-to-bottom instead of exposing dead
+  space. Keep the **left third calm and soft** (blurred wall/window bokeh,
+  low detail) — that's where the ink scrim and headline sit on both variants.
 
-> **Prompt:** A serene, upscale aesthetics training studio bathed in warm
-> morning light. In soft focus, a practitioner’s gloved hands demonstrate a
-> refined injectable technique on an elegant practice mannequin, seen
-> over-the-shoulder. Foreground: a tidy tray of fine aesthetic tools and a
-> glass serum bottle on a pale marble surface. Warm cream and stone tones, a
-> whisper of gold, calm and precise atmosphere. + [style suffix] + [negative]
+> **Prompt:** A tall, immersive shot of a serene upscale aesthetics training
+> studio in soft warm morning light. A practitioner stands at a treatment
+> bed, gloved hands demonstrating a refined injectable technique on an
+> elegant practice mannequin's head and neck — composed so the hands, tools
+> and mannequin carry visual interest continuously from the upper third of
+> the frame to the lower third, not confined to one small cluster. A tidy
+> tray of fine aesthetic tools and a glass serum bottle sit in the lower
+> foreground. The left third of the frame stays soft, blurred and
+> uncluttered — a warm out-of-focus wall or window — while the right
+> two-thirds holds the detail. Warm cream and stone tones, a whisper of gold,
+> calm and precise atmosphere, shot in a tall 4:5 portrait frame. +
+> [style suffix] + [negative]
 
 _Alt text:_ “A trainer demonstrating an aesthetics technique in a warm, calm studio.”
 
@@ -85,29 +106,48 @@ _(All three: append style + negative. Low contrast so the overlaid number stays 
 
 ---
 
-## 4. Trainer card covers _(optional)_
+## 4. Trainer card covers — one per trainer
 
-- **Slot:** `DuotoneCover` on trainer cards & profile hero · **Ratio:** `3:2` · **Size:** 2K
-- Today these are duotone panels with the trainer’s initials — they’re a brand
-  signature, so photos here are optional. If you want them: one warm, faceless
-  “studio environment / hands / tools” image per trainer (or a shared set),
-  cropped so the initials watermark still reads.
-- **Note:** `DuotoneCover` doesn’t take a `src` yet — swapping these needs a
-  small code change (I can add an optional `image` prop, or point covers at
-  `EditorialImage`). Ask me and I’ll wire it.
+- **Slot:** `DuotoneCover` on trainer cards, profile hero & founding spotlight
+  · **Ratio:** ~`4:3`, 2K · keep the subject centred — `object-cover` crops
+  differently on a card (short, wide) vs. a profile hero (taller) vs. the
+  founding spotlight, so avoid detail right at the edges.
+- **Files:** `public/images/trainers/<slug>.jpg`
+- **Why per-trainer, not one shared photo:** `DuotoneCover` renders on every
+  trainer card at once — up to 8 side by side in search results. A single
+  shared photo behind eight different names reads as a stock-photo repeat and
+  undercuts the “no directories of unknowns” promise. Each trainer gets a
+  distinct environment/prop set below, drawn from their own bio — still
+  faceless, so no two cards ever look like the same person, but no two cards
+  look identical either.
+- **People rule still applies:** no identifiable faces, no eye contact, hands
+  or over-the-shoulder crops only.
+- **Note:** `DuotoneCover` doesn’t take a `src` yet. Once these land I’ll add
+  an optional `src` prop that renders the photo beneath the existing duotone
+  gradient (a genuine duotone wash, tinted per trainer) rather than replacing
+  it outright — so the ghosted-initials watermark and per-trainer glow still
+  read on top.
 
-> **Generic cover prompt:** A quiet, upscale aesthetics studio corner — a
-> practitioner’s hands arranging tools on a marble counter in warm morning
-> light, over-the-shoulder, no face, refined and calm. + [style suffix] + [negative]
+| Slug | File | Prompt (append style + negative) |
+|---|---|---|
+| `dr-amara-okafor` | `dr-amara-okafor.jpg` | An elegant advanced aesthetics studio in a Marylebone townhouse. Over-the-shoulder view of a gloved hand holding a fine cannula beside a marble tray of prepped syringes and vials, soft directional morning light, refined and precise, warm cream and stone tones with a whisper of gold. |
+| `dr-priya-raman` | `dr-priya-raman.jpg` | A calm, welcoming foundation-training room. Close-up of a supervising hand gently guiding a beginner practitioner's hand over a practice mannequin's forehead, a notebook and pen resting nearby, soft warm daylight, patient and unhurried mood, cream tones. |
+| `grace-adeyemi` | `grace-adeyemi.jpg` | A quiet consultation corner in a CQC-registered clinic. A consent form and pen laid on a light wood desk beside a folded linen cloth and a small vase, soft window light, thoughtful and unhurried, warm neutral tones — evoking careful conversation before any treatment. |
+| `dr-callum-frost` | `dr-callum-frost.jpg` | A study-like training room in Glasgow's west end. A softly blurred anatomical reference chart on the wall behind a marble tray of dermal filler syringes and a measuring tool, cool morning light through a tall window, precise and academic mood, muted stone and cream tones. |
+| `elena-marchetti` | `elena-marchetti.jpg` | A bright skin-clinic studio in Clifton, Bristol. Flat-lay of a microneedling pen, two amber peel bottles and a soft konjac sponge on a linen-draped table, natural daylight, fresh and approachable, warm cream tones with a hint of green from a nearby plant. |
+| `sofia-bianchi` | `sofia-bianchi.jpg` | A small, intimate training studio in Liverpool's Baltic Triangle. Close-up of two hands adjusting a practice mannequin's lip position, a modest tray of foundation-level tools beside it, warm afternoon light through an industrial window, approachable and unpretentious, soft cream and brick-warmed tones. |
+| `dr-marcus-bello` | `dr-marcus-bello.jpg` | A dental-adjacent aesthetics practice in Jesmond, Newcastle. Macro of a dental mirror resting beside a fine-gauge cannula and a small dental mould on a pale marble tray, balanced cool-warm light, meticulous and precise, cream and muted gold tones. |
+| `dr-test-trainer` | `dr-test-trainer.jpg` | *(Optional — internal test fixture, lowest priority.)* A converted clinic space in Manchester's Northern Quarter. Hands arranging a small tray of foundation-course tools — syringe, vial, tape measure — on a raw plaster windowsill ledge, industrial warm light, grounded and practical, cream and warm grey tones. |
 
 ---
 
-## 5. Apply CTA background _(optional)_
+## 5. Apply / pricing CTA background — done
 
-- **Slot:** the ink “Train students? Get listed.” band · **Ratio:** `16:9` · **Size:** 2K
-- The section currently uses ink + a gold glow + grain (no photo). If you want a
-  photographic backdrop, keep it **dark and low-contrast** so ivory text stays
-  readable; I’d layer it under an ink scrim.
+- **Slot:** the ink “Train students? Get listed.” / “Ready to reach more
+  students?” bands (Home + Pricing) · **Ratio:** `16:9` · **Size:** 2K
+- **File:** `public/images/cta-band.jpg` — **wired and live.** The section
+  layers the photo under a `bg-ink/75` scrim plus the existing gold glow and
+  grain, so ivory text stays readable regardless of the photo.
 
 > **Prompt:** A moody, dark, warm studio scene — a softly lit tray of aesthetic
 > tools on a dark surface, deep shadows, a single warm gold highlight, mostly
@@ -115,24 +155,18 @@ _(All three: append style + negative. Low contrast so the overlaid number stays 
 
 ---
 
-## How to add the images — no code needed
+## How to add the images
 
-The slots are already wired to **auto-detect** files via `resolveImage()`
-(`src/lib/media.ts`). Just drop your generated files at the paths below and
-rebuild (or they appear live under `next dev`). No file → the craft art shows,
-so nothing ever breaks. Extension can be **`.jpg`, `.jpeg`, `.png`, `.webp` or
-`.avif`** — whichever you export.
+| Slot | Put the file at | Wired? |
+|---|---|---|
+| Hero | `public/images/hero.<ext>` | Auto-detected (`resolveImage()`) |
+| Specialism tiles (×9) | `public/images/specialisms/<key>.<ext>` — keys: `lip-filler`, `anti-wrinkle`, `dermal-filler`, `skin-boosters`, `microneedling`, `chemical-peels`, `advanced-injectables`, `foundation`, `advanced` | Auto-detected |
+| How-it-works bands (×3) | `public/images/steps/step-1.<ext>`, `step-2.<ext>`, `step-3.<ext>` | Auto-detected |
+| CTA background | `public/images/cta-band.<ext>` | Auto-detected |
+| Trainer covers (×8, per-slug) | `public/images/trainers/<slug>.<ext>` — see section 4 for the slug list | **Not yet** — `DuotoneCover` needs a `src` prop first; ask once photos land and I’ll wire it |
 
-| Slot | Put the file at |
-|---|---|
-| Hero | `public/images/hero.<ext>` |
-| Specialism tiles (×9) | `public/images/specialisms/<key>.<ext>` — keys: `lip-filler`, `anti-wrinkle`, `dermal-filler`, `skin-boosters`, `microneedling`, `chemical-peels`, `advanced-injectables`, `foundation`, `advanced` |
-| How-it-works bands (×3) | `public/images/steps/step-1.<ext>`, `step-2.<ext>`, `step-3.<ext>` |
-
-Then: `npm run build` (or just refresh in `npm run dev`). Local files under
-`public/` need no config; a subtle film-grain overlay is kept on top of photos
-for cohesion. Only if you ever load photos from a remote host, add its domain to
-`images.remotePatterns` in `next.config.ts`.
-
-_(Trainer-card covers and the CTA background are not auto-wired — they still use
-the signature duotone / ink treatment. Ask if you want those swappable too.)_
+Auto-detected slots use `resolveImage()` (`src/lib/media.ts`) — drop a file at
+the path above and rebuild (or refresh under `next dev`); no file → the craft
+art/ink treatment shows, so nothing ever breaks. Extension can be **`.jpg`,
+`.jpeg`, `.png`, `.webp` or `.avif`**. Only if you ever load photos from a
+remote host, add its domain to `images.remotePatterns` in `next.config.ts`.

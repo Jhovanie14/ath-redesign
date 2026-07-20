@@ -15,7 +15,7 @@ export function Testimonials({ items }: { items: TestimonialItem[] }) {
       {items.map((t, i) => (
         <figure
           key={i}
-          className="flex flex-col rounded-card border border-linen bg-paper p-6 shadow-e2"
+          className="flex flex-col rounded-card border border-linen bg-paper p-6"
         >
           <RatingStars rating={t.rating} size={15} />
           <blockquote className="mt-4 flex-1 text-body leading-relaxed text-ink-soft">

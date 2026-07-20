@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { VerifiedSeal } from "./verified-seal";
 
@@ -20,8 +21,9 @@ const COLUMNS: { heading: string; links: { label: string; href: string }[] }[] =
       ],
     },
     {
-      heading: "Legal",
+      heading: "Company",
       links: [
+        { label: "Contact us", href: "/contact" },
         { label: "Privacy", href: "#" },
         { label: "Terms", href: "#" },
         { label: "Vetting standards", href: "#" },
@@ -32,18 +34,17 @@ const COLUMNS: { heading: string; links: { label: string; href: string }[] }[] =
 export function SiteFooter() {
   return (
     <footer className="w-full bg-ink text-ivory">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1600px] px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           {/* Brand blurb */}
           <div className="max-w-xs">
-            <div className="flex flex-col leading-none">
-              <span className="font-display text-[22px] font-medium text-ivory">
-                Aesthetic
-              </span>
-              <span className="-mt-0.5 text-[10px] font-medium uppercase tracking-[0.22em] text-stone">
-                Training Hub
-              </span>
-            </div>
+            <Image
+              src="/logos/wordmark-stone.png"
+              alt="Aesthetic Training Hub"
+              width={123}
+              height={40}
+              className="h-9 w-auto"
+            />
             <p className="mt-4 text-small leading-relaxed text-ivory/70">
               The UK&rsquo;s vetted directory for aesthetics training. No
               anonymous listings, no directories of unknowns.

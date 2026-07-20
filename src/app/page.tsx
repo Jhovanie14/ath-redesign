@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Check } from "lucide-react";
 import { getRepository } from "@/lib/repository";
 import { resolveImage } from "@/lib/media";
@@ -6,22 +7,20 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SectionEyebrow } from "@/components/section-eyebrow";
 import { Button } from "@/components/ui/button";
-import { HomeSearch } from "@/components/home-search";
-import { VerificationPassport } from "@/components/verification-passport";
 import { TrainerCard } from "@/components/trainer-card";
 import { FoundingSpotlight } from "@/components/founding-spotlight";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion";
 import { EditorialImage } from "@/components/media/editorial-image";
 import { GrainOverlay } from "@/components/media/grain-overlay";
-import { RatingStars } from "@/components/rating-stars";
-import { VerifiedSeal } from "@/components/verified-seal";
 import { ProofBand } from "@/components/home/proof-band";
 import { SpecialismsStrip } from "@/components/home/specialisms-strip";
 import { Testimonials, type TestimonialItem } from "@/components/home/testimonials";
+import { SplitHero } from "@/components/home/split-hero";
+import { OverlayHero } from "@/components/home/overlay-hero";
 import type { EditorialVariant } from "@/components/media/editorial-image";
 
 // Full-bleed sections wrap their content in this centered, wide container.
-const CONTAINER = "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8";
+const CONTAINER = "mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8";
 
 const STEPS: { n: string; title: string; body: string; variant: EditorialVariant }[] =
   [
@@ -51,8 +50,15 @@ const APPLY_BULLETS = [
   "Reach students who are actively searching",
 ];
 
-export default async function HomePage() {
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ hero?: string }>;
+}) {
+  const { hero } = await searchParams;
   const repo = getRepository();
+  const ctaBg = resolveImage("images/cta-band");
+  const heroSrc = resolveImage("images/hero-2");
   const FEATURED_LIMIT = 3;
   const [featured, all] = await Promise.all([
     repo.getFeatured(FEATURED_LIMIT),
@@ -97,79 +103,25 @@ export default async function HomePage() {
       <SiteHeader />
       <main className="flex-1">
         {/* ------------------------------------------------ Hero (edge-to-edge) */}
-        <section className="relative w-full overflow-hidden">
-          <div className="mx-auto flex max-w-7xl flex-col px-4 pb-4 pt-10 sm:px-6 lg:min-h-[620px] lg:flex-row lg:items-center lg:px-8 lg:pb-0 lg:pt-0">
-            {/* Text — stays in the readable, container-aligned column */}
-            <Reveal className="w-full max-w-xl lg:w-1/2 lg:py-24 lg:pr-14">
-              <SectionEyebrow>Vetted training. Verified reviews.</SectionEyebrow>
-              <h1 className="mt-6 font-display text-display-xl text-ink">
-                Find the <span className="italic">right</span> aesthetics
-                trainer near you.
-              </h1>
-              <p className="mt-6 max-w-xl text-body leading-relaxed text-ink-soft">
-                Every educator on the Hub is insured, qualified and reviewed by
-                real students. No anonymous listings. No directories of
-                unknowns.
-              </p>
+        {/* Mockup toggle: visit /?hero=overlay to compare the alternative
+            full-width-photo-with-overlay hero against the current split hero. */}
+        {hero === "overlay" ? (
+          <OverlayHero
+            avgRating={avgRating}
+            totalReviews={totalReviews}
+            heroSrc={heroSrc}
+          />
+        ) : (
+          <SplitHero
+            avgRating={avgRating}
+            totalReviews={totalReviews}
+            heroSrc={heroSrc}
+          />
+        )}
 
-              <div className="mt-8 max-w-xl">
-                <HomeSearch />
-              </div>
-
-              <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-micro text-stone">
-                <span className="inline-flex items-center gap-1.5 font-medium text-ink-soft">
-                  <VerifiedSeal size={16} />
-                  Insured
-                </span>
-                <span aria-hidden>·</span>
-                <span>Qualifications verified</span>
-                <span aria-hidden>·</span>
-                <span className="font-data">GMC · NMC · GDC checked</span>
-              </div>
-            </Reveal>
-
-            {/* Media — bleeds to the top/right/bottom viewport edges on desktop,
-                full-width band on mobile. */}
-            <div className="relative -mx-4 mt-10 h-[380px] sm:-mx-6 sm:h-[440px] lg:absolute lg:inset-y-0 lg:right-0 lg:mx-0 lg:mt-0 lg:h-full lg:w-[50vw]">
-              <EditorialImage
-                variant="hero"
-                priority
-                src={resolveImage("images/hero")}
-                alt="A trainer demonstrating an aesthetics technique in a warm studio"
-                className="absolute inset-0 h-full w-full lg:rounded-l-[40px]"
-              >
-                <div className="absolute right-5 top-5 flex items-center gap-2 rounded-full border border-linen bg-paper/80 px-3 py-1.5 shadow-e1 backdrop-blur-sm motion-safe:animate-[floatSlower_7s_ease-in-out_infinite] sm:right-8">
-                  <RatingStars rating={avgRating} size={13} />
-                  <span className="font-data text-micro font-medium text-ink">
-                    {avgRating.toFixed(1)}
-                  </span>
-                  <span className="font-data text-micro text-stone">
-                    · {totalReviews} reviews
-                  </span>
-                </div>
-              </EditorialImage>
-
-              <div className="absolute bottom-5 left-4 w-[74%] max-w-[290px] motion-safe:animate-[floatSlow_6s_ease-in-out_infinite] sm:left-6 lg:-left-10">
-                <VerificationPassport
-                  animated
-                  rotate={-2}
-                  sealSize={40}
-                  title="Dr Amara Okafor"
-                  rows={[
-                    { label: "Insurance in date", note: "Feb 2026" },
-                    { label: "Qualifications checked", note: "Dec 2025" },
-                    { label: "GMC confirmed", note: "7412088" },
-                  ]}
-                  footer="Reviewed by a human · Jan 2026"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ------------------------------------------------ Proof band */}
-        <section className="w-full">
-          <div className={`${CONTAINER} pb-4 pt-14 sm:pt-20`}>
+        {/* ------------------------------------------------ Proof band (tinted, full-bleed) */}
+        <section className="w-full border-y border-linen/70 bg-linen">
+          <div className={`${CONTAINER} py-16 sm:py-24`}>
             <Reveal>
               <ProofBand stats={stats} />
             </Reveal>
@@ -178,7 +130,7 @@ export default async function HomePage() {
 
         {/* ------------------------------------------------ Specialisms */}
         <section className="w-full">
-          <div className={`${CONTAINER} py-16 sm:py-20`}>
+          <div className={`${CONTAINER} py-20 sm:py-28`}>
             <Reveal className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <SectionEyebrow>Explore by specialism</SectionEyebrow>
@@ -199,9 +151,9 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* ------------------------------------------------ How it works */}
-        <section className="w-full">
-          <div className={`${CONTAINER} py-16 sm:py-20`}>
+        {/* ------------------------------------------------ How it works (tinted, full-bleed) */}
+        <section className="w-full border-y border-linen/70 bg-linen">
+          <div className={`${CONTAINER} py-20 sm:py-28`}>
             <Reveal>
               <SectionEyebrow>How it works</SectionEyebrow>
               <h2 className="mt-5 max-w-2xl font-display text-display-md text-ink">
@@ -212,12 +164,12 @@ export default async function HomePage() {
               {STEPS.map((step, i) => (
                 <RevealItem
                   key={step.n}
-                  className="overflow-hidden rounded-card border border-linen bg-paper shadow-e2"
+                  className="overflow-hidden rounded-card border border-linen bg-paper"
                 >
                   <EditorialImage
                     variant={step.variant}
                     src={resolveImage(`images/steps/step-${i + 1}`)}
-                    className="relative h-24"
+                    className="relative h-48 sm:h-56"
                   >
                     <span className="absolute left-5 top-3 font-data text-display-md text-ink/55">
                       {step.n}
@@ -239,7 +191,7 @@ export default async function HomePage() {
 
         {/* ------------------------------------------------ Featured trainers */}
         <section className="w-full">
-          <div className={`${CONTAINER} py-16 sm:py-20`}>
+          <div className={`${CONTAINER} py-20 sm:py-28`}>
             <Reveal className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <SectionEyebrow>Featured trainers</SectionEyebrow>
@@ -259,7 +211,11 @@ export default async function HomePage() {
               <RevealGroup className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {featured.map((trainer) => (
                   <RevealItem key={trainer.slug}>
-                    <TrainerCard trainer={trainer} />
+                    <TrainerCard
+                      trainer={trainer}
+                      coverSrc={resolveImage(`trainers/${trainer.slug}`)}
+                      headshotSrc={resolveImage(`trainers/headshots/${trainer.slug}`)}
+                    />
                   </RevealItem>
                 ))}
               </RevealGroup>
@@ -282,8 +238,8 @@ export default async function HomePage() {
 
         {/* ------------------------------------------------ Testimonials */}
         {testimonials.length > 0 && (
-          <section className="w-full">
-            <div className={`${CONTAINER} py-16 sm:py-20`}>
+          <section className="w-full border-y border-linen/70 bg-linen">
+            <div className={`${CONTAINER} py-20 sm:py-28`}>
               <Reveal>
                 <SectionEyebrow>From real students</SectionEyebrow>
                 <h2 className="mt-5 max-w-2xl font-display text-display-md text-ink">
@@ -303,6 +259,18 @@ export default async function HomePage() {
 
         {/* ------------------------------------------------ Trainer CTA (Level 3) */}
         <section className="relative w-full overflow-hidden bg-ink text-ivory">
+          {ctaBg && (
+            <>
+              <Image
+                src={ctaBg}
+                alt=""
+                fill
+                className="object-cover"
+                sizes="100vw"
+              />
+              <div aria-hidden className="absolute inset-0 bg-ink/75" />
+            </>
+          )}
           <div
             aria-hidden
             className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full blur-3xl"
@@ -312,7 +280,7 @@ export default async function HomePage() {
             }}
           />
           <GrainOverlay opacity={0.05} />
-          <div className={`${CONTAINER} relative py-20 sm:py-28`}>
+          <div className={`${CONTAINER} relative py-24 sm:py-32`}>
             <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
               <Reveal>
                 <span className="eyebrow !text-stone">For trainers</span>
@@ -325,10 +293,10 @@ export default async function HomePage() {
                   your listing is approved and live.
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <Button asChild variant="paper">
+                  <Button asChild variant="paper" size="lg">
                     <Link href="/apply">List your training</Link>
                   </Button>
-                  <Button asChild variant="ghostInk">
+                  <Button asChild variant="ghostInk" size="lg">
                     <Link href="/pricing">See tiers & pricing</Link>
                   </Button>
                 </div>

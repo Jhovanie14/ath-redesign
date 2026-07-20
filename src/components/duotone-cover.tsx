@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { initials as toInitials } from "@/lib/utils";
 import { GrainOverlay } from "./media/grain-overlay";
@@ -20,25 +21,47 @@ export interface DuotoneCoverProps {
   children?: React.ReactNode;
   /** Font size (px) of the ghosted initials. */
   initialsSize?: number;
+  /** Provide to layer a real photo beneath the duotone wash. */
+  src?: string;
+  alt?: string;
+  priority?: boolean;
 }
 
 /**
  * Soft duotone panel carrying a trainer's initials in Fraunces at low opacity,
- * warmed with a seed-placed gold glow and film grain for depth.
+ * warmed with a seed-placed gold glow and film grain for depth. Pass `src` to
+ * layer a real photo beneath the gradient — a genuine duotone wash rather
+ * than a full swap, so the per-trainer glow and ghosted initials still read
+ * on top and no two covers look like a flat photo repeat.
  */
 export function DuotoneCover({
   name,
   className,
   children,
   initialsSize = 120,
+  src,
+  alt = "",
+  priority,
 }: DuotoneCoverProps) {
   const code = seedCode(name);
   const glowIntensity = 0.14 + (code % 16) / 140;
   return (
-    <div
-      className={cn("relative overflow-hidden", className)}
-      style={coverStyle(code)}
-    >
+    <div className={cn("relative overflow-hidden", className)}>
+      {src && (
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          priority={priority}
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, 420px"
+        />
+      )}
+      <div
+        aria-hidden
+        className={cn("absolute inset-0", src && "opacity-60")}
+        style={coverStyle(code)}
+      />
       <div
         aria-hidden
         className={cn(

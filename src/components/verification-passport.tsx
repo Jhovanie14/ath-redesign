@@ -60,7 +60,7 @@ export function VerificationPassport({
   return (
     <div
       className={cn(
-        "relative rounded-[16px] border border-linen bg-paper shadow-e2",
+        "relative rounded-[16px] border border-linen bg-paper",
         className,
       )}
       style={rotate ? { rotate: `${rotate}deg` } : undefined}

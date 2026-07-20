@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Heart, MapPin } from "lucide-react";
 import type { Trainer } from "@/lib/types";
 import { cn, formatGBP, initials } from "@/lib/utils";
@@ -12,7 +13,17 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { EnquiryDialog } from "./enquiry-dialog";
 
-export function ProfileHero({ trainer }: { trainer: Trainer }) {
+export function ProfileHero({
+  trainer,
+  coverSrc,
+  headshotSrc,
+}: {
+  trainer: Trainer;
+  /** Resolved server-side — ProfileHero is a client component and can't read /public itself. */
+  coverSrc?: string;
+  /** A real face portrait, distinct from `coverSrc` — the avatar shown beside the trainer's name. */
+  headshotSrc?: string;
+}) {
   const [saved, setSaved] = useState(false);
   const isPremium = trainer.tier === "premium";
 
@@ -20,19 +31,36 @@ export function ProfileHero({ trainer }: { trainer: Trainer }) {
     <section>
       <DuotoneCover
         name={trainer.name}
-        className="h-52 rounded-card sm:h-64"
+        className="h-64 rounded-card sm:h-80"
         initialsSize={220}
+        src={coverSrc}
+        alt={`${trainer.name} — training environment`}
+        priority
       />
 
       <div className="relative z-10 px-0 sm:px-6">
-        <div className="-mt-16 rounded-card border border-linen bg-paper p-6 shadow-e2 sm:-mt-20 sm:p-8">
-          <div className="flex flex-wrap items-start justify-between gap-6">
-            <div className="flex gap-5">
-              <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border border-linen bg-linen">
-                <span className="font-display text-title text-ink/70">
-                  {initials(trainer.name)}
-                </span>
+        <div className="-mt-16 rounded-card border border-linen bg-paper p-6 sm:-mt-20 sm:p-8">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-start gap-5 sm:gap-6">
+              <div className="h-24 w-24 shrink-0 overflow-hidden rounded-full bg-linen ring-4 ring-paper sm:h-28 sm:w-28">
+                {headshotSrc ? (
+                  <Image
+                    src={headshotSrc}
+                    alt={`${trainer.name} — portrait`}
+                    width={112}
+                    height={112}
+                    priority
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center">
+                    <span className="font-display text-title text-ink/70">
+                      {initials(trainer.name)}
+                    </span>
+                  </div>
+                )}
               </div>
+
               <div>
                 <div className="flex flex-wrap items-center gap-2">
                   {isPremium && <TierBadge type="premium" />}
@@ -57,7 +85,7 @@ export function ProfileHero({ trainer }: { trainer: Trainer }) {
               </div>
             </div>
 
-            <div className="flex gap-2.5">
+            <div className="flex shrink-0 gap-2.5 sm:self-center">
               <EnquiryDialog trainer={trainer}>
                 <Button>Enquire</Button>
               </EnquiryDialog>

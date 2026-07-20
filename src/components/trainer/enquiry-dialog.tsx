@@ -80,7 +80,7 @@ export function EnquiryDialog({
             </div>
             <DialogTitle className="mt-5 text-title">Enquiry sent</DialogTitle>
             <DialogDescription className="mx-auto mt-2 max-w-sm">
-              Your enquiry is on its way to {trainer.name.split(" ").slice(-1)}.
+              Your enquiry is on its way to {trainer.name.split(" ").slice(-1)[0]}.
               Trainers typically reply within 2 working days.
             </DialogDescription>
             <DialogClose asChild>

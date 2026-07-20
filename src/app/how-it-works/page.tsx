@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { resolveImage } from "@/lib/media";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SectionEyebrow } from "@/components/section-eyebrow";
@@ -8,6 +9,7 @@ import { Stat } from "@/components/stat";
 import { VerifiedSeal } from "@/components/verified-seal";
 import { VerificationPassport } from "@/components/verification-passport";
 import { Button } from "@/components/ui/button";
+import { EditorialImage } from "@/components/media/editorial-image";
 import {
   Accordion,
   AccordionContent,
@@ -22,7 +24,7 @@ export const metadata: Metadata = {
     "How the Aesthetic Training Hub keeps training trustworthy — hand-checked trainers, verified reviews, and a clear route for students and educators.",
 };
 
-const CONTAINER = "mx-auto w-full max-w-[1120px] px-5 sm:px-8";
+const CONTAINER = "mx-auto w-full max-w-[1600px] px-5 sm:px-8";
 
 const HERO_STATS = [
   { value: "100%", label: "Trainers hand-checked" },
@@ -113,68 +115,89 @@ const FAQS = [
 ];
 
 export default function HowItWorksPage() {
+  const heroSrc = resolveImage("images/how-it-works-hero");
   return (
     <>
       <SiteHeader />
       <main className="flex-1">
-        {/* ---------------------------------------------- Hero */}
-        <section className={`${CONTAINER} pb-8 pt-14 sm:pt-20`}>
-          <Reveal className="max-w-3xl">
-            <SectionEyebrow>How it works</SectionEyebrow>
-            <h1 className="mt-6 font-display text-display-xl text-ink">
-              Find training you can <span className="italic">trust</span> — and
-              know exactly why.
-            </h1>
-            <p className="mt-6 max-w-2xl text-body leading-relaxed text-ink-soft">
-              The Hub exists to take the guesswork out of booking aesthetics
-              training. Every educator is checked before they&rsquo;re listed,
-              and every review comes from a student who actually attended.
-              Here&rsquo;s how that works — on both sides.
-            </p>
-            <dl className="mt-8 flex divide-x divide-linen">
-              {HERO_STATS.map((s) => (
-                <div
-                  key={s.label}
-                  className="min-w-0 px-4 first:pl-0 last:pr-0 sm:px-6"
-                >
-                  <Stat value={s.value} label={s.label} size="sm" />
-                </div>
-              ))}
-            </dl>
-          </Reveal>
+        {/* ---------------------------------------------- Hero (split, edge-to-edge) */}
+        <section className="relative w-full overflow-hidden">
+          <div className="flex flex-col px-5 pb-6 pt-16 sm:px-8 sm:pt-24 lg:min-h-[620px] lg:flex-row lg:items-center lg:pb-0 lg:pt-0">
+            <Reveal className="w-full max-w-3xl pl-4 sm:pl-6 lg:w-1/2 lg:max-w-none lg:py-16 lg:pl-8 lg:pr-14">
+              <SectionEyebrow>How it works</SectionEyebrow>
+              <h1 className="mt-6 font-display text-display-xl text-ink">
+                Find training you can <span className="italic">trust</span> —
+                and know exactly why.
+              </h1>
+              <p className="mt-6 max-w-2xl text-body leading-relaxed text-ink-soft lg:max-w-none">
+                The Hub exists to take the guesswork out of booking aesthetics
+                training. Every educator is checked before they&rsquo;re
+                listed, and every review comes from a student who actually
+                attended. Here&rsquo;s how that works — on both sides.
+              </p>
+              <dl className="mt-8 flex divide-x divide-linen">
+                {HERO_STATS.map((s) => (
+                  <div
+                    key={s.label}
+                    className="min-w-0 px-4 first:pl-0 last:pr-0 sm:px-6"
+                  >
+                    <Stat value={s.value} label={s.label} size="sm" />
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
+
+            {/* Media — floats with a small margin from the viewport edges on
+                desktop, full-width band on mobile. */}
+            <div className="relative -mx-5 mt-10 h-[420px] sm:-mx-8 sm:h-[480px] lg:absolute lg:inset-y-6 lg:right-6 lg:mx-0 lg:mt-0 lg:h-auto lg:w-[46%]">
+              <EditorialImage
+                variant="warm"
+                priority
+                src={heroSrc}
+                alt="A trainer guiding a student through a technique on a practice arm"
+                className="absolute inset-0 h-full w-full lg:rounded-[32px]"
+                // Box height drives the object-cover crop here, not its
+                // declared width — request full viewport width so the
+                // fetched srcset entry is large enough to avoid upscaling.
+                sizes="100vw"
+              />
+            </div>
+          </div>
         </section>
 
-        {/* ---------------------------------------------- For students */}
-        <section className={`${CONTAINER} py-16 sm:py-20`}>
-          <Reveal>
-            <SectionEyebrow>For students</SectionEyebrow>
-            <h2 className="mt-5 max-w-2xl font-display text-display-md text-ink">
-              Your route to the right course.
-            </h2>
-          </Reveal>
-          <RevealGroup className="mt-12 grid gap-5 md:grid-cols-3">
-            {STUDENT_STEPS.map((step) => (
-              <RevealItem
-                key={step.n}
-                className="rounded-card border border-linen bg-paper p-7"
-              >
-                <span className="font-data text-display-md text-ink/20">
-                  {step.n}
-                </span>
-                <h3 className="mt-4 font-display text-title text-ink">
-                  {step.title}
-                </h3>
-                <p className="mt-2 text-small leading-relaxed text-ink-soft">
-                  {step.body}
-                </p>
-              </RevealItem>
-            ))}
-          </RevealGroup>
+        {/* ---------------------------------------------- For students (tinted, full-bleed) */}
+        <section className="w-full border-y border-linen/70 bg-linen">
+          <div className={`${CONTAINER} py-20 sm:py-28`}>
+            <Reveal>
+              <SectionEyebrow>For students</SectionEyebrow>
+              <h2 className="mt-5 max-w-2xl font-display text-display-md text-ink">
+                Your route to the right course.
+              </h2>
+            </Reveal>
+            <RevealGroup className="mt-12 grid gap-5 md:grid-cols-3">
+              {STUDENT_STEPS.map((step) => (
+                <RevealItem
+                  key={step.n}
+                  className="rounded-card border border-linen bg-paper p-7"
+                >
+                  <span className="font-data text-display-md text-ink/20">
+                    {step.n}
+                  </span>
+                  <h3 className="mt-4 font-display text-title text-ink">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-small leading-relaxed text-ink-soft">
+                    {step.body}
+                  </p>
+                </RevealItem>
+              ))}
+            </RevealGroup>
+          </div>
         </section>
 
         {/* ---------------------------------------------- Vetting (Level 3) */}
-        <section className="bg-ink text-ivory">
-          <div className={`${CONTAINER} py-20 sm:py-28`}>
+        <section className="w-full bg-ink text-ivory">
+          <div className={`${CONTAINER} py-24 sm:py-32`}>
             <Reveal className="max-w-2xl">
               <span className="eyebrow !text-stone">Vetting</span>
               <h2 className="mt-5 font-display text-display-lg text-ivory">
@@ -225,94 +248,100 @@ export default function HowItWorksPage() {
         </section>
 
         {/* ---------------------------------------------- Verified reviews */}
-        <section className={`${CONTAINER} py-16 sm:py-20`}>
-          <Reveal className="grid items-center gap-8 md:grid-cols-[1.3fr_1fr]">
-            <div>
-              <SectionEyebrow>Verified reviews</SectionEyebrow>
-              <h2 className="mt-5 max-w-xl font-display text-display-md text-ink">
-                Reviews only from students who were there.
-              </h2>
-              <p className="mt-4 max-w-xl text-body leading-relaxed text-ink-soft">
-                Every review on the Hub is tied to a verified booking. If you
-                didn&rsquo;t attend, you can&rsquo;t post one — so there&rsquo;s
-                no anonymous praise and no planted criticism, just accounts from
-                people who sat in the room.
-              </p>
-            </div>
-            <div className="rounded-card border border-linen bg-paper p-6">
-              <p className="text-body leading-relaxed text-ink-soft">
-                &ldquo;Five of us over two days, and I injected four live models
-                rather than watching from the back.&rdquo;
-              </p>
-              <div className="mt-4 flex items-center gap-2 border-t border-linen pt-4">
-                <VerifiedSeal size={16} />
-                <span className="text-micro font-medium text-ink-soft">
-                  Booking verified
-                </span>
-                <span className="font-data text-micro text-stone">
-                  · Foundation in Facial Aesthetics
-                </span>
+        <section className="w-full">
+          <div className={`${CONTAINER} py-20 sm:py-28`}>
+            <Reveal className="grid items-center gap-8 md:grid-cols-[1.3fr_1fr]">
+              <div>
+                <SectionEyebrow>Verified reviews</SectionEyebrow>
+                <h2 className="mt-5 max-w-xl font-display text-display-md text-ink">
+                  Reviews only from students who were there.
+                </h2>
+                <p className="mt-4 max-w-xl text-body leading-relaxed text-ink-soft">
+                  Every review on the Hub is tied to a verified booking. If you
+                  didn&rsquo;t attend, you can&rsquo;t post one — so
+                  there&rsquo;s no anonymous praise and no planted criticism,
+                  just accounts from people who sat in the room.
+                </p>
               </div>
-            </div>
-          </Reveal>
+              <div className="rounded-card border border-linen bg-paper p-6">
+                <p className="text-body leading-relaxed text-ink-soft">
+                  &ldquo;Five of us over two days, and I injected four live
+                  models rather than watching from the back.&rdquo;
+                </p>
+                <div className="mt-4 flex items-center gap-2 border-t border-linen pt-4">
+                  <VerifiedSeal size={16} />
+                  <span className="text-micro font-medium text-ink-soft">
+                    Booking verified
+                  </span>
+                  <span className="font-data text-micro text-stone">
+                    · Foundation in Facial Aesthetics
+                  </span>
+                </div>
+              </div>
+            </Reveal>
+          </div>
         </section>
 
-        {/* ---------------------------------------------- FAQ */}
-        <section className={`${CONTAINER} py-16 sm:py-20`}>
-          <Reveal>
-            <SectionEyebrow>Questions</SectionEyebrow>
-            <h2 className="mt-5 font-display text-display-md text-ink">
-              Common questions.
-            </h2>
-          </Reveal>
-          <Reveal className="mt-8">
-            <Accordion type="single" collapsible className="border-t border-linen">
-              {FAQS.map((faq, i) => (
-                <AccordionItem key={i} value={`faq-${i}`}>
-                  <AccordionTrigger>{faq.q}</AccordionTrigger>
-                  <AccordionContent>{faq.a}</AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </Reveal>
+        {/* ---------------------------------------------- FAQ (tinted, full-bleed) */}
+        <section className="w-full border-y border-linen/70 bg-linen">
+          <div className={`${CONTAINER} py-20 sm:py-28`}>
+            <Reveal>
+              <SectionEyebrow>Questions</SectionEyebrow>
+              <h2 className="mt-5 font-display text-display-md text-ink">
+                Common questions.
+              </h2>
+            </Reveal>
+            <Reveal className="mt-8">
+              <Accordion type="single" collapsible className="border-t border-ink/10">
+                {FAQS.map((faq, i) => (
+                  <AccordionItem key={i} value={`faq-${i}`}>
+                    <AccordionTrigger>{faq.q}</AccordionTrigger>
+                    <AccordionContent>{faq.a}</AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </Reveal>
+          </div>
         </section>
 
         {/* ---------------------------------------------- For trainers */}
-        <section className={`${CONTAINER} pb-24 pt-8 sm:pb-28`}>
-          <Reveal className="rounded-card border border-linen bg-paper p-8 sm:p-12">
-            <div className="max-w-2xl">
-              <SectionEyebrow>For trainers</SectionEyebrow>
-              <h2 className="mt-5 font-display text-display-md text-ink">
-                Get listed in three steps.
-              </h2>
-            </div>
-            <div className="mt-10 grid gap-6 sm:grid-cols-3">
-              {TRAINER_STEPS.map((step) => (
-                <div key={step.n}>
-                  <span className="font-data text-title text-ink/25">
-                    {step.n}
-                  </span>
-                  <h3 className="mt-2 font-display text-title text-ink">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-small leading-relaxed text-ink-soft">
-                    {step.body}
-                  </p>
-                </div>
-              ))}
-            </div>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <Button asChild>
-                <Link href="/apply">List your training</Link>
-              </Button>
-              <Button asChild variant="outline">
-                <Link href="/pricing">
-                  See tiers &amp; pricing
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
-          </Reveal>
+        <section className="w-full">
+          <div className={`${CONTAINER} pb-28 pt-10 sm:pb-32`}>
+            <Reveal className="rounded-card border border-linen bg-paper p-8 sm:p-12">
+              <div className="max-w-2xl">
+                <SectionEyebrow>For trainers</SectionEyebrow>
+                <h2 className="mt-5 font-display text-display-md text-ink">
+                  Get listed in three steps.
+                </h2>
+              </div>
+              <div className="mt-10 grid gap-6 sm:grid-cols-3">
+                {TRAINER_STEPS.map((step) => (
+                  <div key={step.n}>
+                    <span className="font-data text-title text-ink/25">
+                      {step.n}
+                    </span>
+                    <h3 className="mt-2 font-display text-title text-ink">
+                      {step.title}
+                    </h3>
+                    <p className="mt-2 text-small leading-relaxed text-ink-soft">
+                      {step.body}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                <Button asChild size="lg">
+                  <Link href="/apply">List your training</Link>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                  <Link href="/pricing">
+                    See tiers &amp; pricing
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </Reveal>
+          </div>
         </section>
       </main>
       <SiteFooter />

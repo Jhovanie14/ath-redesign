@@ -13,7 +13,7 @@ const AccordionItem = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AccordionPrimitive.Item
     ref={ref}
-    className={cn("border-b border-linen", className)}
+    className={cn("border-b border-ink/10", className)}
     {...props}
   />
 ));
@@ -33,7 +33,7 @@ const AccordionTrigger = React.forwardRef<
       {...props}
     >
       {children}
-      <Plus className="h-5 w-5 shrink-0 text-stone transition-transform duration-300 group-data-[state=open]:rotate-45" />
+      <Plus className="h-5 w-5 shrink-0 text-stone transition-[rotate] duration-300 group-data-[state=open]:rotate-45" />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));

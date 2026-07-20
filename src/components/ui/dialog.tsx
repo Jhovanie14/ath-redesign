@@ -27,8 +27,8 @@ DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 interface DialogContentProps
   extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {
-  /** "center" (default) or "sheet" (mobile bottom sheet). */
-  position?: "center" | "sheet";
+  /** "center" (default), "sheet" (mobile bottom sheet), or "fullscreen" (full-viewport dark takeover). */
+  position?: "center" | "sheet" | "fullscreen";
   showClose?: boolean;
 }
 
@@ -45,11 +45,13 @@ const DialogContent = React.forwardRef<
       <DialogPrimitive.Content
         ref={ref}
         className={cn(
-          "fixed z-50 border border-linen bg-paper shadow-e2 focus:outline-none",
+          "fixed z-50 focus:outline-none",
           position === "center" &&
-            "left-1/2 top-1/2 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-[18px] data-[state=open]:animate-[dialogContentIn_220ms_cubic-bezier(0.22,1,0.36,1)]",
+            "left-1/2 top-1/2 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-[18px] border border-linen bg-paper shadow-e2 data-[state=open]:animate-[dialogContentIn_220ms_cubic-bezier(0.22,1,0.36,1)]",
           position === "sheet" &&
-            "inset-x-0 bottom-0 max-h-[88vh] overflow-y-auto rounded-t-[22px] data-[state=open]:animate-[dialogSheetIn_260ms_cubic-bezier(0.22,1,0.36,1)]",
+            "inset-x-0 bottom-0 max-h-[88vh] overflow-y-auto rounded-t-[22px] border border-linen bg-paper shadow-e2 data-[state=open]:animate-[dialogSheetIn_260ms_cubic-bezier(0.22,1,0.36,1)]",
+          position === "fullscreen" &&
+            "inset-0 h-full w-full overflow-y-auto bg-ink data-[state=open]:animate-[dialogFullscreenIn_260ms_cubic-bezier(0.22,1,0.36,1)]",
           className,
         )}
         {...props}
@@ -57,7 +59,12 @@ const DialogContent = React.forwardRef<
         {children}
         {showClose && (
           <DialogPrimitive.Close
-            className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full text-stone transition-colors hover:bg-linen hover:text-ink"
+            className={cn(
+              "absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full transition-colors",
+              position === "fullscreen"
+                ? "text-ivory/70 hover:bg-ivory/10 hover:text-ivory"
+                : "text-stone hover:bg-linen hover:text-ink",
+            )}
             aria-label="Close"
           >
             <X className="h-4 w-4" />
