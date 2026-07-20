@@ -20,7 +20,8 @@ import { SpecialismsStrip } from "@/components/home/specialisms-strip";
 import { Testimonials, type TestimonialItem } from "@/components/home/testimonials";
 import type { EditorialVariant } from "@/components/media/editorial-image";
 
-const CONTAINER = "mx-auto w-full max-w-[1240px] px-5 sm:px-8";
+// Full-bleed sections wrap their content in this centered, wide container.
+const CONTAINER = "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8";
 
 const STEPS: { n: string; title: string; body: string; variant: EditorialVariant }[] =
   [
@@ -96,7 +97,7 @@ export default async function HomePage() {
       <SiteHeader />
       <main className="flex-1">
         {/* ------------------------------------------------ Hero */}
-        <section className="relative overflow-hidden">
+        <section className="relative w-full overflow-hidden">
           <div
             aria-hidden
             className="pointer-events-none absolute -right-32 -top-40 h-[520px] w-[520px] rounded-full blur-3xl"
@@ -177,131 +178,141 @@ export default async function HomePage() {
         </section>
 
         {/* ------------------------------------------------ Proof band */}
-        <section className={`${CONTAINER} pb-4 pt-14 sm:pt-20`}>
-          <Reveal>
-            <ProofBand stats={stats} />
-          </Reveal>
+        <section className="w-full">
+          <div className={`${CONTAINER} pb-4 pt-14 sm:pt-20`}>
+            <Reveal>
+              <ProofBand stats={stats} />
+            </Reveal>
+          </div>
         </section>
 
         {/* ------------------------------------------------ Specialisms */}
-        <section className={`${CONTAINER} py-16 sm:py-20`}>
-          <Reveal className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <SectionEyebrow>Explore by specialism</SectionEyebrow>
-              <h2 className="mt-5 font-display text-display-md text-ink">
-                Train in what you want to offer.
-              </h2>
-            </div>
-            <Button asChild variant="outline" className="hidden sm:inline-flex">
-              <Link href="/search">
-                See all trainers
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-          </Reveal>
-          <Reveal className="mt-10">
-            <SpecialismsStrip />
-          </Reveal>
+        <section className="w-full">
+          <div className={`${CONTAINER} py-16 sm:py-20`}>
+            <Reveal className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <SectionEyebrow>Explore by specialism</SectionEyebrow>
+                <h2 className="mt-5 font-display text-display-md text-ink">
+                  Train in what you want to offer.
+                </h2>
+              </div>
+              <Button asChild variant="outline" className="hidden sm:inline-flex">
+                <Link href="/search">
+                  See all trainers
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+            </Reveal>
+            <Reveal className="mt-10">
+              <SpecialismsStrip />
+            </Reveal>
+          </div>
         </section>
 
         {/* ------------------------------------------------ How it works */}
-        <section className={`${CONTAINER} py-16 sm:py-20`}>
-          <Reveal>
-            <SectionEyebrow>How it works</SectionEyebrow>
-            <h2 className="mt-5 max-w-2xl font-display text-display-md text-ink">
-              A trusted route to your next course.
-            </h2>
-          </Reveal>
-          <RevealGroup className="mt-12 grid gap-5 md:grid-cols-3">
-            {STEPS.map((step, i) => (
-              <RevealItem
-                key={step.n}
-                className="overflow-hidden rounded-card border border-linen bg-paper shadow-e2"
-              >
-                <EditorialImage
-                  variant={step.variant}
-                  src={resolveImage(`images/steps/step-${i + 1}`)}
-                  className="relative h-24"
-                >
-                  <span className="absolute left-5 top-3 font-data text-display-md text-ink/55">
-                    {step.n}
-                  </span>
-                </EditorialImage>
-                <div className="p-6">
-                  <h3 className="font-display text-title text-ink">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-small leading-relaxed text-ink-soft">
-                    {step.body}
-                  </p>
-                </div>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </section>
-
-        {/* ------------------------------------------------ Featured trainers */}
-        <section className={`${CONTAINER} py-16 sm:py-20`}>
-          <Reveal className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <SectionEyebrow>Featured trainers</SectionEyebrow>
-              <h2 className="mt-5 font-display text-display-md text-ink">
-                Vetted educators on the Hub.
+        <section className="w-full">
+          <div className={`${CONTAINER} py-16 sm:py-20`}>
+            <Reveal>
+              <SectionEyebrow>How it works</SectionEyebrow>
+              <h2 className="mt-5 max-w-2xl font-display text-display-md text-ink">
+                A trusted route to your next course.
               </h2>
-            </div>
-            <Button asChild variant="outline" className="hidden sm:inline-flex">
-              <Link href="/search">
-                Browse all trainers
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-          </Reveal>
-
-          {showGrid ? (
-            <RevealGroup className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {featured.map((trainer) => (
-                <RevealItem key={trainer.slug}>
-                  <TrainerCard trainer={trainer} />
+            </Reveal>
+            <RevealGroup className="mt-12 grid gap-5 md:grid-cols-3">
+              {STEPS.map((step, i) => (
+                <RevealItem
+                  key={step.n}
+                  className="overflow-hidden rounded-card border border-linen bg-paper shadow-e2"
+                >
+                  <EditorialImage
+                    variant={step.variant}
+                    src={resolveImage(`images/steps/step-${i + 1}`)}
+                    className="relative h-24"
+                  >
+                    <span className="absolute left-5 top-3 font-data text-display-md text-ink/55">
+                      {step.n}
+                    </span>
+                  </EditorialImage>
+                  <div className="p-6">
+                    <h3 className="font-display text-title text-ink">
+                      {step.title}
+                    </h3>
+                    <p className="mt-2 text-small leading-relaxed text-ink-soft">
+                      {step.body}
+                    </p>
+                  </div>
                 </RevealItem>
               ))}
             </RevealGroup>
-          ) : (
-            <div className="mt-10">
-              <FoundingSpotlight trainer={featured[0]} />
-            </div>
-          )}
+          </div>
+        </section>
 
-          <div className="mt-8 sm:hidden">
-            <Button asChild variant="outline" className="w-full">
-              <Link href="/search">
-                Browse all trainers
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
+        {/* ------------------------------------------------ Featured trainers */}
+        <section className="w-full">
+          <div className={`${CONTAINER} py-16 sm:py-20`}>
+            <Reveal className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <SectionEyebrow>Featured trainers</SectionEyebrow>
+                <h2 className="mt-5 font-display text-display-md text-ink">
+                  Vetted educators on the Hub.
+                </h2>
+              </div>
+              <Button asChild variant="outline" className="hidden sm:inline-flex">
+                <Link href="/search">
+                  Browse all trainers
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+            </Reveal>
+
+            {showGrid ? (
+              <RevealGroup className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {featured.map((trainer) => (
+                  <RevealItem key={trainer.slug}>
+                    <TrainerCard trainer={trainer} />
+                  </RevealItem>
+                ))}
+              </RevealGroup>
+            ) : (
+              <div className="mt-10">
+                <FoundingSpotlight trainer={featured[0]} />
+              </div>
+            )}
+
+            <div className="mt-8 sm:hidden">
+              <Button asChild variant="outline" className="w-full">
+                <Link href="/search">
+                  Browse all trainers
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
           </div>
         </section>
 
         {/* ------------------------------------------------ Testimonials */}
         {testimonials.length > 0 && (
-          <section className={`${CONTAINER} py-16 sm:py-20`}>
-            <Reveal>
-              <SectionEyebrow>From real students</SectionEyebrow>
-              <h2 className="mt-5 max-w-2xl font-display text-display-md text-ink">
-                Reviews you can actually trust.
-              </h2>
-              <p className="mt-3 max-w-xl text-small leading-relaxed text-ink-soft">
-                Every review is tied to a verified booking — only students who
-                attended can post one.
-              </p>
-            </Reveal>
-            <Reveal className="mt-10">
-              <Testimonials items={testimonials} />
-            </Reveal>
+          <section className="w-full">
+            <div className={`${CONTAINER} py-16 sm:py-20`}>
+              <Reveal>
+                <SectionEyebrow>From real students</SectionEyebrow>
+                <h2 className="mt-5 max-w-2xl font-display text-display-md text-ink">
+                  Reviews you can actually trust.
+                </h2>
+                <p className="mt-3 max-w-xl text-small leading-relaxed text-ink-soft">
+                  Every review is tied to a verified booking — only students who
+                  attended can post one.
+                </p>
+              </Reveal>
+              <Reveal className="mt-10">
+                <Testimonials items={testimonials} />
+              </Reveal>
+            </div>
           </section>
         )}
 
         {/* ------------------------------------------------ Trainer CTA (Level 3) */}
-        <section className="relative overflow-hidden bg-ink text-ivory">
+        <section className="relative w-full overflow-hidden bg-ink text-ivory">
           <div
             aria-hidden
             className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full blur-3xl"

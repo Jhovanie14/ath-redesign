@@ -31,8 +31,8 @@ const COLUMNS: { heading: string; links: { label: string; href: string }[] }[] =
 
 export function SiteFooter() {
   return (
-    <footer className="bg-ink text-ivory">
-      <div className="mx-auto max-w-[1240px] px-5 py-16 sm:px-8">
+    <footer className="w-full bg-ink text-ivory">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           {/* Brand blurb */}
           <div className="max-w-xs">
