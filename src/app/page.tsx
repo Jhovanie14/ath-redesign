@@ -96,82 +96,72 @@ export default async function HomePage() {
     <>
       <SiteHeader />
       <main className="flex-1">
-        {/* ------------------------------------------------ Hero */}
+        {/* ------------------------------------------------ Hero (edge-to-edge) */}
         <section className="relative w-full overflow-hidden">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -right-32 -top-40 h-[520px] w-[520px] rounded-full blur-3xl"
-            style={{
-              background:
-                "radial-gradient(circle, rgba(243,236,221,0.9) 0%, transparent 70%)",
-            }}
-          />
-          <div className={`${CONTAINER} relative pb-12 pt-10 sm:pt-14`}>
-            <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
-              <Reveal>
-                <SectionEyebrow>
-                  Vetted training. Verified reviews.
-                </SectionEyebrow>
-                <h1 className="mt-6 font-display text-display-xl text-ink">
-                  Find the <span className="italic">right</span> aesthetics
-                  trainer near you.
-                </h1>
-                <p className="mt-6 max-w-xl text-body leading-relaxed text-ink-soft">
-                  Every educator on the Hub is insured, qualified and reviewed
-                  by real students. No anonymous listings. No directories of
-                  unknowns.
-                </p>
+          <div className="mx-auto flex max-w-7xl flex-col px-4 pb-4 pt-10 sm:px-6 lg:min-h-[620px] lg:flex-row lg:items-center lg:px-8 lg:pb-0 lg:pt-0">
+            {/* Text — stays in the readable, container-aligned column */}
+            <Reveal className="w-full max-w-xl lg:w-1/2 lg:py-24 lg:pr-14">
+              <SectionEyebrow>Vetted training. Verified reviews.</SectionEyebrow>
+              <h1 className="mt-6 font-display text-display-xl text-ink">
+                Find the <span className="italic">right</span> aesthetics
+                trainer near you.
+              </h1>
+              <p className="mt-6 max-w-xl text-body leading-relaxed text-ink-soft">
+                Every educator on the Hub is insured, qualified and reviewed by
+                real students. No anonymous listings. No directories of
+                unknowns.
+              </p>
 
-                <div className="mt-8 max-w-xl">
-                  <HomeSearch />
-                </div>
+              <div className="mt-8 max-w-xl">
+                <HomeSearch />
+              </div>
 
-                <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-micro text-stone">
-                  <span className="inline-flex items-center gap-1.5 font-medium text-ink-soft">
-                    <VerifiedSeal size={16} />
-                    Insured
+              <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-micro text-stone">
+                <span className="inline-flex items-center gap-1.5 font-medium text-ink-soft">
+                  <VerifiedSeal size={16} />
+                  Insured
+                </span>
+                <span aria-hidden>·</span>
+                <span>Qualifications verified</span>
+                <span aria-hidden>·</span>
+                <span className="font-data">GMC · NMC · GDC checked</span>
+              </div>
+            </Reveal>
+
+            {/* Media — bleeds to the top/right/bottom viewport edges on desktop,
+                full-width band on mobile. */}
+            <div className="relative -mx-4 mt-10 h-[380px] sm:-mx-6 sm:h-[440px] lg:absolute lg:inset-y-0 lg:right-0 lg:mx-0 lg:mt-0 lg:h-full lg:w-[50vw]">
+              <EditorialImage
+                variant="hero"
+                priority
+                src={resolveImage("images/hero")}
+                alt="A trainer demonstrating an aesthetics technique in a warm studio"
+                className="absolute inset-0 h-full w-full lg:rounded-l-[40px]"
+              >
+                <div className="absolute right-5 top-5 flex items-center gap-2 rounded-full border border-linen bg-paper/80 px-3 py-1.5 shadow-e1 backdrop-blur-sm motion-safe:animate-[floatSlower_7s_ease-in-out_infinite] sm:right-8">
+                  <RatingStars rating={avgRating} size={13} />
+                  <span className="font-data text-micro font-medium text-ink">
+                    {avgRating.toFixed(1)}
                   </span>
-                  <span aria-hidden>·</span>
-                  <span>Qualifications verified</span>
-                  <span aria-hidden>·</span>
-                  <span className="font-data">GMC · NMC · GDC checked</span>
+                  <span className="font-data text-micro text-stone">
+                    · {totalReviews} reviews
+                  </span>
                 </div>
-              </Reveal>
+              </EditorialImage>
 
-              {/* Layered media composition */}
-              <div className="relative">
-                <EditorialImage
-                  variant="hero"
-                  priority
-                  src={resolveImage("images/hero")}
-                  alt="A trainer demonstrating an aesthetics technique in a warm studio"
-                  className="h-[380px] w-full rounded-[22px] border border-linen shadow-e2 sm:h-[460px] lg:h-[540px]"
-                >
-                  <div className="absolute right-4 top-4 flex items-center gap-2 rounded-full border border-linen bg-paper/80 px-3 py-1.5 shadow-e1 backdrop-blur-sm motion-safe:animate-[floatSlower_7s_ease-in-out_infinite]">
-                    <RatingStars rating={avgRating} size={13} />
-                    <span className="font-data text-micro font-medium text-ink">
-                      {avgRating.toFixed(1)}
-                    </span>
-                    <span className="font-data text-micro text-stone">
-                      · {totalReviews} reviews
-                    </span>
-                  </div>
-                </EditorialImage>
-
-                <div className="absolute -bottom-6 left-2 w-[76%] max-w-[300px] motion-safe:animate-[floatSlow_6s_ease-in-out_infinite] sm:-left-4">
-                  <VerificationPassport
-                    animated
-                    rotate={-2}
-                    sealSize={40}
-                    title="Dr Amara Okafor"
-                    rows={[
-                      { label: "Insurance in date", note: "Feb 2026" },
-                      { label: "Qualifications checked", note: "Dec 2025" },
-                      { label: "GMC confirmed", note: "7412088" },
-                    ]}
-                    footer="Reviewed by a human · Jan 2026"
-                  />
-                </div>
+              <div className="absolute bottom-5 left-4 w-[74%] max-w-[290px] motion-safe:animate-[floatSlow_6s_ease-in-out_infinite] sm:left-6 lg:-left-10">
+                <VerificationPassport
+                  animated
+                  rotate={-2}
+                  sealSize={40}
+                  title="Dr Amara Okafor"
+                  rows={[
+                    { label: "Insurance in date", note: "Feb 2026" },
+                    { label: "Qualifications checked", note: "Dec 2025" },
+                    { label: "GMC confirmed", note: "7412088" },
+                  ]}
+                  footer="Reviewed by a human · Jan 2026"
+                />
               </div>
             </div>
           </div>
