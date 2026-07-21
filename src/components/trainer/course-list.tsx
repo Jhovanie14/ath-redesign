@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { EnquiryDialog } from "./enquiry-dialog";
 
 export function CourseList({ trainer }: { trainer: Trainer }) {
+  const activeCourses = trainer.courses.filter((course) => !course.archived);
+
   return (
     <section id="courses" className="scroll-mt-24">
       <SectionEyebrow>Courses</SectionEyebrow>
@@ -14,7 +16,7 @@ export function CourseList({ trainer }: { trainer: Trainer }) {
       </h2>
 
       <div className="mt-6 flex flex-col gap-4">
-        {trainer.courses.map((course) => (
+        {activeCourses.map((course) => (
           <div
             key={course.id}
             className="rounded-card border border-linen bg-paper p-6"
