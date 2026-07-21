@@ -27,13 +27,14 @@ export function DashboardSidebar({ session }: DashboardSidebarProps) {
   return (
     <Sidebar collapsible="offcanvas">
       <SidebarHeader className="gap-1.5 px-4 pt-5 pb-3">
-        <Link href="/" aria-label="Aesthetic Training Hub — home">
+        <Link href="/" aria-label="Aesthetic Training Hub — home" className="block">
           <Image
             src="/logos/wordmark-stone.png"
             alt="Aesthetic Training Hub"
-            width={123}
-            height={40}
-            className="h-8 w-auto"
+            width={1067}
+            height={347}
+            className="h-auto w-full"
+            priority
           />
         </Link>
         <p className="eyebrow !text-stone">{session.role} dashboard</p>

@@ -6,7 +6,6 @@ import {
   FileText,
   LayoutGrid,
   MessageSquare,
-  PoundSterling,
   Settings,
   Star,
   User,
@@ -39,7 +38,7 @@ export const ADMIN_NAV: NavItem[] = [
   { label: "Applications", href: "/admin/applications", icon: FileText },
   { label: "Practitioners", href: "/admin/practitioners", icon: Users },
   { label: "Reviews", href: "/admin/reviews", icon: Star },
-  { label: "Billing", href: "/admin/billing", icon: PoundSterling },
+  { label: "Billing", href: "/admin/billing", icon: CreditCard },
   { label: "Config", href: "/admin/config", icon: Settings },
 ];
 
