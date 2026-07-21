@@ -30,7 +30,7 @@ export const TRAINER_NAV: NavItem[] = [
   { label: "Reviews", href: "/trainer/reviews", icon: Star },
   { label: "Profile", href: "/trainer/profile", icon: User },
   { label: "Documents", href: "/trainer/documents", icon: FileText },
-  { label: "Billing", href: "/trainer/billing", icon: CreditCard, disabled: true },
+  { label: "Billing", href: "/trainer/billing", icon: CreditCard },
 ];
 
 export const ADMIN_NAV: NavItem[] = [
