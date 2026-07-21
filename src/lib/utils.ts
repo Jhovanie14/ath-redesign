@@ -48,6 +48,15 @@ export function formatMonthYear(iso: string): string {
   }).format(new Date(iso));
 }
 
+/** Format an ISO date as a short British date — e.g. "6 Jul 2026". */
+export function formatShortDate(iso: string): string {
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }).format(new Date(iso));
+}
+
 /** Format an ISO date as a full British date — e.g. "14 January 2026". */
 export function formatLongDate(iso: string): string {
   return new Intl.DateTimeFormat("en-GB", {

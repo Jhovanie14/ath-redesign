@@ -10,6 +10,9 @@ const badgeVariants = cva(
         neutral: "bg-linen/70 text-ink-soft",
         outline: "border border-linen text-ink-soft bg-paper",
         success: "bg-success/10 text-success",
+        error: "bg-error/10 text-error",
+        warning: "bg-warning-tint text-warning",
+        gold: "bg-gold-tint text-gold-deep",
       },
       size: {
         sm: "px-2 py-1 text-[11px]",

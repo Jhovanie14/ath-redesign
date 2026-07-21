@@ -76,11 +76,11 @@
       }
     ],
     "verification": {
-      "insuranceCheckedAt": "2026-01-14",
+      "insuranceCheckedAt": "2025-07-05",
       "qualificationCheckedAt": "2025-11-30",
       "professionalRegistration": { "body": "GMC", "number": "7000199" },
-      "humanReviewedAt": "2026-01-16",
-      "nextRenewalDue": "2027-01-14"
+      "humanReviewedAt": "2025-07-07",
+      "nextRenewalDue": "2026-07-05"
     },
     "availabilityNote": "Next cohort: March 2026"
   },
@@ -407,11 +407,11 @@
       }
     ],
     "verification": {
-      "insuranceCheckedAt": "2026-02-11",
+      "insuranceCheckedAt": "2025-08-20",
       "qualificationCheckedAt": "2025-11-14",
       "professionalRegistration": { "body": "GMC", "number": "7188203" },
-      "humanReviewedAt": "2026-02-13",
-      "nextRenewalDue": "2027-02-11"
+      "humanReviewedAt": "2025-08-22",
+      "nextRenewalDue": "2026-08-20"
     },
     "availabilityNote": "Next available: 1:1 dates in March 2026"
   },
