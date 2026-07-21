@@ -45,7 +45,7 @@ export function AccountCard({ email }: { email: string }) {
           Account
         </h2>
         <p className="text-small text-ink-soft">
-          Your login details for the trainer dashboard.
+          Your login details for this dashboard.
         </p>
       </CardHeader>
       <CardContent className="flex flex-col gap-5">

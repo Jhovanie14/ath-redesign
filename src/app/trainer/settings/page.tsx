@@ -4,7 +4,10 @@ import { getSession } from "@/lib/auth";
 import { DashboardShell } from "@/components/dashboard/dashboard-shell";
 import { AccountCard } from "@/components/dashboard/settings/account-card";
 import { SecurityCard } from "@/components/dashboard/settings/security-card";
-import { NotificationPreferencesCard } from "@/components/dashboard/settings/notification-preferences-card";
+import {
+  NotificationPreferencesCard,
+  TRAINER_NOTIFICATION_ROWS,
+} from "@/components/dashboard/settings/notification-preferences-card";
 import { logoutTrainer } from "../actions";
 
 export const metadata: Metadata = {
@@ -32,7 +35,7 @@ export default async function TrainerSettingsPage() {
         <div className="mt-8 flex flex-col gap-8">
           <AccountCard email={session.email} />
           <SecurityCard />
-          <NotificationPreferencesCard />
+          <NotificationPreferencesCard rows={TRAINER_NOTIFICATION_ROWS} />
         </div>
       </div>
     </DashboardShell>

@@ -4,14 +4,14 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 
-interface NotificationRow {
+export interface NotificationRow {
   id: string;
   label: string;
   description: string;
   defaultOn: boolean;
 }
 
-const ROWS: NotificationRow[] = [
+export const TRAINER_NOTIFICATION_ROWS: NotificationRow[] = [
   {
     id: "enquiries",
     label: "New student enquiries",
@@ -38,9 +38,13 @@ const ROWS: NotificationRow[] = [
   },
 ];
 
-export function NotificationPreferencesCard() {
+export function NotificationPreferencesCard({
+  rows,
+}: {
+  rows: NotificationRow[];
+}) {
   const [state, setState] = useState<Record<string, boolean>>(() =>
-    Object.fromEntries(ROWS.map((row) => [row.id, row.defaultOn])),
+    Object.fromEntries(rows.map((row) => [row.id, row.defaultOn])),
   );
 
   return (
@@ -55,7 +59,7 @@ export function NotificationPreferencesCard() {
       </CardHeader>
       <CardContent>
         <div className="flex flex-col divide-y divide-linen">
-          {ROWS.map((row) => (
+          {rows.map((row) => (
             <div
               key={row.id}
               className="flex items-center justify-between gap-4 py-4 first:pt-0 last:pb-0"
