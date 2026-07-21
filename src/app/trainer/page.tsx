@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { DEMO_TRAINER_STATS } from "@/lib/dashboard-stats";
 import { DEMO_ENQUIRIES, enquiryStatus } from "@/lib/enquiries";
+import { getRepository } from "@/lib/repository";
 import { formatGBP } from "@/lib/utils";
 import { DashboardShell } from "@/components/dashboard/dashboard-shell";
 import { StatCard } from "@/components/dashboard/stat-card";
@@ -25,6 +26,14 @@ export default async function TrainerDashboardPage() {
   const newEnquiryCount = DEMO_ENQUIRIES.filter(
     (e) => enquiryStatus(e, now) === "new",
   ).length;
+
+  const trainer = await getRepository().getBySlug("dr-amara-okafor");
+  const activeCourses = (trainer?.courses ?? []).filter((c) => !c.archived);
+  const activeCourseCount = activeCourses.length;
+  const cheapestActivePrice =
+    activeCourses.length > 0
+      ? Math.min(...activeCourses.map((c) => c.priceGBP))
+      : null;
 
   return (
     <DashboardShell
@@ -57,8 +66,12 @@ export default async function TrainerDashboardPage() {
         />
         <StatCard
           label="Active courses"
-          value={stats.activeCourses}
-          caption={stats.activeCoursesNote}
+          value={activeCourseCount}
+          caption={
+            cheapestActivePrice !== null
+              ? `From ${formatGBP(cheapestActivePrice)}`
+              : "None listed yet"
+          }
         />
         <StatCard
           label="Profile views (30 days)"

@@ -25,7 +25,7 @@ export interface NavItem {
 export const TRAINER_NAV: NavItem[] = [
   { label: "Overview", href: "/trainer", icon: LayoutGrid },
   { label: "Enquiries", href: "/trainer/enquiries", icon: MessageSquare },
-  { label: "Courses", href: "/trainer/courses", icon: BookOpen, disabled: true },
+  { label: "Courses", href: "/trainer/courses", icon: BookOpen },
   { label: "Availability", href: "/trainer/availability", icon: Calendar, disabled: true },
   { label: "Reviews", href: "/trainer/reviews", icon: Star, disabled: true },
   { label: "Profile", href: "/trainer/profile", icon: User, disabled: true },

@@ -3,15 +3,15 @@
 // real queries once bookings/billing exist.
 //
 // newEnquiries is derived live from DEMO_ENQUIRIES/enquiryStatus() in
-// src/lib/enquiries.ts (see src/app/trainer/page.tsx) — no separate stub,
-// so Overview can't silently drift from the Enquiries page it summarizes.
+// src/lib/enquiries.ts, and activeCourses is derived live from
+// trainer.courses (see src/app/trainer/page.tsx) — no separate stubs for
+// either, so Overview can't silently drift from the Enquiries or Courses
+// pages it summarizes.
 
 export interface TrainerStats {
   liveInSearch: boolean;
   bookings: number;
   bookingsNote: string;
-  activeCourses: number;
-  activeCoursesNote: string;
   profileViews30d: number;
   profileViewsNote: string;
   subscription: {
@@ -26,8 +26,6 @@ export const DEMO_TRAINER_STATS: TrainerStats = {
   liveInSearch: true,
   bookings: 14,
   bookingsNote: "Confirmed on the Hub",
-  activeCourses: 2,
-  activeCoursesNote: "From £550",
   profileViews30d: 86,
   profileViewsNote: "Rated 4.7 · 9 verified reviews",
   subscription: {
