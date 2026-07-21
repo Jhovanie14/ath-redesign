@@ -1,11 +1,12 @@
 // Placeholder dashboard metrics — there is no backend yet (same "mock now,
 // wire up later" seam as getRepository() in ./repository.ts). Swap these for
-// real queries once bookings/billing exist.
+// real queries once bookings exist.
 //
-// newEnquiries is derived live from DEMO_ENQUIRIES/enquiryStatus() in
-// src/lib/enquiries.ts, and activeCourses is derived live from
-// trainer.courses (see src/app/trainer/page.tsx) — no separate stubs for
-// either, so Overview can't silently drift from the Enquiries or Courses
+// newEnquiries and activeCourses are derived live from
+// DEMO_ENQUIRIES/enquiryStatus() in src/lib/enquiries.ts and
+// trainer.courses respectively, and subscription is derived live from
+// toSubscriptions() in src/lib/billing.ts (see src/app/trainer/page.tsx) —
+// so Overview can't silently drift from the Enquiries, Courses, or Billing
 // pages it summarizes.
 
 export interface TrainerStats {
@@ -14,12 +15,6 @@ export interface TrainerStats {
   bookingsNote: string;
   profileViews30d: number;
   profileViewsNote: string;
-  subscription: {
-    tier: "Premium" | "Standard";
-    priceGBP: number;
-    status: "Active" | "Past due" | "Cancelled";
-    renewsOn: string;
-  };
 }
 
 export const DEMO_TRAINER_STATS: TrainerStats = {
@@ -28,12 +23,6 @@ export const DEMO_TRAINER_STATS: TrainerStats = {
   bookingsNote: "Confirmed on the Hub",
   profileViews30d: 86,
   profileViewsNote: "Rated 4.7 · 9 verified reviews",
-  subscription: {
-    tier: "Premium",
-    priceGBP: 249,
-    status: "Active",
-    renewsOn: "21 July 2026",
-  },
 };
 
 export interface AdminStats {

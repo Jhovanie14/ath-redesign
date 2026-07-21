@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { DEMO_TRAINER_STATS } from "@/lib/dashboard-stats";
 import { DEMO_ENQUIRIES, enquiryStatus } from "@/lib/enquiries";
 import { getRepository } from "@/lib/repository";
-import { formatGBP } from "@/lib/utils";
+import { toSubscriptions } from "@/lib/billing";
+import { formatGBP, formatShortDate } from "@/lib/utils";
 import { DashboardShell } from "@/components/dashboard/dashboard-shell";
 import { StatCard } from "@/components/dashboard/stat-card";
 import { Badge } from "@/components/ui/badge";
@@ -34,6 +36,11 @@ export default async function TrainerDashboardPage() {
     activeCourses.length > 0
       ? Math.min(...activeCourses.map((c) => c.priceGBP))
       : null;
+
+  const trainers = await getRepository().getAll();
+  const subscription = toSubscriptions(trainers, now).find(
+    (s) => s.slug === "dr-amara-okafor",
+  );
 
   return (
     <DashboardShell
@@ -80,24 +87,39 @@ export default async function TrainerDashboardPage() {
         />
       </div>
 
-      <Card className="mt-5">
-        <CardContent>
-          <h2 className="font-display text-title text-ink">
-            Your subscription
-          </h2>
-          <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-small text-ink-soft">
-            <Badge variant="gold">{stats.subscription.tier}</Badge>
-            <span className="font-data text-ink">
-              {formatGBP(stats.subscription.priceGBP)}/month
-            </span>
-            <span>Status: {stats.subscription.status}</span>
-            <span>Renews {stats.subscription.renewsOn}</span>
-            <span className="text-stone">
-              Plan changes &amp; billing history arrive here soon.
-            </span>
-          </div>
-        </CardContent>
-      </Card>
+      {subscription && (
+        <Card className="mt-5">
+          <CardContent>
+            <h2 className="font-display text-title text-ink">
+              Your subscription
+            </h2>
+            <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-small text-ink-soft">
+              {subscription.tier === "premium" ? (
+                <Badge variant="gold">Premium</Badge>
+              ) : (
+                <span className="text-ink-soft">Standard</span>
+              )}
+              <span className="font-data text-ink">
+                {formatGBP(subscription.priceGBP)}/
+                {subscription.cycle === "annual" ? "year" : "month"}
+              </span>
+              <span>
+                Status:{" "}
+                {subscription.initialStatus === "active"
+                  ? "Active"
+                  : "Cancelled"}
+              </span>
+              <span>Renews {formatShortDate(subscription.renewsOn)}</span>
+              <Link
+                href="/trainer/billing"
+                className="text-ink underline-offset-4 hover:underline"
+              >
+                Manage billing
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </DashboardShell>
   );
 }
