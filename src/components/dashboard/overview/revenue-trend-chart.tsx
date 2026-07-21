@@ -7,6 +7,7 @@ import {
   ComposedChart,
   ResponsiveContainer,
   Tooltip,
+  type TooltipValueType,
   XAxis,
   YAxis,
 } from "recharts";
@@ -62,12 +63,16 @@ export function RevenueTrendChart({ data }: { data: TrendPoint[] }) {
                 width={32}
               />
               <Tooltip
-                formatter={
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  (value: any, name: any) =>
-                    name === "mrrGBP"
-                      ? [formatGBP(value || 0), "MRR"]
-                      : [value || 0, "New signups"]
+                formatter={(
+                  value: TooltipValueType | undefined,
+                  name: string | number | undefined,
+                ) =>
+                  name === "mrrGBP"
+                    ? [
+                        formatGBP(typeof value === "number" ? value : 0),
+                        "MRR",
+                      ]
+                    : [value, "New signups"]
                 }
                 contentStyle={{
                   background: "var(--color-paper)",
