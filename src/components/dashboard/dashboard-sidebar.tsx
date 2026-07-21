@@ -26,7 +26,7 @@ export function DashboardSidebar({ session }: DashboardSidebarProps) {
 
   return (
     <Sidebar collapsible="offcanvas">
-      <SidebarHeader className="gap-1.5 px-4 pt-5 pb-3">
+      <SidebarHeader className="gap-1.5 px-3 pt-5 pb-3">
         <Link href="/" aria-label="Aesthetic Training Hub — home" className="block">
           <Image
             src="/logos/wordmark-stone.png"
