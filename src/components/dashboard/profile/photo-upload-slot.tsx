@@ -4,6 +4,15 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import { Camera, Pencil, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const MAX_BYTES = 5 * 1024 * 1024;
 const ACCEPTED_TYPES = ["image/png", "image/jpeg", "image/webp"];
@@ -27,6 +36,14 @@ export function PhotoUploadSlot({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [broken, setBroken] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+
+  function confirmRemove() {
+    setError(null);
+    setBroken(false);
+    onRemove();
+    setConfirmOpen(false);
+  }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -97,11 +114,7 @@ export function PhotoUploadSlot({
           <button
             type="button"
             aria-label={`Remove ${ariaLabel}`}
-            onClick={() => {
-              setError(null);
-              setBroken(false);
-              onRemove();
-            }}
+            onClick={() => setConfirmOpen(true)}
             className="flex h-9 w-9 items-center justify-center rounded-full bg-ink/85 text-ivory shadow-e1 outline-none transition-all hover:scale-105 hover:bg-error focus-visible:scale-105 focus-visible:bg-error"
           >
             <X className="h-4 w-4" />
@@ -128,6 +141,31 @@ export function PhotoUploadSlot({
           {error}
         </p>
       )}
+
+      <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="text-title">
+              Remove {ariaLabel}?
+            </DialogTitle>
+            <DialogDescription>
+              This clears the {ariaLabel} from your draft. Your public
+              profile keeps its current photo until you save changes.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setConfirmOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              onClick={confirmRemove}
+              className="bg-error text-ivory hover:bg-error/90"
+            >
+              Remove {ariaLabel}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
