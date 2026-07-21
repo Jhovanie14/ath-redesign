@@ -14,6 +14,7 @@ import type { Enquiry } from "./enquiries";
 import { enquiryStatus } from "./enquiries";
 import type { RenewalUrgency } from "./practitioners";
 import { renewalUrgency } from "./practitioners";
+import type { BadgeProps } from "@/components/ui/badge";
 
 const MS_PER_DAY = 1000 * 60 * 60 * 24;
 
@@ -166,6 +167,18 @@ export function getCourseLineup(courses: Course[]): CourseLineupDatum[] {
     }))
     .sort((a, b) => b.priceGBP - a.priceGBP);
 }
+
+/** Shared badge styling for a urgency grade — used on the Overview
+ * verification card and the Documents page header so both agree on what
+ * "Verified"/"Due soon"/"Lapsed" look like. */
+export const VERIFICATION_URGENCY_BADGE: Record<
+  RenewalUrgency,
+  { label: string; variant: BadgeProps["variant"] }
+> = {
+  overdue: { label: "Lapsed", variant: "error" },
+  "due-soon": { label: "Due soon", variant: "warning" },
+  current: { label: "Verified", variant: "success" },
+};
 
 export interface VerificationSnapshot {
   renewalDue: string; // ISO date

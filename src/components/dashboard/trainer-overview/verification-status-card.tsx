@@ -1,25 +1,17 @@
 import Link from "next/link";
 import { Check } from "lucide-react";
 import type { VerificationSnapshot } from "@/lib/trainer-insights";
+import { VERIFICATION_URGENCY_BADGE } from "@/lib/trainer-insights";
 import { formatShortDate } from "@/lib/utils";
-import { Badge, type BadgeProps } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-const URGENCY_BADGE: Record<
-  VerificationSnapshot["urgency"],
-  { label: string; variant: BadgeProps["variant"] } | null
-> = {
-  overdue: { label: "Lapsed", variant: "error" },
-  "due-soon": { label: "Due soon", variant: "warning" },
-  current: { label: "Verified", variant: "success" },
-};
 
 export function VerificationStatusCard({
   snapshot,
 }: {
   snapshot: VerificationSnapshot;
 }) {
-  const badge = URGENCY_BADGE[snapshot.urgency];
+  const badge = VERIFICATION_URGENCY_BADGE[snapshot.urgency];
 
   const checks = [
     { label: "Insurance", checkedAt: snapshot.insuranceCheckedAt },

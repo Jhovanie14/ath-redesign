@@ -135,7 +135,10 @@ export default async function TrainerDashboardPage() {
       </h2>
       <div className="mt-4 grid gap-5 lg:grid-cols-3">
         <AwaitingReplyCard enquiries={awaitingReply} />
-        <UpcomingBookingsCard bookings={upcomingBookings} />
+        <UpcomingBookingsCard
+          bookings={upcomingBookings}
+          footerHref="/trainer/availability"
+        />
         {verification && <VerificationStatusCard snapshot={verification} />}
       </div>
 

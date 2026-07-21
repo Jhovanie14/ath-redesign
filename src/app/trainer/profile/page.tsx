@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { getRepository } from "@/lib/repository";
+import { resolveImage } from "@/lib/media";
 import { DashboardShell } from "@/components/dashboard/dashboard-shell";
 import { ProfileForm } from "@/components/dashboard/profile/profile-form";
 import { logoutTrainer } from "../actions";
@@ -26,9 +27,9 @@ export default async function TrainerProfilePage() {
       logoutAction={logoutTrainer}
     >
       <ProfileForm
-        initialHeadline={trainer.headline}
-        initialCity={trainer.city}
-        initialBio={trainer.bio}
+        trainer={trainer}
+        coverSrc={resolveImage(`trainers/${trainer.slug}`)}
+        headshotSrc={resolveImage(`trainers/headshots/${trainer.slug}`)}
       />
     </DashboardShell>
   );

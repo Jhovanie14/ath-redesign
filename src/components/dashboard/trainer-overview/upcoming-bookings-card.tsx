@@ -15,8 +15,12 @@ function relativeDay(daysAway: number): string {
 
 export function UpcomingBookingsCard({
   bookings,
+  footerHref,
 }: {
   bookings: UpcomingBooking[];
+  /** Omit when the card is already rendered on the availability page itself
+   * — a "Manage availability" link back to the current page is dead weight. */
+  footerHref?: string;
 }) {
   const shown = bookings.slice(0, 3);
 
@@ -58,12 +62,14 @@ export function UpcomingBookingsCard({
           </ul>
         )}
 
-        <Link
-          href="/trainer/availability"
-          className="mt-4 inline-block text-small font-medium text-ink underline underline-offset-4 hover:text-ink-soft"
-        >
-          Manage availability &rarr;
-        </Link>
+        {footerHref && (
+          <Link
+            href={footerHref}
+            className="mt-4 inline-block text-small font-medium text-ink underline underline-offset-4 hover:text-ink-soft"
+          >
+            Manage availability &rarr;
+          </Link>
+        )}
       </CardContent>
     </Card>
   );

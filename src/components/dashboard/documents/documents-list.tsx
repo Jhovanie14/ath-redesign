@@ -1,6 +1,10 @@
 "use client";
 
 import { useRef, useState } from "react";
+import type { VerificationSnapshot } from "@/lib/trainer-insights";
+import { VERIFICATION_URGENCY_BADGE } from "@/lib/trainer-insights";
+import { formatShortDate } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { VerifiedSeal } from "@/components/verified-seal";
 
@@ -17,7 +21,14 @@ type SlotState = {
   verifiedNote?: string;
 };
 
-export function DocumentsList({ slots }: { slots: DocSlot[] }) {
+export function DocumentsList({
+  slots,
+  snapshot,
+}: {
+  slots: DocSlot[];
+  snapshot: VerificationSnapshot;
+}) {
+  const badge = VERIFICATION_URGENCY_BADGE[snapshot.urgency];
   const [slotStates, setSlotStates] = useState<Record<string, SlotState>>(
     () =>
       Object.fromEntries(
@@ -67,7 +78,26 @@ export function DocumentsList({ slots }: { slots: DocSlot[] }) {
         </p>
       </div>
 
-      <div className="mt-8 flex max-w-md flex-col gap-4">
+      <div className="mt-5 flex max-w-md items-center gap-2.5 rounded-card border border-linen bg-paper px-5 py-4">
+        <Badge variant={badge.variant}>{badge.label}</Badge>
+        <span className="text-small text-ink-soft">
+          {snapshot.urgency === "overdue" ? (
+            <>
+              Cover lapsed on{" "}
+              <span className="font-medium text-error">
+                {formatShortDate(snapshot.renewalDue)}
+              </span>
+            </>
+          ) : (
+            <>
+              Next renewal {formatShortDate(snapshot.renewalDue)} &middot;{" "}
+              {snapshot.daysUntilRenewal} days away
+            </>
+          )}
+        </span>
+      </div>
+
+      <div className="mt-6 flex max-w-md flex-col gap-4">
         {slots.map((slot) => {
           const state = slotStates[slot.id];
           return (

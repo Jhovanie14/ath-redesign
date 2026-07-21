@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { getRepository } from "@/lib/repository";
 import { formatMonthYear } from "@/lib/utils";
+import { getVerificationSnapshot } from "@/lib/trainer-insights";
 import { DashboardShell } from "@/components/dashboard/dashboard-shell";
 import {
   DocumentsList,
@@ -47,13 +48,15 @@ export default async function TrainerDocumentsPage() {
     },
   ];
 
+  const snapshot = getVerificationSnapshot(trainer.verification, new Date());
+
   return (
     <DashboardShell
       session={session}
       publicProfileHref="/trainer/dr-amara-okafor"
       logoutAction={logoutTrainer}
     >
-      <DocumentsList slots={slots} />
+      <DocumentsList slots={slots} snapshot={snapshot} />
     </DashboardShell>
   );
 }
