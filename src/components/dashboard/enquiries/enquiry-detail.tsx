@@ -64,7 +64,7 @@ export function EnquiryDetail({
   }
 
   return (
-    <div className="mx-auto max-w-[1200px]">
+    <>
       <Link
         href="/trainer/enquiries"
         className="inline-flex min-h-10 items-center gap-1.5 text-small font-medium text-[#5F5A51] transition-colors duration-150 hover:text-[#25241F] focus-visible:text-[#25241F] focus-visible:outline-none"
@@ -249,6 +249,6 @@ export function EnquiryDetail({
           </Card>
         </div>
       </div>
-    </div>
+    </>
   );
 }
