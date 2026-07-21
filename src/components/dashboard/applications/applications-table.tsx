@@ -7,6 +7,7 @@ import { usePagination } from "@/hooks/use-pagination";
 import { Badge, type BadgeProps } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { EmptyState } from "@/components/empty-state";
 import {
   Select,
   SelectContent,
@@ -77,12 +78,10 @@ export function ApplicationsTable({
 
   if (applications.length === 0) {
     return (
-      <div className="rounded-card border border-linen bg-paper px-6 py-16 text-center">
-        <p className="font-display text-title text-ink">No applications yet</p>
-        <p className="mt-1.5 text-small text-ink-soft">
-          New trainer applications will appear here as they come in.
-        </p>
-      </div>
+      <EmptyState
+        title="No applications yet"
+        description="New trainer applications will appear here as they come in."
+      />
     );
   }
 
@@ -123,12 +122,11 @@ export function ApplicationsTable({
       </div>
 
       {filtered.length === 0 ? (
-        <div className="mt-6 rounded-card border border-linen bg-paper px-6 py-16 text-center">
-          <p className="font-display text-title text-ink">No matches</p>
-          <p className="mt-1.5 text-small text-ink-soft">
-            Try a different search term or status filter.
-          </p>
-        </div>
+        <EmptyState
+          className="mt-6"
+          title="No matches"
+          description="Try a different search term or status filter."
+        />
       ) : (
         <div className="mt-6 overflow-hidden rounded-card border border-linen bg-paper">
         <Table>

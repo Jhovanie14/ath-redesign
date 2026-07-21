@@ -21,6 +21,30 @@ const TIER_PRICE: Record<Trainer["tier"], Record<BillingCycle, number>> = {
   premium: { monthly: 69, annual: 690 },
 };
 
+export function priceForTier(tier: Trainer["tier"], cycle: BillingCycle): number {
+  return TIER_PRICE[tier][cycle];
+}
+
+/** Mirrors PLANS[].features in src/components/pricing/pricing-plans.tsx, so
+ * the trainer-side Billing page lists the same entitlements the public
+ * pricing page sells — no separate, driftable copy of what each tier includes. */
+export const TIER_FEATURES: Record<Trainer["tier"], string[]> = {
+  standard: [
+    "Verified listing on the Hub",
+    "Appears in search and on the map",
+    "Unlimited student enquiries",
+    "Verified reviews from your students",
+    "Full profile with courses and pricing",
+  ],
+  premium: [
+    "Everything in Standard",
+    "Premium badge and gold frame",
+    "Priority placement in Recommended results",
+    "Eligible for homepage feature slots",
+    "Priority enquiries and support",
+  ],
+};
+
 const CYCLE_LENGTH_DAYS: Record<BillingCycle, number> = {
   monthly: 30,
   annual: 365,

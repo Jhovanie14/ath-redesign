@@ -18,6 +18,9 @@ export interface Course {
   cpdAccredited: boolean;
   maxDelegates: number;
   summary: string;
+  archived?: boolean; // undefined/false = active. Optional so existing seed
+                      // data across all trainers in trainers.json doesn't
+                      // need to be touched.
 }
 
 export interface Review {

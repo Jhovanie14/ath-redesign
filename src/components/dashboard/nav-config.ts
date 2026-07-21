@@ -25,12 +25,13 @@ export interface NavItem {
 export const TRAINER_NAV: NavItem[] = [
   { label: "Overview", href: "/trainer", icon: LayoutGrid },
   { label: "Enquiries", href: "/trainer/enquiries", icon: MessageSquare },
-  { label: "Courses", href: "/trainer/courses", icon: BookOpen, disabled: true },
-  { label: "Availability", href: "/trainer/availability", icon: Calendar, disabled: true },
-  { label: "Reviews", href: "/trainer/reviews", icon: Star, disabled: true },
-  { label: "Profile", href: "/trainer/profile", icon: User, disabled: true },
-  { label: "Documents", href: "/trainer/documents", icon: FileText, disabled: true },
-  { label: "Billing", href: "/trainer/billing", icon: CreditCard, disabled: true },
+  { label: "Courses", href: "/trainer/courses", icon: BookOpen },
+  { label: "Availability", href: "/trainer/availability", icon: Calendar },
+  { label: "Reviews", href: "/trainer/reviews", icon: Star },
+  { label: "Profile", href: "/trainer/profile", icon: User },
+  { label: "Documents", href: "/trainer/documents", icon: FileText },
+  { label: "Billing", href: "/trainer/billing", icon: CreditCard },
+  { label: "Settings", href: "/trainer/settings", icon: Settings },
 ];
 
 export const ADMIN_NAV: NavItem[] = [

@@ -23,7 +23,9 @@ export interface Practitioner {
   initialStatus: PractitionerStatus;
 }
 
-function renewalUrgency(days: number): RenewalUrgency {
+/** Shared so the trainer-side Overview grades its own renewal against the
+ * same thresholds the admin Practitioners table uses (see trainer-insights.ts). */
+export function renewalUrgency(days: number): RenewalUrgency {
   if (days < 0) return "overdue";
   if (days <= DUE_SOON_WINDOW_DAYS) return "due-soon";
   return "current";
