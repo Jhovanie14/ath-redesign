@@ -9,6 +9,7 @@ import {
   Settings,
   Star,
   User,
+  UserCog,
   Users,
 } from "lucide-react";
 import type { Role } from "@/lib/auth";
@@ -40,6 +41,7 @@ export const ADMIN_NAV: NavItem[] = [
   { label: "Reviews", href: "/admin/reviews", icon: Star },
   { label: "Billing", href: "/admin/billing", icon: CreditCard },
   { label: "Config", href: "/admin/config", icon: Settings },
+  { label: "Settings", href: "/admin/settings", icon: UserCog },
 ];
 
 export function navForRole(role: Role): NavItem[] {
