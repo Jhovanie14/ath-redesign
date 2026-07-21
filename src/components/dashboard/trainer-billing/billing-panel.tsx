@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import type { BillingCycle, Subscription, SubscriptionStatus } from "@/lib/billing";
-import { Badge } from "@/components/ui/badge";
 import { BillingCycleSelector } from "./billing-cycle-selector";
 import { PlanCard } from "./plan-card";
 import { SubscriptionSummaryCard } from "./subscription-summary-card";
@@ -55,13 +54,8 @@ export function BillingPanel({ subscription }: { subscription: Subscription }) {
   }
 
   return (
-    <div className="mx-auto max-w-[1220px]">
-      <div className="flex flex-wrap items-center gap-3">
-        <h1 className="font-display text-display-md text-ink">Billing</h1>
-        <Badge variant={state.status === "active" ? "success" : "error"}>
-          {state.status === "active" ? "Active" : "Cancelled"}
-        </Badge>
-      </div>
+    <>
+      <h1 className="font-display text-display-md text-ink">Billing</h1>
       <p className="mt-2.5 max-w-xl text-body text-ink-soft">
         Manage your plan and billing cycle.
       </p>
@@ -107,6 +101,6 @@ export function BillingPanel({ subscription }: { subscription: Subscription }) {
           onToggleStatus={toggleStatus}
         />
       </div>
-    </div>
+    </>
   );
 }

@@ -26,7 +26,7 @@ export function SubscriptionSummaryCard({
 
   return (
     <div className="lg:sticky lg:top-24">
-      <div className="rounded-card border border-linen bg-paper p-7 shadow-e1 sm:p-8">
+      <div className="rounded-card border border-linen bg-paper p-7 shadow-e1">
         <div className="flex items-center gap-3.5">
           <span
             aria-hidden="true"
@@ -47,25 +47,25 @@ export function SubscriptionSummaryCard({
           </div>
         </div>
 
-        <div className="mt-6 flex items-baseline gap-2 border-t border-linen pt-6">
-          <span className="font-data text-display-md font-medium text-ink">
+        <div className="mt-6 flex items-baseline gap-2 border-t border-[#E4DED4] pt-6">
+          <span className="font-data text-[44px] font-medium leading-none text-ink">
             {formatGBP(price)}
           </span>
-          <span className="text-small text-stone">
+          <span className="text-small text-[#9A9285]">
             per {cycle === "annual" ? "year" : "month"}
           </span>
         </div>
 
-        <div className="mt-4 flex flex-col gap-1">
+        <div className="mt-6 flex flex-col gap-1">
           <p className="text-small text-ink">
             Renews {formatShortDate(renewsOn)}
           </p>
-          <p className="text-small text-stone">
+          <p className="text-small text-[#9A9285]">
             {cycle === "annual" ? "Annual" : "Monthly"} billing
           </p>
         </div>
 
-        <div className="mt-7 border-t border-linen pt-6">
+        <div className="mt-6 border-t border-[#E4DED4] pt-6">
           <p className="text-small font-semibold text-ink">
             Subscription management
           </p>
@@ -74,7 +74,7 @@ export function SubscriptionSummaryCard({
               <button
                 type="button"
                 onClick={onToggleStatus}
-                className="text-small font-medium text-stone transition-colors duration-150 hover:text-error focus-visible:text-error"
+                className="-ml-2.5 rounded-lg px-2.5 py-2 text-small font-medium text-[#746F65] transition-colors duration-150 hover:bg-[#F9ECEA] hover:text-[#A34F46] focus-visible:bg-[#F9ECEA] focus-visible:text-[#A34F46]"
               >
                 Cancel subscription
               </button>

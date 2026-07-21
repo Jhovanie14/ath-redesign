@@ -39,10 +39,19 @@ export function PlanCard({
   return (
     <div
       className={cn(
-        "flex flex-col rounded-card border bg-paper p-7 shadow-e1 transition-shadow duration-200",
-        isCurrent ? "border-gold" : "border-linen hover:shadow-e2",
+        "relative flex flex-col overflow-hidden rounded-card border p-7 transition-[box-shadow,border-color,transform] duration-[180ms] ease-out",
+        isCurrent
+          ? "border-[#C6A45E] bg-[#FFFCF6] shadow-[0_10px_30px_rgba(54,43,25,0.05)]"
+          : "border-linen bg-paper shadow-e1 hover:-translate-y-px hover:border-[#CFC5B4] hover:shadow-[0_10px_28px_rgba(40,35,28,0.055)]",
       )}
     >
+      {isCurrent && (
+        <span
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0 h-[3px] bg-[#B9985A]"
+        />
+      )}
+
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           <span
@@ -67,31 +76,34 @@ export function PlanCard({
       <p className="mt-3 text-small text-ink-soft">{tagline}</p>
 
       <div className="mt-6 flex items-baseline gap-2">
-        <span className="font-data text-display-md font-medium text-ink">
+        <span className="font-data text-[40px] font-medium leading-none text-ink">
           {formatGBP(price)}
         </span>
-        <span className="text-small text-stone">
+        <span className="text-small text-[#9A9285]">
           per {cycle === "annual" ? "year" : "month"}
         </span>
       </div>
 
-      <ul className="mt-6 flex flex-col gap-2.5">
+      <ul className="mt-6 flex flex-col gap-3">
         {TIER_FEATURES[tier].map((feature) => (
-          <li key={feature} className="flex items-start gap-2.5 text-small text-ink-soft">
-            <Check className="mt-0.5 h-4 w-4 shrink-0 text-ink" strokeWidth={2.5} />
+          <li
+            key={feature}
+            className="flex items-start gap-2 text-small leading-[1.45] text-ink-soft"
+          >
+            <span className="flex w-[18px] shrink-0 justify-start pt-0.5">
+              <Check className="h-4 w-4 text-ink" strokeWidth={2.5} />
+            </span>
             {feature}
           </li>
         ))}
       </ul>
 
-      <div className="mt-7 pt-1">
+      <div className="mt-auto pt-7">
         {isCurrent ? (
-          <Button
-            disabled
-            className="w-full bg-linen text-stone opacity-100 hover:bg-linen"
-          >
-            Current plan
-          </Button>
+          <div className="flex h-11 cursor-default items-center justify-center gap-1.5 rounded-[10px] border border-[#DED8CD] bg-[#F2EEE5] text-small font-medium text-[#746F65]">
+            <Check className="h-4 w-4" strokeWidth={2.5} aria-hidden="true" />
+            Your current plan
+          </div>
         ) : (
           <Button
             variant={isUpgrade ? "primary" : "outline"}
