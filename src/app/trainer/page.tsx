@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { DEMO_TRAINER_STATS } from "@/lib/dashboard-stats";
+import { DEMO_ENQUIRIES, enquiryStatus } from "@/lib/enquiries";
 import { formatGBP } from "@/lib/utils";
 import { DashboardShell } from "@/components/dashboard/dashboard-shell";
 import { StatCard } from "@/components/dashboard/stat-card";
@@ -20,6 +21,10 @@ export default async function TrainerDashboardPage() {
   }
 
   const stats = DEMO_TRAINER_STATS;
+  const now = new Date();
+  const newEnquiryCount = DEMO_ENQUIRIES.filter(
+    (e) => enquiryStatus(e, now) === "new",
+  ).length;
 
   return (
     <DashboardShell
@@ -42,8 +47,8 @@ export default async function TrainerDashboardPage() {
       <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard
           label="New enquiries"
-          value={stats.newEnquiries}
-          caption={stats.enquiriesNote}
+          value={newEnquiryCount}
+          caption={newEnquiryCount > 0 ? "Awaiting your reply" : "All read"}
         />
         <StatCard
           label="Bookings"

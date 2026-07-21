@@ -1,11 +1,13 @@
 // Placeholder dashboard metrics — there is no backend yet (same "mock now,
 // wire up later" seam as getRepository() in ./repository.ts). Swap these for
-// real queries once applications/bookings/billing exist.
+// real queries once bookings/billing exist.
+//
+// newEnquiries is derived live from DEMO_ENQUIRIES/enquiryStatus() in
+// src/lib/enquiries.ts (see src/app/trainer/page.tsx) — no separate stub,
+// so Overview can't silently drift from the Enquiries page it summarizes.
 
 export interface TrainerStats {
   liveInSearch: boolean;
-  newEnquiries: number;
-  enquiriesNote: string;
   bookings: number;
   bookingsNote: string;
   activeCourses: number;
@@ -22,8 +24,6 @@ export interface TrainerStats {
 
 export const DEMO_TRAINER_STATS: TrainerStats = {
   liveInSearch: true,
-  newEnquiries: 1,
-  enquiriesNote: "All read",
   bookings: 14,
   bookingsNote: "Confirmed on the Hub",
   activeCourses: 2,
