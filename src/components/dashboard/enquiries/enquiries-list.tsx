@@ -129,7 +129,6 @@ export function EnquiriesList({
                     <Badge
                       variant={badge.variant}
                       className={cn(
-                        "rounded-full px-[9px] py-[5px] text-[12px] font-medium",
                         status === "new" && "bg-[#F3E9D5] text-[#7B6030]",
                       )}
                     >

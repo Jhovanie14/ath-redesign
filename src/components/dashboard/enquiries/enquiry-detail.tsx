@@ -79,10 +79,7 @@ export function EnquiryDetail({
         </h1>
         <Badge
           variant={badge.variant}
-          className={cn(
-            "rounded-full px-[9px] py-[5px] text-[12px] font-medium",
-            status === "new" && "bg-[#F3E9D5] text-[#7B6030]",
-          )}
+          className={cn(status === "new" && "bg-[#F3E9D5] text-[#7B6030]")}
         >
           {badge.label}
         </Badge>

@@ -26,6 +26,9 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
+const FIELD_CLASS =
+  "h-11 rounded-[10px] border-[#DED8CD] bg-[#FFFEFC] text-[15px] text-[#25241F] transition-colors hover:border-[#C9C1B5] focus-visible:outline-none focus-visible:border-[#B9985A] focus-visible:shadow-[0_0_0_3px_rgba(185,152,90,0.14)] aria-invalid:border-[#B4493F]";
+
 interface CourseFormState {
   title: string;
   category: CourseCategory;
@@ -131,7 +134,10 @@ export function CourseFormDialog({
 
           <div className="mt-6 flex flex-col gap-4">
             <div>
-              <label htmlFor="course-title" className="eyebrow mb-2 block">
+              <label
+                htmlFor="course-title"
+                className="mb-2 block text-[13px] font-medium text-[#746F65]"
+              >
                 Title
               </label>
               <Input
@@ -142,14 +148,20 @@ export function CourseFormDialog({
                 }
                 placeholder="Advanced Cheek & Midface Filler"
                 aria-invalid={Boolean(errors.title)}
+                className={FIELD_CLASS}
               />
               {errors.title && (
-                <p className="mt-1.5 text-micro text-error">{errors.title}</p>
+                <p className="mt-1.5 text-[13px] text-[#B4493F]">
+                  {errors.title}
+                </p>
               )}
             </div>
 
             <div>
-              <label htmlFor="course-category" className="eyebrow mb-2 block">
+              <label
+                htmlFor="course-category"
+                className="mb-2 block text-[13px] font-medium text-[#746F65]"
+              >
                 Category
               </label>
               <Select
@@ -158,7 +170,7 @@ export function CourseFormDialog({
                   setForm((f) => ({ ...f, category: v as CourseCategory }))
                 }
               >
-                <SelectTrigger id="course-category">
+                <SelectTrigger id="course-category" className={FIELD_CLASS}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -173,7 +185,10 @@ export function CourseFormDialog({
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="course-price" className="eyebrow mb-2 block">
+                <label
+                  htmlFor="course-price"
+                  className="mb-2 block text-[13px] font-medium text-[#746F65]"
+                >
                   Price (GBP)
                 </label>
                 <Input
@@ -186,16 +201,20 @@ export function CourseFormDialog({
                   }
                   placeholder="1450"
                   aria-invalid={Boolean(errors.priceGBP)}
+                  className={FIELD_CLASS}
                 />
                 {errors.priceGBP && (
-                  <p className="mt-1.5 text-micro text-error">
+                  <p className="mt-1.5 text-[13px] text-[#B4493F]">
                     {errors.priceGBP}
                   </p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="course-duration" className="eyebrow mb-2 block">
+                <label
+                  htmlFor="course-duration"
+                  className="mb-2 block text-[13px] font-medium text-[#746F65]"
+                >
                   Duration (days)
                 </label>
                 <Input
@@ -208,9 +227,10 @@ export function CourseFormDialog({
                   }
                   placeholder="2"
                   aria-invalid={Boolean(errors.durationDays)}
+                  className={FIELD_CLASS}
                 />
                 {errors.durationDays && (
-                  <p className="mt-1.5 text-micro text-error">
+                  <p className="mt-1.5 text-[13px] text-[#B4493F]">
                     {errors.durationDays}
                   </p>
                 )}
@@ -220,7 +240,7 @@ export function CourseFormDialog({
             <div>
               <label
                 htmlFor="course-max-delegates"
-                className="eyebrow mb-2 block"
+                className="mb-2 block text-[13px] font-medium text-[#746F65]"
               >
                 Max delegates
               </label>
@@ -234,15 +254,16 @@ export function CourseFormDialog({
                 }
                 placeholder="4"
                 aria-invalid={Boolean(errors.maxDelegates)}
+                className={FIELD_CLASS}
               />
               {errors.maxDelegates && (
-                <p className="mt-1.5 text-micro text-error">
+                <p className="mt-1.5 text-[13px] text-[#B4493F]">
                   {errors.maxDelegates}
                 </p>
               )}
             </div>
 
-            <label className="flex items-center gap-2.5 text-small text-ink">
+            <label className="flex items-center gap-2.5 text-[14px] text-[#25241F]">
               <Checkbox
                 checked={form.cpdAccredited}
                 onCheckedChange={(checked) =>
@@ -253,7 +274,10 @@ export function CourseFormDialog({
             </label>
 
             <div>
-              <label htmlFor="course-summary" className="eyebrow mb-2 block">
+              <label
+                htmlFor="course-summary"
+                className="mb-2 block text-[13px] font-medium text-[#746F65]"
+              >
                 Summary
               </label>
               <Textarea
@@ -265,9 +289,10 @@ export function CourseFormDialog({
                 }
                 placeholder="What students will learn on this course…"
                 aria-invalid={Boolean(errors.summary)}
+                className="rounded-xl border-[#DED8CD] bg-[#FFFEFC] p-4 text-[15px] text-[#25241F] transition-colors hover:border-[#C9C1B5] focus-visible:outline-none focus-visible:border-[#B9985A] focus-visible:shadow-[0_0_0_3px_rgba(185,152,90,0.14)] aria-invalid:border-[#B4493F]"
               />
               {errors.summary && (
-                <p className="mt-1.5 text-micro text-error">
+                <p className="mt-1.5 text-[13px] text-[#B4493F]">
                   {errors.summary}
                 </p>
               )}
