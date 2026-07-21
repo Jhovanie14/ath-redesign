@@ -21,6 +21,10 @@ const TIER_PRICE: Record<Trainer["tier"], Record<BillingCycle, number>> = {
   premium: { monthly: 69, annual: 690 },
 };
 
+export function priceForTier(tier: Trainer["tier"], cycle: BillingCycle): number {
+  return TIER_PRICE[tier][cycle];
+}
+
 const CYCLE_LENGTH_DAYS: Record<BillingCycle, number> = {
   monthly: 30,
   annual: 365,
