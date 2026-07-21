@@ -102,7 +102,7 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-4 md:flex">
           <Link
-            href="/apply"
+            href="/trainer/login"
             className="text-small text-ink-soft transition-colors hover:text-ink"
           >
             Sign in
@@ -168,7 +168,7 @@ export function SiteHeader() {
                 </DialogClose>
                 <DialogClose asChild>
                   <Button asChild variant="ghostInk" size="lg">
-                    <Link href="/apply">Sign in</Link>
+                    <Link href="/trainer/login">Sign in</Link>
                   </Button>
                 </DialogClose>
               </div>
