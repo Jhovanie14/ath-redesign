@@ -13,6 +13,7 @@ import { formatLongDate } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 export function EnquiryDetail({
@@ -123,11 +124,11 @@ export function EnquiryDetail({
               books them in for a review invitation after the course.
             </p>
             <div className="mt-4 flex flex-wrap items-center gap-3">
-              <input
+              <Input
                 type="date"
                 value={dateInput}
                 onChange={(e) => setDateInput(e.target.value)}
-                className="h-11 rounded-xl border border-linen bg-paper px-3.5 text-small text-ink outline-none focus-visible:border-stone"
+                className="h-11 sm:w-auto"
               />
               <Button disabled={!dateInput} onClick={markBooked}>
                 Mark as booked
