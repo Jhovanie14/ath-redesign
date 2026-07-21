@@ -24,8 +24,10 @@ export default async function TrainerEnquiriesPage() {
       publicProfileHref="/trainer/dr-amara-okafor"
       logoutAction={logoutTrainer}
     >
-      <h1 className="font-display text-display-md text-ink">Enquiries</h1>
-      <p className="mt-1.5 text-body text-ink-soft">
+      <h1 className="font-display text-display-md text-[#25241F]">
+        Enquiries
+      </h1>
+      <p className="mt-1.5 text-body text-[#746F65]">
         Messages from students interested in your courses.
       </p>
 

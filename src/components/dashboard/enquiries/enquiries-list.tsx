@@ -8,7 +8,7 @@ import {
   type Enquiry,
   type EnquiryStatus,
 } from "@/lib/enquiries";
-import { formatShortDate } from "@/lib/utils";
+import { cn, formatShortDate } from "@/lib/utils";
 import { usePagination } from "@/hooks/use-pagination";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -81,7 +81,7 @@ export function EnquiriesList({
             setQuery(e.target.value);
             setPage(1);
           }}
-          className="sm:max-w-xs"
+          className="h-11 rounded-[10px] border-[#DED8CD] bg-[#FFFEFC] text-[15px] text-[#25241F] transition-colors placeholder:text-[#A49C8E] hover:border-[#C9C1B5] focus-visible:border-[#B9985A] focus-visible:shadow-[0_0_0_3px_rgba(185,152,90,0.14)] sm:max-w-xs"
         />
         <Select
           value={statusFilter}
@@ -90,7 +90,7 @@ export function EnquiriesList({
             setPage(1);
           }}
         >
-          <SelectTrigger className="h-11 sm:w-[170px]">
+          <SelectTrigger className="h-11 rounded-[10px] border-[#DED8CD] bg-[#FFFEFC] text-[15px] text-[#25241F] transition-colors hover:border-[#C9C1B5] focus-visible:outline-none focus-visible:border-[#B9985A] focus-visible:shadow-[0_0_0_3px_rgba(185,152,90,0.14)] sm:w-[170px]">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -110,7 +110,7 @@ export function EnquiriesList({
           description="Try a different search term or status filter."
         />
       ) : (
-        <div className="mt-6 flex flex-col gap-3">
+        <div className="mt-6 flex flex-col gap-2.5">
           {pageItems.map((enquiry) => {
             const status = enquiryStatus(enquiry, now);
             const badge = STATUS_BADGE[status];
@@ -118,21 +118,29 @@ export function EnquiriesList({
               <Link
                 key={enquiry.id}
                 href={`/trainer/enquiries/${enquiry.id}`}
-                className="flex items-center gap-4 rounded-card border border-linen bg-paper px-5 py-4 transition-colors hover:border-stone"
+                className="flex items-center gap-4 rounded-2xl border border-[#DED8CD] bg-[#FFFEFC] px-5 py-4 transition-colors duration-150 hover:border-[#C9C1B5] hover:bg-[#FCFAF6]"
               >
                 <InitialsAvatar name={enquiry.studentName} />
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
-                    <p className="truncate font-medium text-ink">
+                    <p className="truncate font-medium text-[#25241F]">
                       {enquiry.studentName}
                     </p>
-                    <Badge variant={badge.variant}>{badge.label}</Badge>
+                    <Badge
+                      variant={badge.variant}
+                      className={cn(
+                        "rounded-full px-[9px] py-[5px] text-[12px] font-medium",
+                        status === "new" && "bg-[#F3E9D5] text-[#7B6030]",
+                      )}
+                    >
+                      {badge.label}
+                    </Badge>
                   </div>
-                  <p className="mt-0.5 truncate text-small text-ink-soft">
+                  <p className="mt-0.5 truncate text-[14px] text-[#746F65]">
                     {latestMessageSnippet(enquiry)}
                   </p>
                 </div>
-                <p className="shrink-0 whitespace-nowrap text-small text-ink-soft">
+                <p className="shrink-0 whitespace-nowrap text-[13px] text-[#A49C8E]">
                   {formatShortDate(enquiry.receivedAt)}
                 </p>
               </Link>
