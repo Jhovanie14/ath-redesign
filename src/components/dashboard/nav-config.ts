@@ -27,7 +27,7 @@ export const TRAINER_NAV: NavItem[] = [
   { label: "Enquiries", href: "/trainer/enquiries", icon: MessageSquare },
   { label: "Courses", href: "/trainer/courses", icon: BookOpen },
   { label: "Availability", href: "/trainer/availability", icon: Calendar },
-  { label: "Reviews", href: "/trainer/reviews", icon: Star, disabled: true },
+  { label: "Reviews", href: "/trainer/reviews", icon: Star },
   { label: "Profile", href: "/trainer/profile", icon: User, disabled: true },
   { label: "Documents", href: "/trainer/documents", icon: FileText, disabled: true },
   { label: "Billing", href: "/trainer/billing", icon: CreditCard, disabled: true },
