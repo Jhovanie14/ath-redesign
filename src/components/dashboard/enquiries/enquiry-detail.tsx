@@ -73,7 +73,7 @@ export function EnquiryDetail({
       </p>
 
       <Card className="mt-8">
-        <CardContent className="flex flex-col gap-4">
+        <CardContent className="flex max-h-[400px] flex-col gap-4 overflow-y-auto">
           {messages.map((m, i) => (
             <div
               key={i}
