@@ -48,37 +48,43 @@ export function NotificationPreferencesCard({
   );
 
   return (
-    <Card>
-      <CardHeader>
-        <h2 className="font-sans text-[17px] font-semibold text-ink">
+    <Card className="gap-0 rounded-2xl border-[#DED8CD] bg-[#FFFEFC] p-0 shadow-[0_8px_28px_rgba(40,35,28,0.045)]">
+      <CardHeader className="gap-1.5 px-7 pt-7 pb-0">
+        <h2 className="font-sans text-[19px] font-semibold text-[#25241F]">
           Notification preferences
         </h2>
-        <p className="text-small text-ink-soft">
+        <p className="text-[14px] text-[#746F65]">
           Choose which updates you receive by email.
         </p>
       </CardHeader>
-      <CardContent>
-        <div className="flex flex-col divide-y divide-linen">
-          {rows.map((row) => (
-            <div
-              key={row.id}
-              className="flex items-center justify-between gap-4 py-4 first:pt-0 last:pb-0"
-            >
-              <div className="min-w-0">
-                <p className="text-small font-medium text-ink">{row.label}</p>
-                <p className="mt-0.5 text-micro text-stone">
-                  {row.description}
-                </p>
-              </div>
-              <Switch
-                checked={state[row.id]}
-                onCheckedChange={(checked) =>
-                  setState((prev) => ({ ...prev, [row.id]: checked }))
-                }
-                aria-label={row.label}
-              />
-            </div>
-          ))}
+      <CardContent className="px-7 pt-4 pb-7">
+        <div className="flex flex-col divide-y divide-[#E7E1D8]">
+          {rows.map((row) => {
+            const id = `notif-${row.id}`;
+            return (
+              <label
+                key={row.id}
+                htmlFor={id}
+                className="flex min-h-[68px] cursor-pointer items-center justify-between gap-4 py-[18px] first:pt-0 last:pb-0"
+              >
+                <span className="min-w-0">
+                  <span className="block text-[14px] font-semibold text-[#25241F]">
+                    {row.label}
+                  </span>
+                  <span className="mt-1 block text-[13px] text-[#746F65]">
+                    {row.description}
+                  </span>
+                </span>
+                <Switch
+                  id={id}
+                  checked={state[row.id]}
+                  onCheckedChange={(checked) =>
+                    setState((prev) => ({ ...prev, [row.id]: checked }))
+                  }
+                />
+              </label>
+            );
+          })}
         </div>
       </CardContent>
     </Card>

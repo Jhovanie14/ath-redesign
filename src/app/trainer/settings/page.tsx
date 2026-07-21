@@ -26,15 +26,22 @@ export default async function TrainerSettingsPage() {
       publicProfileHref="/trainer/dr-amara-okafor"
       logoutAction={logoutTrainer}
     >
-      <div className="max-w-2xl">
-        <h1 className="font-display text-display-md text-ink">Settings</h1>
-        <p className="mt-2.5 text-body text-ink-soft">
+      <div>
+        <h1 className="font-display text-display-md text-[#25241F]">
+          Settings
+        </h1>
+        <p className="mt-2.5 max-w-xl text-body text-[#746F65]">
           Manage your account, security, and notification preferences.
         </p>
+      </div>
 
-        <div className="mt-8 flex flex-col gap-8">
+      <div className="mt-8 grid gap-8 lg:grid-cols-[60fr_40fr] lg:items-start">
+        <div className="flex flex-col gap-6">
           <AccountCard email={session.email} />
           <SecurityCard />
+        </div>
+
+        <div className="lg:sticky lg:top-24">
           <NotificationPreferencesCard rows={TRAINER_NOTIFICATION_ROWS} />
         </div>
       </div>
