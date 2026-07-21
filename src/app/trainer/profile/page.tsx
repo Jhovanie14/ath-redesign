@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { getRepository } from "@/lib/repository";
 import { resolveImage } from "@/lib/media";
+import { DEMO_TRAINER_STATS } from "@/lib/dashboard-stats";
 import { DashboardShell } from "@/components/dashboard/dashboard-shell";
 import { ProfileForm } from "@/components/dashboard/profile/profile-form";
 import { logoutTrainer } from "../actions";
@@ -30,6 +31,7 @@ export default async function TrainerProfilePage() {
         trainer={trainer}
         coverSrc={resolveImage(`trainers/${trainer.slug}`)}
         headshotSrc={resolveImage(`trainers/headshots/${trainer.slug}`)}
+        liveInSearch={DEMO_TRAINER_STATS.liveInSearch}
       />
     </DashboardShell>
   );
