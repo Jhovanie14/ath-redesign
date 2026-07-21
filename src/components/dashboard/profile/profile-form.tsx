@@ -190,7 +190,7 @@ export function ProfileForm({
   const previewTrainer: Trainer = { ...trainer, name, headline, city, bio };
 
   return (
-    <div className="mx-auto max-w-[1220px]">
+    <>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="font-display text-display-md text-ink">Profile</h1>
@@ -425,6 +425,6 @@ export function ProfileForm({
       </div>
 
       {showToast && <SaveToast message="Profile updated" />}
-    </div>
+    </>
   );
 }

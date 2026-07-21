@@ -56,7 +56,7 @@ export function DocumentsList({
   ).length;
 
   return (
-    <div className="mx-auto max-w-[1220px]">
+    <>
       <div className="flex flex-wrap items-center gap-3">
         <h1 className="font-display text-display-md text-ink">Documents</h1>
         <Badge variant={badge.variant}>{badge.label}</Badge>
@@ -93,6 +93,6 @@ export function DocumentsList({
           totalCount={slots.length}
         />
       </div>
-    </div>
+    </>
   );
 }
