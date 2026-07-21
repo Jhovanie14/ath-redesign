@@ -53,6 +53,7 @@ export function DuotoneCover({
           alt={alt}
           fill
           priority={priority}
+          unoptimized={src.startsWith("blob:")}
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 420px"
         />

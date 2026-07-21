@@ -6,6 +6,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { TrainerCard } from "@/components/trainer-card";
+import { PhotoUploadSlot } from "./photo-upload-slot";
+
+/** Revoke the previous blob URL (if any) before swapping in a new one, so
+ * repeated replace/remove clicks in one session don't leak object URLs. */
+function replaceObjectUrl(
+  prev: string | undefined,
+  next: string | undefined,
+) {
+  if (prev?.startsWith("blob:")) URL.revokeObjectURL(prev);
+  return next;
+}
 
 export function ProfileForm({
   trainer,
@@ -19,9 +30,13 @@ export function ProfileForm({
   const [headline, setHeadline] = useState(trainer.headline);
   const [city, setCity] = useState(trainer.city);
   const [bio, setBio] = useState(trainer.bio);
+  const [coverUrl, setCoverUrl] = useState(coverSrc);
+  const [headshotUrl, setHeadshotUrl] = useState(headshotSrc);
   const [savedHeadline, setSavedHeadline] = useState(trainer.headline);
   const [savedCity, setSavedCity] = useState(trainer.city);
   const [savedBio, setSavedBio] = useState(trainer.bio);
+  const [savedCoverUrl, setSavedCoverUrl] = useState(coverSrc);
+  const [savedHeadshotUrl, setSavedHeadshotUrl] = useState(headshotSrc);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [justSaved, setJustSaved] = useState(false);
 
@@ -43,6 +58,28 @@ export function ProfileForm({
     setJustSaved(false);
   }
 
+  function onCoverFileSelect(file: File) {
+    setCoverUrl((prev) => replaceObjectUrl(prev, URL.createObjectURL(file)));
+    setJustSaved(false);
+  }
+
+  function onCoverRemove() {
+    setCoverUrl((prev) => replaceObjectUrl(prev, undefined));
+    setJustSaved(false);
+  }
+
+  function onHeadshotFileSelect(file: File) {
+    setHeadshotUrl((prev) =>
+      replaceObjectUrl(prev, URL.createObjectURL(file)),
+    );
+    setJustSaved(false);
+  }
+
+  function onHeadshotRemove() {
+    setHeadshotUrl((prev) => replaceObjectUrl(prev, undefined));
+    setJustSaved(false);
+  }
+
   function save() {
     const next: Record<string, string> = {};
     if (!headline.trim()) next.headline = "Add a headline.";
@@ -54,13 +91,17 @@ export function ProfileForm({
     setSavedHeadline(headline);
     setSavedCity(city);
     setSavedBio(bio);
+    setSavedCoverUrl(coverUrl);
+    setSavedHeadshotUrl(headshotUrl);
     setJustSaved(true);
   }
 
   const unchanged =
     headline.trim() === savedHeadline.trim() &&
     city.trim() === savedCity.trim() &&
-    bio.trim() === savedBio.trim();
+    bio.trim() === savedBio.trim() &&
+    coverUrl === savedCoverUrl &&
+    headshotUrl === savedHeadshotUrl;
 
   const previewTrainer: Trainer = {
     ...trainer,
@@ -79,7 +120,23 @@ export function ProfileForm({
       </div>
 
       <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,26rem)_18rem] lg:items-start">
-        <div className="flex flex-col gap-4 rounded-card border border-linen bg-paper p-6">
+        <div className="flex flex-col gap-6 rounded-card border border-linen bg-paper p-6">
+          <div className="grid grid-cols-[1fr_auto] gap-6">
+            <PhotoUploadSlot
+              label="Cover photo"
+              previewUrl={coverUrl}
+              onFileSelect={onCoverFileSelect}
+              onRemove={onCoverRemove}
+            />
+            <PhotoUploadSlot
+              label="Headshot"
+              previewUrl={headshotUrl}
+              shape="circle"
+              onFileSelect={onHeadshotFileSelect}
+              onRemove={onHeadshotRemove}
+            />
+          </div>
+
           <div>
             <label htmlFor="profile-headline" className="eyebrow mb-2 block">
               Headline
@@ -145,8 +202,8 @@ export function ProfileForm({
           <p className="eyebrow mb-3">How you appear in search</p>
           <TrainerCard
             trainer={previewTrainer}
-            coverSrc={coverSrc}
-            headshotSrc={headshotSrc}
+            coverSrc={savedCoverUrl}
+            headshotSrc={savedHeadshotUrl}
             className="border border-linen shadow-e1"
           />
           {!unchanged && (

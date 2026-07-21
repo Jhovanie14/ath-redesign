@@ -76,6 +76,7 @@ export function TrainerCard({
                 alt={`${trainer.name} — portrait`}
                 width={44}
                 height={44}
+                unoptimized={headshotSrc.startsWith("blob:")}
                 className="h-full w-full object-cover"
               />
             ) : (
