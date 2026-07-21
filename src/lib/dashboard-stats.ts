@@ -39,18 +39,18 @@ export const DEMO_TRAINER_STATS: TrainerStats = {
 };
 
 export interface AdminStats {
-  pendingApplications: number;
   mrrNote: string;
   churnThisMonth: number;
 }
 
-// activeSubscribers, mrrGBP, and insuranceExpiring are all derived live — the
-// first two from toSubscriptions()/totalMRR() in src/lib/billing.ts, the last
-// from toPractitioners()'s renewalUrgency in src/lib/practitioners.ts (see
-// src/app/admin/page.tsx) — so Overview always agrees with Billing and
-// Practitioners. No separate stub for any of the three.
+// activeSubscribers, mrrGBP, insuranceExpiring, and pendingApplications are
+// all derived live — the first two from toSubscriptions()/totalMRR() in
+// src/lib/billing.ts, the third from toPractitioners()'s renewalUrgency in
+// src/lib/practitioners.ts, and the fourth from filtering DEMO_APPLICATIONS
+// in src/lib/applications.ts (see src/app/admin/page.tsx) — so Overview
+// always agrees with Billing, Practitioners, and the applications queue. No
+// separate stub for any of the four.
 export const DEMO_ADMIN_STATS: AdminStats = {
-  pendingApplications: 2,
   mrrNote: "Annual plans counted at 1/12",
   churnThisMonth: 0,
 };

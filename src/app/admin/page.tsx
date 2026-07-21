@@ -49,6 +49,10 @@ export default async function AdminPage() {
     (p) => p.renewalUrgency !== "current",
   ).length;
 
+  const pendingApplications = DEMO_APPLICATIONS.filter(
+    (a) => a.status === "pending",
+  ).length;
+
   const reviews = toAdminReviews(trainers);
 
   const trend = getRevenueTrend(trainers, now);
@@ -66,7 +70,7 @@ export default async function AdminPage() {
       <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         <StatCard
           label="Pending applications"
-          value={stats.pendingApplications}
+          value={pendingApplications}
           caption="Awaiting review"
         />
         <StatCard
@@ -82,7 +86,7 @@ export default async function AdminPage() {
         <StatCard
           label="Insurance expiring"
           value={insuranceExpiring}
-          caption="Within 30 days (or lapsed)"
+          caption="Within 45 days (or lapsed)"
         />
         <StatCard
           label="Churn this month"
