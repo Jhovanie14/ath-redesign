@@ -304,8 +304,8 @@ visible.
 
 Clear the search box. Set the rating filter to "5 stars".
 
-Expected: only the two 5-star reviews remain visible (the seed data for
-`dr-amara-okafor` has ratings 5, 5, 4).
+Expected: all 3 reviews remain visible (the seed data for
+`dr-amara-okafor` is all rated 5 stars).
 
 - [ ] **Step 5: No-matches empty state**
 

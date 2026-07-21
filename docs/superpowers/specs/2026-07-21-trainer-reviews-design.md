@@ -153,9 +153,9 @@ No dialog. No mutation. This is the entire component.
    "Booking verified" seal.
 2. Type a search term that matches one review's course title (e.g.
    "Jawline") — only that review's card remains visible.
-3. Clear the search, set the rating filter to "5 stars" — only the two
-   5-star reviews remain visible (this demo trainer's 3 seed reviews are
-   5, 5, 4 stars).
+3. Clear the search, set the rating filter to "5 stars" — all 3 reviews
+   remain visible (this demo trainer's 3 seed reviews are all rated 5
+   stars).
 4. Set the rating filter to "1 star" (no matching seed reviews) — "No
    matches" empty state appears.
 5. Reset both filters — all 3 reviews reappear.
