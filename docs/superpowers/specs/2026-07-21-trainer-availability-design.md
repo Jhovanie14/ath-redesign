@@ -73,8 +73,10 @@ const [justSaved, setJustSaved] = useState(false);
   failed save attempt: "Add a note before saving" — when `note.trim()` is
   empty.
 - "Save" `Button`:
-  - `disabled` when `note.trim() === savedNote.trim()` (nothing changed)
-    or when `note.trim() === ""`.
+  - `disabled` only when `note.trim() === savedNote.trim()` (nothing
+    changed) — deliberately NOT disabled just because the field is empty,
+    since clicking Save on an empty field is how the inline error gets
+    triggered (see Manual Verification step 2).
   - On click: if `note.trim()` is empty, set the error and stop. Otherwise
     clear any error, set `savedNote(note)`, set `justSaved(true)`.
 - Inline "Saved" confirmation (`className="text-micro text-success"`, the
