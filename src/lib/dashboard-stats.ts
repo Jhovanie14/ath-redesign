@@ -4,17 +4,17 @@
 //
 // newEnquiries and activeCourses are derived live from
 // DEMO_ENQUIRIES/enquiryStatus() in src/lib/enquiries.ts and
-// trainer.courses respectively, and subscription is derived live from
-// toSubscriptions() in src/lib/billing.ts (see src/app/trainer/page.tsx) —
-// so Overview can't silently drift from the Enquiries, Courses, or Billing
-// pages it summarizes.
+// trainer.courses respectively, subscription is derived live from
+// toSubscriptions() in src/lib/billing.ts, and the profile-views caption is
+// derived live from trainer.rating/trainer.reviewCount (all in
+// src/app/trainer/page.tsx) — so Overview can't silently drift from the
+// Enquiries, Courses, Billing, or Reviews pages it summarizes.
 
 export interface TrainerStats {
   liveInSearch: boolean;
   bookings: number;
   bookingsNote: string;
   profileViews30d: number;
-  profileViewsNote: string;
 }
 
 export const DEMO_TRAINER_STATS: TrainerStats = {
@@ -22,7 +22,6 @@ export const DEMO_TRAINER_STATS: TrainerStats = {
   bookings: 14,
   bookingsNote: "Confirmed on the Hub",
   profileViews30d: 86,
-  profileViewsNote: "Rated 4.7 · 9 verified reviews",
 };
 
 export interface AdminStats {

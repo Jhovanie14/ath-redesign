@@ -8,7 +8,6 @@ import type { CourseCategory, Trainer } from "./types";
 import { ALL_CATEGORIES, CATEGORY_LABELS } from "./types";
 import type { Subscription } from "./billing";
 import { toSubscriptions, totalMRR } from "./billing";
-import type { AdminReview } from "./reviews";
 
 export interface TrendPoint {
   month: string; // e.g. "Aug 2025"
@@ -122,8 +121,12 @@ export interface RatingDistribution {
   average: number;
 }
 
-/** 1-5 star histogram plus average, across all admin reviews. Real data. */
-export function getRatingDistribution(reviews: AdminReview[]): RatingDistribution {
+/** 1-5 star histogram plus average. Real data. Takes anything with a
+ * `rating` so both AdminReview[] (admin Overview) and Review[] (a single
+ * trainer's own Overview) can share one histogram implementation. */
+export function getRatingDistribution(
+  reviews: readonly { rating: 1 | 2 | 3 | 4 | 5 }[],
+): RatingDistribution {
   const counts: Record<1 | 2 | 3 | 4 | 5, number> = {
     1: 0,
     2: 0,
