@@ -31,6 +31,7 @@ export const TRAINER_NAV: NavItem[] = [
   { label: "Profile", href: "/trainer/profile", icon: User },
   { label: "Documents", href: "/trainer/documents", icon: FileText },
   { label: "Billing", href: "/trainer/billing", icon: CreditCard },
+  { label: "Settings", href: "/trainer/settings", icon: Settings },
 ];
 
 export const ADMIN_NAV: NavItem[] = [
