@@ -1,17 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import type { UpcomingBooking } from "@/lib/trainer-insights";
+import { AvailabilityNoteCard } from "./availability-note-card";
+import { AvailabilityPreviewCard } from "./availability-preview-card";
+import { UpcomingBookingsList } from "./upcoming-bookings-list";
 
-export function AvailabilityForm({ initialNote }: { initialNote: string }) {
+export function AvailabilityForm({
+  initialNote,
+  bookings,
+}: {
+  initialNote: string;
+  bookings: UpcomingBooking[];
+}) {
   const [note, setNote] = useState(initialNote);
   const [savedNote, setSavedNote] = useState(initialNote);
   const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
   const [justSaved, setJustSaved] = useState(false);
 
-  function onChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setNote(e.target.value);
+  const unchanged = note.trim() === savedNote.trim();
+
+  function onChange(value: string) {
+    setNote(value);
     setError(null);
     setJustSaved(false);
   }
@@ -22,11 +33,16 @@ export function AvailabilityForm({ initialNote }: { initialNote: string }) {
       return;
     }
     setError(null);
-    setSavedNote(note);
-    setJustSaved(true);
+    setSaving(true);
+    // No real backend here (see src/lib/repository.ts) — a short simulated
+    // delay stands in for a network round trip so the loading state is real
+    // to see, not instant.
+    setTimeout(() => {
+      setSavedNote(note);
+      setSaving(false);
+      setJustSaved(true);
+    }, 500);
   }
-
-  const unchanged = note.trim() === savedNote.trim();
 
   return (
     <>
@@ -34,31 +50,27 @@ export function AvailabilityForm({ initialNote }: { initialNote: string }) {
         <h1 className="font-display text-display-md text-ink">
           Availability
         </h1>
-        <p className="mt-1.5 text-body text-ink-soft">
-          This note appears on your public profile next to your booking
-          details.
+        <p className="mt-2.5 max-w-xl text-body text-ink-soft">
+          This note appears on your public profile alongside your booking
+          availability.
         </p>
       </div>
 
-      <div className="mt-8 max-w-md rounded-card border border-linen bg-paper p-6">
-        <label htmlFor="availability-note" className="eyebrow mb-2 block">
-          Availability note
-        </label>
-        <Input
-          id="availability-note"
-          value={note}
-          onChange={onChange}
-          placeholder="Next cohort: March 2026"
-          aria-invalid={Boolean(error)}
-        />
-        {error && <p className="mt-1.5 text-micro text-error">{error}</p>}
-
-        <div className="mt-4 flex items-center gap-3">
-          <Button onClick={save} disabled={unchanged}>
-            Save
-          </Button>
-          {justSaved && <span className="text-micro text-success">Saved</span>}
+      <div className="mt-8 grid gap-8 lg:grid-cols-[65fr_35fr] lg:items-start">
+        <div className="flex flex-col gap-8">
+          <AvailabilityNoteCard
+            note={note}
+            onChange={onChange}
+            onSave={save}
+            saving={saving}
+            justSaved={justSaved && !saving}
+            error={error}
+            unchanged={unchanged}
+          />
+          <UpcomingBookingsList bookings={bookings} />
         </div>
+
+        <AvailabilityPreviewCard note={note} />
       </div>
     </>
   );

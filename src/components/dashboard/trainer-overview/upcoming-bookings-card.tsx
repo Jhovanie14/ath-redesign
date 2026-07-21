@@ -4,8 +4,9 @@ import { formatShortDate } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 /** "in 3 days" / "tomorrow" / "today" — relative is easier to act on than a
- * bare date for something this close to the front of the queue. */
-function relativeDay(daysAway: number): string {
+ * bare date for something this close to the front of the queue. Shared with
+ * the Availability page's own booking list so both agree on wording. */
+export function relativeDay(daysAway: number): string {
   if (daysAway <= 0) return "Today";
   if (daysAway === 1) return "Tomorrow";
   if (daysAway < 7) return `In ${daysAway} days`;

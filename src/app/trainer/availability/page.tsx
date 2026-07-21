@@ -6,7 +6,6 @@ import { DEMO_ENQUIRIES } from "@/lib/enquiries";
 import { getUpcomingBookings } from "@/lib/trainer-insights";
 import { DashboardShell } from "@/components/dashboard/dashboard-shell";
 import { AvailabilityForm } from "@/components/dashboard/availability/availability-form";
-import { UpcomingBookingsCard } from "@/components/dashboard/trainer-overview/upcoming-bookings-card";
 import { logoutTrainer } from "../actions";
 
 export const metadata: Metadata = {
@@ -30,11 +29,10 @@ export default async function TrainerAvailabilityPage() {
       publicProfileHref="/trainer/dr-amara-okafor"
       logoutAction={logoutTrainer}
     >
-      <AvailabilityForm initialNote={trainer.availabilityNote} />
-
-      <div className="mt-8 max-w-md">
-        <UpcomingBookingsCard bookings={upcomingBookings} />
-      </div>
+      <AvailabilityForm
+        initialNote={trainer.availabilityNote}
+        bookings={upcomingBookings}
+      />
     </DashboardShell>
   );
 }
