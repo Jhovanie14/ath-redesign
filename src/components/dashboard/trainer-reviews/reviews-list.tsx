@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import { RatingStars } from "@/components/rating-stars";
 import { VerifiedSeal } from "@/components/verified-seal";
+import { EmptyState } from "@/components/empty-state";
 
 type RatingFilter = 1 | 2 | 3 | 4 | 5 | "all";
 
@@ -92,19 +93,17 @@ export function TrainerReviewsList({
       </div>
 
       {reviews.length === 0 ? (
-        <div className="mt-6 rounded-card border border-linen bg-paper px-6 py-16 text-center">
-          <p className="font-display text-title text-ink">No reviews yet</p>
-          <p className="mt-1.5 text-small text-ink-soft">
-            Student reviews will appear here once bookings start coming in.
-          </p>
-        </div>
+        <EmptyState
+          className="mt-6"
+          title="No reviews yet"
+          description="Student reviews will appear here once bookings start coming in."
+        />
       ) : filtered.length === 0 ? (
-        <div className="mt-6 rounded-card border border-linen bg-paper px-6 py-16 text-center">
-          <p className="font-display text-title text-ink">No matches</p>
-          <p className="mt-1.5 text-small text-ink-soft">
-            Try a different search term or rating filter.
-          </p>
-        </div>
+        <EmptyState
+          className="mt-6"
+          title="No matches"
+          description="Try a different search term or rating filter."
+        />
       ) : (
         <ul className="mt-6 flex flex-col gap-4">
           {filtered.map((review) => (

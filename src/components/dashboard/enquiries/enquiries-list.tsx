@@ -12,6 +12,7 @@ import { formatShortDate } from "@/lib/utils";
 import { usePagination } from "@/hooks/use-pagination";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { EmptyState } from "@/components/empty-state";
 import {
   Select,
   SelectContent,
@@ -63,12 +64,10 @@ export function EnquiriesList({
 
   if (enquiries.length === 0) {
     return (
-      <div className="rounded-card border border-linen bg-paper px-6 py-16 text-center">
-        <p className="font-display text-title text-ink">No enquiries yet</p>
-        <p className="mt-1.5 text-small text-ink-soft">
-          Student enquiries will appear here once they start coming in.
-        </p>
-      </div>
+      <EmptyState
+        title="No enquiries yet"
+        description="Student enquiries will appear here once they start coming in."
+      />
     );
   }
 
@@ -105,12 +104,11 @@ export function EnquiriesList({
       </div>
 
       {filtered.length === 0 ? (
-        <div className="mt-6 rounded-card border border-linen bg-paper px-6 py-16 text-center">
-          <p className="font-display text-title text-ink">No matches</p>
-          <p className="mt-1.5 text-small text-ink-soft">
-            Try a different search term or status filter.
-          </p>
-        </div>
+        <EmptyState
+          className="mt-6"
+          title="No matches"
+          description="Try a different search term or status filter."
+        />
       ) : (
         <div className="mt-6 flex flex-col gap-3">
           {pageItems.map((enquiry) => {

@@ -5,6 +5,7 @@ import { CATEGORY_LABELS, type Course } from "@/lib/types";
 import { formatGBP } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { EmptyState } from "@/components/empty-state";
 import { CourseFormDialog } from "./course-form-dialog";
 
 export function CoursesList({ courses: initialCourses }: { courses: Course[] }) {
@@ -39,12 +40,11 @@ export function CoursesList({ courses: initialCourses }: { courses: Course[] }) 
       </div>
 
       {courses.length === 0 ? (
-        <div className="mt-8 rounded-card border border-linen bg-paper px-6 py-16 text-center">
-          <p className="font-display text-title text-ink">No courses yet</p>
-          <p className="mt-1.5 text-small text-ink-soft">
-            Add your first course to start appearing in student searches.
-          </p>
-        </div>
+        <EmptyState
+          className="mt-8"
+          title="No courses yet"
+          description="Add your first course to start appearing in student searches."
+        />
       ) : (
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {courses.map((course) => (
