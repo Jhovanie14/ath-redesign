@@ -58,7 +58,7 @@ export default async function HomePage({
   const { hero } = await searchParams;
   const repo = getRepository();
   const ctaBg = resolveImage("images/cta-band");
-  const heroSrc = resolveImage("images/hero-3");
+  const heroSrc = resolveImage("images/hero-4");
   const FEATURED_LIMIT = 3;
   const [featured, all] = await Promise.all([
     repo.getFeatured(FEATURED_LIMIT),
