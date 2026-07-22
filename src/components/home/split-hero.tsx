@@ -14,7 +14,7 @@ export interface HeroProps {
 export function SplitHero({ heroSrc }: HeroProps) {
   return (
     <section className="relative w-full overflow-hidden">
-      <div className="flex flex-col px-4 pb-4 pt-10 sm:px-6 lg:min-h-[calc(100dvh-68px)] lg:flex-row lg:items-center lg:px-8 lg:pb-0 lg:pt-0">
+      <div className="flex flex-col px-4 pt-10 sm:px-6 lg:min-h-[calc(100dvh-68px)] lg:flex-row lg:items-center lg:px-8 lg:pt-0">
         {/* Text — now a true half of the full-bleed hero, not a fraction of a
             capped container, so it scales in step with the vw-based photo. */}
         <Reveal className="w-full max-w-xl lg:w-1/2 lg:max-w-none lg:py-24 lg:pr-16">

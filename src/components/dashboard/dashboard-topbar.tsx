@@ -17,12 +17,14 @@ import { InitialsAvatar } from "./initials-avatar";
 
 export interface DashboardTopbarProps {
   session: Session;
+  avatarSrc?: string;
   publicProfileHref?: string;
   logoutAction: () => Promise<void>;
 }
 
 export function DashboardTopbar({
   session,
+  avatarSrc,
   publicProfileHref,
   logoutAction,
 }: DashboardTopbarProps) {
@@ -35,7 +37,7 @@ export function DashboardTopbar({
 
       <DropdownMenu>
         <DropdownMenuTrigger className="flex items-center gap-2.5 rounded-full py-1 pl-1 pr-2.5 text-left transition-colors outline-none hover:bg-linen focus-visible:bg-linen">
-          <InitialsAvatar name={session.name} />
+          <InitialsAvatar name={session.name} avatarSrc={avatarSrc} />
           <span className="hidden sm:block">
             <span className="block text-small font-medium leading-none text-ink">
               {session.name}

@@ -6,26 +6,51 @@ import { AccountCard } from "@/components/dashboard/settings/account-card";
 import { SecurityCard } from "@/components/dashboard/settings/security-card";
 import {
   NotificationPreferencesCard,
-  TRAINER_NOTIFICATION_ROWS,
+  type NotificationRow,
 } from "@/components/dashboard/settings/notification-preferences-card";
-import { logoutTrainer } from "../actions";
+import { logoutAdmin } from "../actions";
 
 export const metadata: Metadata = {
   title: "Settings",
 };
 
-export default async function TrainerSettingsPage() {
+const ADMIN_NOTIFICATION_ROWS: NotificationRow[] = [
+  {
+    id: "applications",
+    label: "New practitioner applications",
+    description: "Get an email when a new application is submitted.",
+    defaultOn: true,
+  },
+  {
+    id: "expirations",
+    label: "Insurance & document expirations",
+    description:
+      "Get an email when a practitioner's insurance or qualifications are expiring soon.",
+    defaultOn: true,
+  },
+  {
+    id: "reviews",
+    label: "New reviews to moderate",
+    description: "Get an email when a student leaves a new review.",
+    defaultOn: true,
+  },
+  {
+    id: "billing",
+    label: "Billing renewals & churn alerts",
+    description:
+      "Get an email for upcoming subscription renewals and cancellations.",
+    defaultOn: false,
+  },
+];
+
+export default async function AdminSettingsPage() {
   const session = await getSession();
-  if (!session || session.role !== "trainer") {
-    redirect("/trainer/login");
+  if (!session || session.role !== "admin") {
+    redirect("/admin/login");
   }
 
   return (
-    <DashboardShell
-      session={session}
-      publicProfileHref="/trainer/dr-amara-okafor"
-      logoutAction={logoutTrainer}
-    >
+    <DashboardShell session={session} logoutAction={logoutAdmin}>
       <div>
         <h1 className="font-display text-display-md text-[#25241F]">
           Settings
@@ -42,7 +67,7 @@ export default async function TrainerSettingsPage() {
         </div>
 
         <div className="lg:sticky lg:top-24">
-          <NotificationPreferencesCard rows={TRAINER_NOTIFICATION_ROWS} />
+          <NotificationPreferencesCard rows={ADMIN_NOTIFICATION_ROWS} />
         </div>
       </div>
     </DashboardShell>

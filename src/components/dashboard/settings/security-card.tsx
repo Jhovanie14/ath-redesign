@@ -8,6 +8,9 @@ import { Input } from "@/components/ui/input";
 
 const MIN_LENGTH = 8;
 
+const fieldClassName =
+  "h-[46px] rounded-[10px] border-[#DED8CD] bg-[#FFFEFC] pr-11 text-[15px] text-[#25241F] transition-colors hover:border-[#C9C1B5] focus-visible:border-[#B9985A] focus-visible:shadow-[0_0_0_3px_rgba(185,152,90,0.14)] aria-invalid:border-[#B4493F]";
+
 function PasswordField({
   id,
   label,
@@ -15,6 +18,7 @@ function PasswordField({
   onChange,
   inputRef,
   error,
+  helperText,
 }: {
   id: string;
   label: string;
@@ -22,6 +26,7 @@ function PasswordField({
   onChange: (value: string) => void;
   inputRef: React.Ref<HTMLInputElement>;
   error?: string;
+  helperText?: string;
 }) {
   const [visible, setVisible] = useState(false);
 
@@ -29,7 +34,7 @@ function PasswordField({
     <div>
       <label
         htmlFor={id}
-        className="mb-2 block text-small font-medium text-ink-soft"
+        className="mb-2 block text-[13px] font-medium text-[#746F65]"
       >
         {label}
       </label>
@@ -41,7 +46,10 @@ function PasswordField({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           aria-invalid={Boolean(error)}
-          className="pr-11"
+          aria-describedby={
+            error ? `${id}-error` : helperText ? `${id}-helper` : undefined
+          }
+          className={fieldClassName}
         />
         <button
           type="button"
@@ -49,7 +57,7 @@ function PasswordField({
           aria-label={
             visible ? `Hide ${label.toLowerCase()}` : `Show ${label.toLowerCase()}`
           }
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-stone transition-colors hover:text-ink"
+          className="absolute right-1 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-md text-[#A49C8E] transition-colors hover:text-[#25241F] focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_rgba(185,152,90,0.18)]"
         >
           {visible ? (
             <EyeOff className="h-4 w-4" />
@@ -58,11 +66,15 @@ function PasswordField({
           )}
         </button>
       </div>
-      {error && (
-        <p role="alert" className="mt-1.5 text-micro text-error">
+      {error ? (
+        <p id={`${id}-error`} role="alert" className="mt-1.5 text-[13px] text-[#B4493F]">
           {error}
         </p>
-      )}
+      ) : helperText ? (
+        <p id={`${id}-helper`} className="mt-1.5 text-[13px] text-[#A49C8E]">
+          {helperText}
+        </p>
+      ) : null}
     </div>
   );
 }
@@ -115,16 +127,16 @@ export function SecurityCard() {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <h2 className="font-sans text-[17px] font-semibold text-ink">
-          Security
+    <Card className="gap-0 rounded-2xl border-[#DED8CD] bg-[#FFFEFC] p-0 shadow-[0_8px_28px_rgba(40,35,28,0.045)]">
+      <CardHeader className="gap-1.5 px-7 pt-7 pb-0">
+        <h2 className="font-sans text-[19px] font-semibold text-[#25241F]">
+          Password and security
         </h2>
-        <p className="text-small text-ink-soft">
-          Update the password you use to sign in.
+        <p className="text-[14px] text-[#746F65]">
+          Update the password used to access your dashboard.
         </p>
       </CardHeader>
-      <CardContent className="flex flex-col gap-5">
+      <CardContent className="flex flex-col gap-5 px-7 pt-6 pb-7">
         <PasswordField
           id="settings-current-password"
           label="Current password"
@@ -148,6 +160,7 @@ export function SecurityCard() {
             setJustSaved(false);
           }}
           error={errors.next}
+          helperText="Use at least 8 characters."
         />
         <PasswordField
           id="settings-confirm-password"
@@ -162,13 +175,17 @@ export function SecurityCard() {
           error={errors.confirm}
         />
 
-        <div className="flex items-center gap-3">
-          <Button onClick={save} disabled={saving} className="gap-2">
+        <div className="flex items-center gap-3 border-t border-[#E7E1D8] pt-6">
+          <Button
+            onClick={save}
+            disabled={saving}
+            className="h-11 gap-2 rounded-[10px] hover:translate-y-0 hover:shadow-none"
+          >
             {saving && <Loader2 className="h-4 w-4 animate-spin" />}
-            {saving ? "Saving…" : "Save"}
+            {saving ? "Updating…" : "Update password"}
           </Button>
           {justSaved && !saving && (
-            <span className="flex items-center gap-1.5 text-small font-medium text-success">
+            <span className="flex items-center gap-1.5 text-[13px] font-medium text-[#4F7658]">
               <CheckCircle2 className="h-4 w-4" />
               Saved
             </span>

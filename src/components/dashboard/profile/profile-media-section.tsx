@@ -34,7 +34,7 @@ export function ProfileMediaSection({
           {/* bottom-4 (not a negative offset): the avatar hangs 40px below
            * the cover's own edge while staying inside the pb-14 (56px)
            * reserve, leaving a clear 16px gap above the helper text. */}
-          <div className="absolute bottom-4 left-6 h-24 w-24 rounded-full ring-4 ring-paper">
+          <div className="absolute bottom-4 left-6 h-24 w-24 rounded-full shadow-[0_6px_18px_rgba(40,35,28,0.12)] ring-4 ring-paper">
             <PhotoUploadSlot
               shape="circle"
               className="h-24 w-24"

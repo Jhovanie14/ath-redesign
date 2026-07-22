@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { VerificationSnapshot } from "@/lib/trainer-insights";
 import { VERIFICATION_URGENCY_BADGE } from "@/lib/trainer-insights";
 import { formatShortDate } from "@/lib/utils";
@@ -33,22 +33,51 @@ export function DocumentsList({
       ),
   );
 
+  const slotStatesRef = useRef(slotStates);
+  useEffect(() => {
+    slotStatesRef.current = slotStates;
+  }, [slotStates]);
+
+  // No backend to persist uploads to — object URLs only live for this
+  // session, so release them on unmount to avoid leaking memory.
+  useEffect(() => {
+    return () => {
+      Object.values(slotStatesRef.current).forEach((s) => {
+        if (s.fileUrl) URL.revokeObjectURL(s.fileUrl);
+      });
+    };
+  }, []);
+
   function handleFileSelect(id: DocSlot["id"], file: File) {
-    setSlotStates((prev) => ({
-      ...prev,
-      [id]: {
-        status: "pending_review",
-        fileName: file.name,
-        verifiedNote: undefined,
-      },
-    }));
+    setSlotStates((prev) => {
+      const previousUrl = prev[id]?.fileUrl;
+      if (previousUrl) URL.revokeObjectURL(previousUrl);
+      return {
+        ...prev,
+        [id]: {
+          status: "pending_review",
+          fileName: file.name,
+          fileUrl: URL.createObjectURL(file),
+          verifiedNote: undefined,
+        },
+      };
+    });
   }
 
   function handleRemove(id: DocSlot["id"]) {
-    setSlotStates((prev) => ({
-      ...prev,
-      [id]: { status: "not_uploaded", fileName: undefined, verifiedNote: undefined },
-    }));
+    setSlotStates((prev) => {
+      const previousUrl = prev[id]?.fileUrl;
+      if (previousUrl) URL.revokeObjectURL(previousUrl);
+      return {
+        ...prev,
+        [id]: {
+          status: "not_uploaded",
+          fileName: undefined,
+          fileUrl: undefined,
+          verifiedNote: undefined,
+        },
+      };
+    });
   }
 
   const verifiedCount = slots.filter(

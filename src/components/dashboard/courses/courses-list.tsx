@@ -29,8 +29,10 @@ export function CoursesList({ courses: initialCourses }: { courses: Course[] }) 
     <>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="font-display text-display-md text-ink">Courses</h1>
-          <p className="mt-1.5 text-body text-ink-soft">
+          <h1 className="font-display text-display-md text-[#25241F]">
+            Courses
+          </h1>
+          <p className="mt-1.5 text-body text-[#746F65]">
             What students see and book on your public listing.
           </p>
         </div>
@@ -46,11 +48,11 @@ export function CoursesList({ courses: initialCourses }: { courses: Course[] }) 
           description="Add your first course to start appearing in student searches."
         />
       ) : (
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {courses.map((course) => (
             <div
               key={course.id}
-              className="flex flex-col rounded-card border border-linen bg-paper p-6"
+              className="flex flex-col rounded-2xl border border-[#DED8CD] bg-[#FFFEFC] p-6 shadow-[0_8px_28px_rgba(40,35,28,0.045)]"
             >
               <div className="flex flex-wrap items-center gap-2">
                 <Badge variant="neutral">
@@ -61,13 +63,13 @@ export function CoursesList({ courses: initialCourses }: { courses: Course[] }) 
                 )}
                 {course.archived && <Badge variant="outline">Archived</Badge>}
               </div>
-              <h3 className="mt-3 font-display text-title text-ink">
+              <h3 className="mt-3 font-display text-title text-[#25241F]">
                 {course.title}
               </h3>
-              <p className="mt-2 flex-1 text-small leading-relaxed text-ink-soft">
+              <p className="mt-2 flex-1 text-[14px] leading-relaxed text-[#746F65]">
                 {course.summary}
               </p>
-              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 font-data text-micro text-stone">
+              <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 font-data text-[12px] text-[#A49C8E]">
                 <span>
                   {course.durationDays} day
                   {course.durationDays > 1 ? "s" : ""}
@@ -75,8 +77,8 @@ export function CoursesList({ courses: initialCourses }: { courses: Course[] }) 
                 <span aria-hidden>·</span>
                 <span>Max {course.maxDelegates} delegates</span>
               </div>
-              <div className="mt-4 flex items-center justify-between border-t border-linen pt-4">
-                <span className="font-data text-title font-medium text-ink">
+              <div className="mt-4 flex items-center justify-between border-t border-[#E7E1D8] pt-4">
+                <span className="font-data text-title font-medium text-[#25241F]">
                   {formatGBP(course.priceGBP)}
                 </span>
                 <div className="flex gap-2">

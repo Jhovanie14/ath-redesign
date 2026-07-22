@@ -1,8 +1,19 @@
+"use client";
+
+import { useState } from "react";
 import type { BillingCycle, Subscription, SubscriptionStatus } from "@/lib/billing";
 import { priceForTier } from "@/lib/billing";
 import { formatGBP, formatShortDate } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { TIER_ICON } from "./plan-card";
 
 type Tier = Subscription["tier"];
@@ -23,6 +34,12 @@ export function SubscriptionSummaryCard({
   const price = priceForTier(tier, cycle);
   const Icon = TIER_ICON[tier];
   const active = status === "active";
+  const [confirmOpen, setConfirmOpen] = useState(false);
+
+  function confirmCancel() {
+    onToggleStatus();
+    setConfirmOpen(false);
+  }
 
   return (
     <div className="lg:sticky lg:top-24">
@@ -73,7 +90,7 @@ export function SubscriptionSummaryCard({
             {active ? (
               <button
                 type="button"
-                onClick={onToggleStatus}
+                onClick={() => setConfirmOpen(true)}
                 className="-ml-2.5 rounded-lg px-2.5 py-2 text-small font-medium text-[#746F65] transition-colors duration-150 hover:bg-[#F9ECEA] hover:text-[#A34F46] focus-visible:bg-[#F9ECEA] focus-visible:text-[#A34F46]"
               >
                 Cancel subscription
@@ -86,6 +103,32 @@ export function SubscriptionSummaryCard({
           </div>
         </div>
       </div>
+
+      <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+        <DialogContent className="p-6 sm:p-8">
+          <DialogHeader>
+            <DialogTitle className="text-title">
+              Cancel subscription?
+            </DialogTitle>
+            <DialogDescription>
+              Your plan stays active until {formatShortDate(renewsOn)}. After
+              that, your listing will come down from search until you
+              reinstate.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="mt-7">
+            <Button variant="outline" onClick={() => setConfirmOpen(false)}>
+              Keep subscription
+            </Button>
+            <Button
+              onClick={confirmCancel}
+              className="bg-error text-ivory hover:bg-error/90"
+            >
+              Cancel subscription
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

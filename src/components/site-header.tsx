@@ -18,6 +18,7 @@ import {
 const NAV = [
   { href: "/search", label: "Find training" },
   { href: "/how-it-works", label: "How it works" },
+  { href: "/about", label: "About" },
   { href: "/pricing", label: "Pricing" },
   { href: "/contact", label: "Contact us" },
 ];
