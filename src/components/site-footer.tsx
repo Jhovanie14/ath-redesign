@@ -24,6 +24,7 @@ const COLUMNS: { heading: string; links: { label: string; href: string }[] }[] =
     {
       heading: "Company",
       links: [
+        { label: "About", href: "/about" },
         { label: "Contact us", href: "/contact" },
         { label: "Privacy", href: "#" },
         { label: "Terms", href: "#" },
@@ -85,20 +86,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-16 border-t border-ivory/10 pt-6">
-          {/* Oversized closing wordmark — editorial signature moment */}
-          <p
-            aria-hidden
-            className="select-none overflow-hidden whitespace-nowrap font-display uppercase text-ivory/[0.07]"
-            style={{
-              fontSize: "clamp(1.5rem, 6.4vw, 6.25rem)",
-              lineHeight: 1,
-              letterSpacing: "0",
-            }}
-          >
-            Aesthetic Training Hub
-          </p>
-
-          <div className="mt-8 flex flex-col gap-5 border-t border-ivory/10 pb-10 pt-7 sm:flex-row sm:items-center sm:justify-between sm:pr-20">
+          <div className="flex flex-col gap-5 pb-10 sm:flex-row sm:items-center sm:justify-between sm:pr-20">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
               <p className="text-micro text-ivory/60">
                 © 2026 Aesthetic Training Hub Ltd
