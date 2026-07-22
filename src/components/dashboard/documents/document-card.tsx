@@ -32,6 +32,7 @@ const ACCEPTED_TYPES = ["application/pdf", "image/jpeg", "image/png"];
 export type SlotState = {
   status: "not_uploaded" | "on_file" | "pending_review";
   fileName?: string;
+  fileUrl?: string;
   verifiedNote?: string;
 };
 
@@ -178,7 +179,7 @@ export function DocumentCard({
         </div>
       )}
 
-      <div className="mt-4 flex items-center gap-4">
+      <div className="mt-4 flex items-center gap-2">
         {state.status === "not_uploaded" ? (
           <Button
             variant="outline"
@@ -192,6 +193,13 @@ export function DocumentCard({
           </Button>
         ) : (
           <>
+            {state.fileUrl && (
+              <Button variant="ghost" size="sm" asChild>
+                <a href={state.fileUrl} target="_blank" rel="noopener noreferrer">
+                  View
+                </a>
+              </Button>
+            )}
             <Button
               variant="outline"
               size="sm"
@@ -202,13 +210,14 @@ export function DocumentCard({
               {uploading && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
               {uploading ? "Uploading…" : "Replace"}
             </Button>
-            <button
-              type="button"
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={() => setConfirmOpen(true)}
-              className="text-small font-medium text-stone transition-colors duration-150 hover:text-error focus-visible:text-error"
+              className="text-stone hover:bg-error/10 hover:text-error focus-visible:text-error"
             >
               Remove
-            </button>
+            </Button>
           </>
         )}
       </div>
@@ -228,7 +237,7 @@ export function DocumentCard({
       />
 
       <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
-        <DialogContent>
+        <DialogContent className="p-6 sm:p-8">
           <DialogHeader>
             <DialogTitle className="text-title">
               Remove {slot.label.toLowerCase()}?
@@ -239,7 +248,7 @@ export function DocumentCard({
               time.
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter>
+          <DialogFooter className="mt-7">
             <Button variant="outline" onClick={() => setConfirmOpen(false)}>
               Cancel
             </Button>
