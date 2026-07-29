@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { sendTrainerReplyAction } from "@/app/trainer/enquiries/[id]/actions";
 
 function MetaRow({ label, value }: { label: string; value: string }) {
   return (
@@ -56,6 +57,7 @@ export function EnquiryDetail({
       { from: "trainer", body, sentAt: now.toISOString() },
     ]);
     setReply("");
+    void sendTrainerReplyAction(enquiry.id, body);
   }
 
   function markBooked() {
