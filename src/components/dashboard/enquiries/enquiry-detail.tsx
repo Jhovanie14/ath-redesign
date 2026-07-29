@@ -15,7 +15,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { sendTrainerReplyAction } from "@/app/trainer/enquiries/[id]/actions";
+import {
+  sendTrainerReplyAction,
+  markBookedAction,
+  archiveEnquiryAction,
+} from "@/app/trainer/enquiries/[id]/actions";
 
 function MetaRow({ label, value }: { label: string; value: string }) {
   return (
@@ -63,6 +67,7 @@ export function EnquiryDetail({
   function markBooked() {
     if (!dateInput) return;
     setBookedDate(dateInput);
+    void markBookedAction(enquiry.id, dateInput);
   }
 
   return (
@@ -235,7 +240,10 @@ export function EnquiryDetail({
                   <div className="border-t border-[#E7E1D8] pt-4">
                     <button
                       type="button"
-                      onClick={() => setArchived(true)}
+                      onClick={() => {
+                        setArchived(true);
+                        void archiveEnquiryAction(enquiry.id);
+                      }}
                       className="flex w-full items-center gap-2 rounded-lg px-2 py-2.5 text-[14px] font-medium text-[#746F65] transition-colors duration-150 hover:bg-[#F9ECEA] hover:text-[#A34F46] focus-visible:bg-[#F9ECEA] focus-visible:text-[#A34F46] focus-visible:outline-none"
                     >
                       <Archive className="h-4 w-4" />

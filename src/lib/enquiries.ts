@@ -251,6 +251,30 @@ export function appendMessage(
   return updated;
 }
 
+export function reassignStudentEmail(oldEmail: string, newEmail: string): void {
+  const from = oldEmail.trim().toLowerCase();
+  const to = newEmail.trim().toLowerCase();
+  enquiries = enquiries.map((e) =>
+    e.studentEmail.toLowerCase() === from ? { ...e, studentEmail: to } : e,
+  );
+}
+
+export function setBookedDate(id: string, bookedDate: string): Enquiry | undefined {
+  const index = enquiries.findIndex((e) => e.id === id);
+  if (index === -1) return undefined;
+  const updated: Enquiry = { ...enquiries[index], bookedDate };
+  enquiries = [...enquiries.slice(0, index), updated, ...enquiries.slice(index + 1)];
+  return updated;
+}
+
+export function setArchived(id: string, archived: boolean): Enquiry | undefined {
+  const index = enquiries.findIndex((e) => e.id === id);
+  if (index === -1) return undefined;
+  const updated: Enquiry = { ...enquiries[index], archived };
+  enquiries = [...enquiries.slice(0, index), updated, ...enquiries.slice(index + 1)];
+  return updated;
+}
+
 export function createEnquiry(input: {
   studentName: string;
   studentEmail: string;
