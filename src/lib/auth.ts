@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 
-export type Role = "admin" | "trainer";
+export type Role = "admin" | "trainer" | "student";
+const VALID_ROLES: Role[] = ["admin", "trainer", "student"];
 
 export interface Session {
   role: Role;
@@ -34,6 +35,7 @@ const DEMO_ACCOUNTS: DemoAccount[] = [
 export const DEMO_CREDENTIALS: Record<Role, { email: string; password: string }> = {
   admin: { email: "admin@ath.demo", password: "admin123" },
   trainer: { email: "trainer@ath.demo", password: "trainer123" },
+  student: { email: "student@ath.demo", password: "student123" },
 };
 
 export const SESSION_COOKIE = "ath_session";
@@ -59,7 +61,7 @@ export async function getSession(): Promise<Session | null> {
   if (!raw) return null;
   try {
     const parsed = JSON.parse(raw) as Session;
-    if (parsed.role !== "admin" && parsed.role !== "trainer") return null;
+    if (!VALID_ROLES.includes(parsed.role)) return null;
     return parsed;
   } catch {
     return null;
