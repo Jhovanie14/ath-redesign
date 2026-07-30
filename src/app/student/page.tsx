@@ -8,8 +8,10 @@ import {
   getEnquiriesForStudent,
   STATUS_BADGE,
 } from "@/lib/enquiries";
+import { getSavedTrainersForStudent } from "@/lib/favorites";
 import { formatShortDate } from "@/lib/utils";
 import { StudentShell } from "@/components/dashboard/student/student-shell";
+import { StatCard } from "@/components/dashboard/stat-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -35,6 +37,11 @@ export default async function StudentOverviewPage() {
   const openCount = enquiries.filter(
     (e) => enquiryStatus(e, now) !== "archived",
   ).length;
+  const savedCount = getSavedTrainersForStudent(session.email).length;
+
+  const upcoming = enquiries
+    .filter((e) => enquiryStatus(e, now) === "booked")
+    .sort((a, b) => (a.bookedDate ?? "").localeCompare(b.bookedDate ?? ""))[0];
 
   const recent = [...enquiries]
     .sort((a, b) => {
@@ -61,6 +68,45 @@ export default async function StudentOverviewPage() {
           <Link href="/student/messages">Go to messages</Link>
         </Button>
       </div>
+
+      <div className="mt-8 grid gap-4 sm:grid-cols-3">
+        <StatCard
+          label="Open enquiries"
+          value={openCount}
+          caption="Awaiting a reply or a date"
+        />
+        <StatCard
+          label="Next session"
+          value={upcoming?.bookedDate ? formatShortDate(upcoming.bookedDate) : "—"}
+          caption={upcoming ? upcoming.courseTitle : "None scheduled"}
+        />
+        <StatCard
+          label="Saved trainers"
+          value={savedCount}
+          caption={savedCount === 1 ? "Trainer you're following" : "Trainers you're following"}
+        />
+      </div>
+
+      {upcoming && (
+        <Card className="mt-6 rounded-2xl p-0">
+          <CardContent className="flex flex-wrap items-center justify-between gap-4 px-5 py-4">
+            <div>
+              <p className="eyebrow !text-stone">Your next session</p>
+              <p className="mt-1.5 font-display text-title text-ink">
+                {upcoming.courseTitle}
+              </p>
+              {upcoming.bookedDate && (
+                <p className="mt-1 text-small text-ink-soft">
+                  {formatShortDate(upcoming.bookedDate)}
+                </p>
+              )}
+            </div>
+            <Button asChild variant="outline">
+              <Link href={`/student/messages/${upcoming.id}`}>View thread</Link>
+            </Button>
+          </CardContent>
+        </Card>
+      )}
 
       <h2 className="mt-10 font-display text-title text-ink">
         Recent activity
