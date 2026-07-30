@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getRepository } from "@/lib/repository";
+import { getSession } from "@/lib/auth";
 import { resolveImage } from "@/lib/media";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -45,6 +46,8 @@ export default async function TrainerPage({
   const trainer = await repo.getBySlug(slug);
   if (!trainer) notFound();
 
+  const session = await getSession();
+
   const nearbyAll = await repo.search({
     near: { lat: trainer.lat, lng: trainer.lng, radiusKm: 1000 },
   });
@@ -59,6 +62,7 @@ export default async function TrainerPage({
             trainer={trainer}
             coverSrc={resolveImage(`trainers/${trainer.slug}`)}
             headshotSrc={resolveImage(`trainers/headshots/${trainer.slug}`)}
+            session={session}
           />
 
           <div className="mt-12 grid gap-10 lg:mt-16 lg:grid-cols-[1.65fr_1fr] lg:gap-12">
@@ -74,7 +78,7 @@ export default async function TrainerPage({
                 </p>
               </section>
 
-              <CourseList trainer={trainer} />
+              <CourseList trainer={trainer} session={session} />
               <ReviewList trainer={trainer} />
             </div>
 
@@ -91,7 +95,7 @@ export default async function TrainerPage({
                   what you&rsquo;re looking for and they&rsquo;ll reply
                   directly.
                 </p>
-                <EnquiryDialog trainer={trainer}>
+                <EnquiryDialog trainer={trainer} session={session}>
                   <Button className="mt-4 w-full">Ask about a course</Button>
                 </EnquiryDialog>
                 <p className="mt-3 text-micro leading-relaxed text-stone">

@@ -1,11 +1,18 @@
 import { CATEGORY_LABELS, type Trainer } from "@/lib/types";
+import type { Session } from "@/lib/auth";
 import { formatGBP } from "@/lib/utils";
 import { SectionEyebrow } from "@/components/section-eyebrow";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { EnquiryDialog } from "./enquiry-dialog";
 
-export function CourseList({ trainer }: { trainer: Trainer }) {
+export function CourseList({
+  trainer,
+  session,
+}: {
+  trainer: Trainer;
+  session: Session | null;
+}) {
   const activeCourses = trainer.courses.filter((course) => !course.archived);
 
   return (
@@ -51,7 +58,11 @@ export function CourseList({ trainer }: { trainer: Trainer }) {
                 <span className="font-data text-title font-medium text-ink">
                   {formatGBP(course.priceGBP)}
                 </span>
-                <EnquiryDialog trainer={trainer} defaultCourseTitle={course.title}>
+                <EnquiryDialog
+                  trainer={trainer}
+                  session={session}
+                  defaultCourseTitle={course.title}
+                >
                   <Button variant="outline" size="sm">
                     Enquire about this course
                   </Button>

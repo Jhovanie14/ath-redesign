@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Heart, MapPin } from "lucide-react";
 import type { Trainer } from "@/lib/types";
+import type { Session } from "@/lib/auth";
 import { cn, formatGBP, initials } from "@/lib/utils";
 import { DuotoneCover } from "@/components/duotone-cover";
 import { TierBadge } from "@/components/tier-badge";
@@ -17,12 +18,14 @@ export function ProfileHero({
   trainer,
   coverSrc,
   headshotSrc,
+  session,
 }: {
   trainer: Trainer;
   /** Resolved server-side — ProfileHero is a client component and can't read /public itself. */
   coverSrc?: string;
   /** A real face portrait, distinct from `coverSrc` — the avatar shown beside the trainer's name. */
   headshotSrc?: string;
+  session: Session | null;
 }) {
   const [saved, setSaved] = useState(false);
   const isPremium = trainer.tier === "premium";
@@ -86,7 +89,7 @@ export function ProfileHero({
             </div>
 
             <div className="flex shrink-0 gap-2.5 sm:self-center">
-              <EnquiryDialog trainer={trainer}>
+              <EnquiryDialog trainer={trainer} session={session}>
                 <Button>Enquire</Button>
               </EnquiryDialog>
               <Button
