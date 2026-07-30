@@ -4,9 +4,16 @@
 // in-memory store (same "mock now, wire up later" seam as students.ts) —
 // there is still no real backend, but replies from either side now
 // persist for the lifetime of the running server. The public-facing
-// EnquiryDialog (src/components/trainer/enquiry-dialog.tsx) remains
-// unconnected to this store — out of scope, see
-// docs/superpowers/specs/2026-07-29-student-module-design.md.
+// EnquiryDialog (src/components/trainer/enquiry-dialog.tsx) now writes
+// into this store via createEnquiryAction — see
+// docs/superpowers/specs/2026-07-30-enquiry-login-gate-design.md.
+//
+// Known limitation: an Enquiry does not record which trainer it's for.
+// There is only one demo trainer account, so every enquiry — regardless
+// of which of the 8 public trainer profiles it was submitted from — lands
+// in that one trainer's inbox. Scoping enquiries per-trainer would mean
+// adding a trainer identifier here and filtering the inbox by it; out of
+// scope until there's more than one trainer account to route between.
 
 import type { BadgeProps } from "@/components/ui/badge";
 

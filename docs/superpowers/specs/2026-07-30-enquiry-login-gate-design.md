@@ -126,3 +126,28 @@ log in as the trainer demo account and confirm the same enquiry appears in
 `/trainer/enquiries`. Also spot-check: logging in as the trainer/admin demo
 account and visiting a trainer profile page still shows the sign-in gate,
 not the form.
+
+## Known limitations
+
+**Single-trainer enquiry routing.** Enquiries aren't scoped to a specific
+trainer — there's only one demo trainer account (matching the pre-existing
+assumption `createEnquiryAction` and the trainer dashboard already made), so
+an enquiry submitted from any of the 8 public trainer profiles lands in that
+one trainer's inbox and thread view, labeled with that trainer's name rather
+than the one the visitor actually enquired with. This was an explicit,
+accepted scope decision (not a bug to silently work around) — fixing it
+properly would mean adding a trainer identifier to `Enquiry` and scoping
+`src/app/trainer/enquiries` by it, deferred until there's more than one
+trainer account to route between.
+
+**`/trainer/[slug]` lost static prerendering.** Before this feature,
+`/trainer/[slug]` was prerendered at build time for all 8 trainer profiles
+(`generateStaticParams`). Gating the enquiry form on `getSession()` means the
+page now reads the session cookie, which is a dynamic API in Next.js — since
+this app doesn't have Partial Prerendering / `cacheComponents` enabled, that
+forces the whole route to render per-request instead of being served as a
+static page. This was confirmed by comparing production build output
+(`npx next build`) before and after this branch: the route flips from `●`
+(SSG, 8 static paths) to `ƒ` (fully dynamic). This is an accepted tradeoff
+for now — the app's homepage and several other routes are already dynamic —
+revisit if/when Partial Prerendering is adopted app-wide.

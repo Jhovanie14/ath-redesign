@@ -36,9 +36,10 @@ export function EnquiryDialog({
   defaultCourseTitle?: string;
   children: React.ReactNode;
 }) {
+  const activeCourses = trainer.courses.filter((c) => !c.archived);
   const [open, setOpen] = useState(false);
   const [course, setCourse] = useState(
-    defaultCourseTitle ?? trainer.courses[0]?.title ?? "General enquiry",
+    defaultCourseTitle ?? activeCourses[0]?.title ?? "General enquiry",
   );
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -110,7 +111,7 @@ export function EnquiryDialog({
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {trainer.courses.map((c) => (
+                    {activeCourses.map((c) => (
                       <SelectItem key={c.id} value={c.title}>
                         {c.title}
                       </SelectItem>
