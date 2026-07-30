@@ -86,10 +86,17 @@ export async function clearSession() {
 
 /** Guards against open redirects — only same-origin, absolute-path
  * targets (e.g. "/trainer/dr-amara-okafor") are allowed. Rejects
- * protocol-relative paths ("//evil.com") and anything that isn't a
- * plain string (FormData entries can also be File). */
+ * protocol-relative paths ("//evil.com"), backslashes, and C0 control
+ * characters (tab/CR/LF/etc.) that browsers strip during URL parsing
+ * and could otherwise be used to smuggle a "//evil.com" bypass past
+ * the leading-slash check, and anything that isn't a plain string
+ * (FormData entries can also be File). */
 export function isSafeRedirect(path: unknown): path is string {
   return (
-    typeof path === "string" && path.startsWith("/") && !path.startsWith("//")
+    typeof path === "string" &&
+    path.startsWith("/") &&
+    !path.startsWith("//") &&
+    !path.includes("\\") &&
+    !/[\x00-\x1f]/.test(path)
   );
 }
