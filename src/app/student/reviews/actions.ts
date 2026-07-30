@@ -34,9 +34,6 @@ export async function submitStudentReviewAction(
   if (enquiryStatus(enquiry, new Date()) !== "attended") {
     return { error: "You can only review a course you've attended." };
   }
-  if (getReviewForEnquiry(enquiryId)) {
-    return { error: "You've already reviewed this course." };
-  }
   if (!Number.isInteger(ratingRaw) || ratingRaw < 1 || ratingRaw > 5) {
     return { error: "Choose a rating from 1 to 5 stars." };
   }
@@ -45,6 +42,14 @@ export async function submitStudentReviewAction(
   }
 
   const trainer = await getRepository().getBySlug(DEMO_TRAINER_SLUG);
+
+  // This check must be the last thing evaluated before the write below, with
+  // no `await` in between — otherwise two concurrent submissions for the same
+  // enquiry could both pass the check before either has written its review
+  // (TOCTOU race), producing two reviews for one enquiry.
+  if (getReviewForEnquiry(enquiryId)) {
+    return { error: "You've already reviewed this course." };
+  }
 
   createStudentReview({
     enquiryId,
