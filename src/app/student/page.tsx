@@ -73,7 +73,7 @@ export default async function StudentOverviewPage() {
         <StatCard
           label="Open enquiries"
           value={openCount}
-          caption="Awaiting a reply or a date"
+          caption="All active enquiries"
         />
         <StatCard
           label="Next session"

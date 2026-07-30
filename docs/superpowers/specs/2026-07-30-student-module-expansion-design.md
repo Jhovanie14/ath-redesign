@@ -261,10 +261,21 @@ and confirm the notification card renders with working toggles.
   `Trainer.reviews`, the public rating average, or anything on the admin
   Reviews moderation page. This is an explicit, accepted scope decision (see
   Scope boundary), not a bug.
-- **`trainerSlug` on favorites and reviews is effectively hardcoded** to the
-  single demo trainer account, the same known limitation `enquiries.ts`
-  already documents for `courseTitle`. Revisit both together once there's more
-  than one trainer account to route between.
+- **`trainerSlug` on reviews is effectively hardcoded** to the single demo
+  trainer account, the same known limitation `enquiries.ts` already documents
+  for `courseTitle`. Revisit both together once there's more than one trainer
+  account to route between. Favorites is not affected by this — the Save
+  button on every one of the app's public trainer profiles passes that
+  trainer's real slug, and `/student/saved` correctly resolves and renders any
+  of them.
 - **Notification preferences have no backend**, identical to the trainer's
   existing notification card — toggling them changes nothing beyond local
   component state.
+- **The Overview page's upcoming-session card doesn't show a trainer name**
+  (only course title, date, and thread link) — because `Enquiry` records
+  don't store which trainer they're for, the same pre-existing limitation
+  `enquiries.ts` already documents elsewhere.
+- **The two new seed enquiries added in this branch (`enq-10`, `enq-11`) are
+  also visible in the trainer dashboard's existing "upcoming bookings" list
+  and enquiry activity charts**, since enquiries are a shared store, not
+  scoped to this plan's student-facing pages.

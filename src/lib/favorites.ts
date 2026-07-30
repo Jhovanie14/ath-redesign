@@ -4,10 +4,9 @@
 // store — same "mock now, wire up later" seam as students.ts and
 // enquiries.ts. Resets on server restart.
 //
-// trainerSlug is effectively always the one demo trainer account today —
-// same known limitation Enquiry.courseTitle already documents in
-// enquiries.ts. Revisit both together once there's more than one trainer
-// account to route between.
+// trainerSlug is validated against the repository at write time (see
+// toggleSavedTrainerAction in src/app/student/saved/actions.ts) rather than
+// hardcoded — every one of the app's public trainer profiles can be saved.
 
 export interface SavedTrainer {
   studentEmail: string;

@@ -22,8 +22,8 @@ export function SavedTrainerCard({
 
   function handleUnsave() {
     setHidden(true);
-    startTransition(() => {
-      void toggleSavedTrainerAction(trainer.slug);
+    startTransition(async () => {
+      await toggleSavedTrainerAction(trainer.slug);
     });
   }
 

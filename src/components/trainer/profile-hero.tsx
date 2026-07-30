@@ -39,8 +39,8 @@ export function ProfileHero({
 
   function handleSaveClick() {
     setIsSaved((s) => !s);
-    startTransition(() => {
-      void toggleSavedTrainerAction(trainer.slug);
+    startTransition(async () => {
+      await toggleSavedTrainerAction(trainer.slug);
     });
   }
 

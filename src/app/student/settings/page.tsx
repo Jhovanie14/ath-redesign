@@ -21,7 +21,7 @@ export default async function StudentSettingsPage() {
     <StudentShell session={session}>
       <h1 className="font-display text-display-md text-ink">Settings</h1>
       <p className="mt-1.5 text-body text-ink-soft">
-        Choose which updates you receive by email.
+        Control how the Hub keeps you in the loop.
       </p>
       <div className="mt-8 max-w-lg">
         <NotificationPreferencesCard rows={STUDENT_NOTIFICATION_ROWS} />
