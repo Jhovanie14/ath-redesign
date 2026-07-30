@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Heart, MapPin } from "lucide-react";
 import type { Trainer } from "@/lib/types";
 import type { Session } from "@/lib/auth";
 import { cn, formatGBP, initials } from "@/lib/utils";
+import { toggleSavedTrainerAction } from "@/app/student/saved/actions";
 import { DuotoneCover } from "@/components/duotone-cover";
 import { TierBadge } from "@/components/tier-badge";
 import { RatingStars } from "@/components/rating-stars";
@@ -19,6 +21,7 @@ export function ProfileHero({
   coverSrc,
   headshotSrc,
   session,
+  saved,
 }: {
   trainer: Trainer;
   /** Resolved server-side — ProfileHero is a client component and can't read /public itself. */
@@ -26,9 +29,20 @@ export function ProfileHero({
   /** A real face portrait, distinct from `coverSrc` — the avatar shown beside the trainer's name. */
   headshotSrc?: string;
   session: Session | null;
+  /** Whether the current student has already saved this trainer. */
+  saved: boolean;
 }) {
-  const [saved, setSaved] = useState(false);
+  const [isSaved, setIsSaved] = useState(saved);
+  const [, startTransition] = useTransition();
   const isPremium = trainer.tier === "premium";
+  const canSave = session?.role === "student";
+
+  function handleSaveClick() {
+    setIsSaved((s) => !s);
+    startTransition(() => {
+      void toggleSavedTrainerAction(trainer.slug);
+    });
+  }
 
   return (
     <section>
@@ -92,16 +106,28 @@ export function ProfileHero({
               <EnquiryDialog trainer={trainer} session={session}>
                 <Button>Enquire</Button>
               </EnquiryDialog>
-              <Button
-                variant="outline"
-                aria-pressed={saved}
-                onClick={() => setSaved((s) => !s)}
-              >
-                <Heart
-                  className={cn("h-4 w-4", saved && "fill-error text-error")}
-                />
-                {saved ? "Saved" : "Save"}
-              </Button>
+              {canSave ? (
+                <Button
+                  type="button"
+                  variant="outline"
+                  aria-pressed={isSaved}
+                  onClick={handleSaveClick}
+                >
+                  <Heart
+                    className={cn("h-4 w-4", isSaved && "fill-error text-error")}
+                  />
+                  {isSaved ? "Saved" : "Save"}
+                </Button>
+              ) : (
+                <Button asChild variant="outline">
+                  <Link
+                    href={`/student/login?next=${encodeURIComponent(`/trainer/${trainer.slug}`)}`}
+                  >
+                    <Heart className="h-4 w-4" />
+                    Save
+                  </Link>
+                </Button>
+              )}
             </div>
           </div>
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getRepository } from "@/lib/repository";
 import { getSession } from "@/lib/auth";
+import { isTrainerSaved } from "@/lib/favorites";
 import { resolveImage } from "@/lib/media";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -48,6 +49,9 @@ export default async function TrainerPage({
 
   const session = await getSession();
 
+  const saved =
+    session?.role === "student" ? isTrainerSaved(session.email, trainer.slug) : false;
+
   const nearbyAll = await repo.search({
     near: { lat: trainer.lat, lng: trainer.lng, radiusKm: 1000 },
   });
@@ -63,6 +67,7 @@ export default async function TrainerPage({
             coverSrc={resolveImage(`trainers/${trainer.slug}`)}
             headshotSrc={resolveImage(`trainers/headshots/${trainer.slug}`)}
             session={session}
+            saved={saved}
           />
 
           <div className="mt-12 grid gap-10 lg:mt-16 lg:grid-cols-[1.65fr_1fr] lg:gap-12">
