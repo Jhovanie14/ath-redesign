@@ -223,6 +223,48 @@ const seedEnquiries: Enquiry[] = [
     bookedDate: null,
     archived: false,
   },
+  {
+    id: "enq-10",
+    studentName: "Freya Marsh",
+    studentEmail: "student@ath.demo",
+    courseTitle: "Lip Filler Refinement",
+    receivedAt: "2026-07-22",
+    messages: [
+      {
+        from: "student",
+        body: "Hi, I'd love to join the next Lip Filler Refinement date if there's space — I did the foundation course with another trainer last year.",
+        sentAt: "2026-07-22T10:05:00",
+      },
+      {
+        from: "trainer",
+        body: "Hi Freya, that experience is perfect for this one. I've got a small-group date on the 20th of August if that works for you?",
+        sentAt: "2026-07-22T14:30:00",
+      },
+    ],
+    bookedDate: "2026-08-20",
+    archived: false,
+  },
+  {
+    id: "enq-11",
+    studentName: "Freya Marsh",
+    studentEmail: "student@ath.demo",
+    courseTitle: "Masterclass: Full-Face Assessment",
+    receivedAt: "2026-06-01",
+    messages: [
+      {
+        from: "student",
+        body: "Is there space on your Full-Face Assessment masterclass in June? I've been wanting to build a more structured consult process.",
+        sentAt: "2026-06-01T09:00:00",
+      },
+      {
+        from: "trainer",
+        body: "Yes — I've got the 15th of June free, small group of four. I'll send over the pre-reading beforehand.",
+        sentAt: "2026-06-01T13:20:00",
+      },
+    ],
+    bookedDate: "2026-06-15",
+    archived: false,
+  },
 ];
 
 let enquiries: Enquiry[] = seedEnquiries;
