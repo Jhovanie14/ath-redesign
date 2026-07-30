@@ -83,3 +83,13 @@ export async function clearSession() {
   const store = await cookies();
   store.delete(SESSION_COOKIE);
 }
+
+/** Guards against open redirects — only same-origin, absolute-path
+ * targets (e.g. "/trainer/dr-amara-okafor") are allowed. Rejects
+ * protocol-relative paths ("//evil.com") and anything that isn't a
+ * plain string (FormData entries can also be File). */
+export function isSafeRedirect(path: unknown): path is string {
+  return (
+    typeof path === "string" && path.startsWith("/") && !path.startsWith("//")
+  );
+}

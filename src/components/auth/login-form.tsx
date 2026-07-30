@@ -31,6 +31,7 @@ export interface LoginFormProps {
     quotes: [ShowcaseQuote, ...ShowcaseQuote[]];
   };
   footerLink?: { label: string; question: string; href: string };
+  next?: string;
 }
 
 export function LoginForm({
@@ -42,6 +43,7 @@ export function LoginForm({
   action,
   showcase,
   footerLink,
+  next,
 }: LoginFormProps) {
   const [state, formAction, pending] = useActionState(action, {});
   const emailRef = useRef<HTMLInputElement>(null);
@@ -89,6 +91,7 @@ export function LoginForm({
             </p>
 
             <form action={formAction} className="mt-7 space-y-4" noValidate>
+              {next && <input type="hidden" name="next" value={next} />}
               <div>
                 <label
                   htmlFor={`${role}-email`}

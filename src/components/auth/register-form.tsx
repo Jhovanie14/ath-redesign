@@ -23,9 +23,10 @@ export interface RegisterFormProps {
     imageAlt: string;
     quotes: [ShowcaseQuote, ...ShowcaseQuote[]];
   };
+  next?: string;
 }
 
-export function RegisterForm({ action, showcase }: RegisterFormProps) {
+export function RegisterForm({ action, showcase, next }: RegisterFormProps) {
   const [state, formAction, pending] = useActionState(action, {});
 
   return (
@@ -62,6 +63,7 @@ export function RegisterForm({ action, showcase }: RegisterFormProps) {
             </p>
 
             <form action={formAction} className="mt-7 space-y-4" noValidate>
+              {next && <input type="hidden" name="next" value={next} />}
               <div>
                 <label htmlFor="student-name" className="eyebrow mb-2 block">
                   Full name
@@ -122,7 +124,11 @@ export function RegisterForm({ action, showcase }: RegisterFormProps) {
             <p className="mt-6 text-center text-small text-ink-soft">
               Already have an account?{" "}
               <Link
-                href="/student/login"
+                href={
+                  next
+                    ? `/student/login?next=${encodeURIComponent(next)}`
+                    : "/student/login"
+                }
                 className="font-medium text-ink underline underline-offset-2"
               >
                 Sign in
