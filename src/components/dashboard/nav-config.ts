@@ -49,6 +49,7 @@ export const STUDENT_NAV: NavItem[] = [
   { label: "Overview", href: "/student", icon: LayoutGrid },
   { label: "Messages", href: "/student/messages", icon: MessageSquare },
   { label: "Saved", href: "/student/saved", icon: Heart },
+  { label: "Reviews", href: "/student/reviews", icon: Star },
   { label: "Profile", href: "/student/profile", icon: User },
 ];
 
