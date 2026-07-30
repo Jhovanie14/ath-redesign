@@ -24,6 +24,7 @@ export function PhotoUploadSlot({
   className,
   onFileSelect,
   onRemove,
+  description = "Drag and drop an image, or click below to browse. Changes apply to your draft — save your profile to publish them.",
 }: {
   previewUrl?: string;
   shape: "banner" | "circle";
@@ -32,6 +33,7 @@ export function PhotoUploadSlot({
   className?: string;
   onFileSelect: (file: File) => void;
   onRemove: () => void;
+  description?: React.ReactNode;
 }) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -127,10 +129,7 @@ export function PhotoUploadSlot({
             <DialogTitle className="text-title">
               {previewUrl ? `Update ${ariaLabel}` : `Add ${ariaLabel}`}
             </DialogTitle>
-            <DialogDescription>
-              Drag and drop an image, or click below to browse. Changes apply
-              to your draft — save your profile to publish them.
-            </DialogDescription>
+            <DialogDescription>{description}</DialogDescription>
           </DialogHeader>
 
           <button

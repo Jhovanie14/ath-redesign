@@ -4,6 +4,7 @@ import {
   Calendar,
   CreditCard,
   FileText,
+  Heart,
   LayoutGrid,
   MessageSquare,
   Settings,
@@ -44,6 +45,17 @@ export const ADMIN_NAV: NavItem[] = [
   { label: "Settings", href: "/admin/settings", icon: UserCog },
 ];
 
+export const STUDENT_NAV: NavItem[] = [
+  { label: "Overview", href: "/student", icon: LayoutGrid },
+  { label: "Messages", href: "/student/messages", icon: MessageSquare },
+  { label: "Saved", href: "/student/saved", icon: Heart },
+  { label: "Reviews", href: "/student/reviews", icon: Star },
+  { label: "Profile", href: "/student/profile", icon: User },
+  { label: "Settings", href: "/student/settings", icon: Settings },
+];
+
 export function navForRole(role: Role): NavItem[] {
-  return role === "admin" ? ADMIN_NAV : TRAINER_NAV;
+  if (role === "admin") return ADMIN_NAV;
+  if (role === "student") return STUDENT_NAV;
+  return TRAINER_NAV;
 }

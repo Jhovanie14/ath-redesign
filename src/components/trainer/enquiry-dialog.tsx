@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { CheckCircle2 } from "lucide-react";
+import { useState, useTransition } from "react";
+import Link from "next/link";
 import type { Trainer } from "@/lib/types";
+import type { Session } from "@/lib/auth";
+import { createEnquiryAction } from "@/app/student/messages/actions";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogTitle,
@@ -24,68 +25,68 @@ import { VerifiedSeal } from "@/components/verified-seal";
 const FIELD =
   "h-11 w-full rounded-xl border border-linen bg-paper px-3.5 text-small text-ink placeholder:text-stone focus:outline-none focus-visible:border-stone";
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 export function EnquiryDialog({
   trainer,
+  session,
   defaultCourseTitle,
   children,
 }: {
   trainer: Trainer;
+  session: Session | null;
   defaultCourseTitle?: string;
   children: React.ReactNode;
 }) {
+  const activeCourses = trainer.courses.filter((c) => !c.archived);
   const [open, setOpen] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [course, setCourse] = useState(
-    defaultCourseTitle ?? trainer.courses[0]?.title ?? "General enquiry",
+    defaultCourseTitle ?? activeCourses[0]?.title ?? "General enquiry",
   );
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [error, setError] = useState("");
+  const [pending, startTransition] = useTransition();
 
-  function reset() {
-    setSubmitted(false);
-    setName("");
-    setEmail("");
-    setMessage("");
-    setErrors({});
-    setCourse(defaultCourseTitle ?? trainer.courses[0]?.title ?? "General enquiry");
-  }
-
-  function onOpenChange(next: boolean) {
-    setOpen(next);
-    if (!next) setTimeout(reset, 200);
-  }
+  const returnTo = `/trainer/${trainer.slug}`;
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
-    const next: Record<string, string> = {};
-    if (!name.trim()) next.name = "Add your name so the trainer knows who's asking.";
-    if (!EMAIL_RE.test(email)) next.email = "Enter an email the trainer can reply to.";
-    if (!message.trim()) next.message = "Add a short message about what you're after.";
-    setErrors(next);
-    if (Object.keys(next).length === 0) setSubmitted(true);
+    const trimmed = message.trim();
+    if (!trimmed) {
+      setError("Add a short message about what you're after.");
+      return;
+    }
+    setError("");
+    startTransition(async () => {
+      await createEnquiryAction({ courseTitle: course, body: trimmed });
+    });
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="p-6 sm:p-8">
-        {submitted ? (
-          <div className="py-6 text-center">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-success/10 text-success">
-              <CheckCircle2 className="h-7 w-7" />
-            </div>
-            <DialogTitle className="mt-5 text-title">Enquiry sent</DialogTitle>
-            <DialogDescription className="mx-auto mt-2 max-w-sm">
-              Your enquiry is on its way to {trainer.name.split(" ").slice(-1)[0]}.
-              Trainers typically reply within 2 working days.
+        {!session || session.role !== "student" ? (
+          <div className="py-2">
+            <DialogTitle className="text-title">
+              Sign in to enquire
+            </DialogTitle>
+            <DialogDescription className="mt-2">
+              Create a free student account or sign in to send an enquiry to{" "}
+              {trainer.name}.
             </DialogDescription>
-            <DialogClose asChild>
-              <Button className="mt-6">Done</Button>
-            </DialogClose>
+            <div className="mt-6 flex flex-col gap-2.5 sm:flex-row">
+              <Button asChild className="flex-1">
+                <Link
+                  href={`/student/register?next=${encodeURIComponent(returnTo)}`}
+                >
+                  Create account
+                </Link>
+              </Button>
+              <Button asChild variant="outline" className="flex-1">
+                <Link href={`/student/login?next=${encodeURIComponent(returnTo)}`}>
+                  Log in
+                </Link>
+              </Button>
+            </div>
           </div>
         ) : (
           <form onSubmit={submit} noValidate>
@@ -96,7 +97,11 @@ export function EnquiryDialog({
               Enquiring with {trainer.name}.
             </DialogDescription>
 
-            <div className="mt-6 flex flex-col gap-4">
+            <p className="mt-4 text-small text-ink-soft">
+              Sending as {session.name} · {session.email}
+            </p>
+
+            <div className="mt-4 flex flex-col gap-4">
               <div>
                 <label htmlFor="enq-course" className="eyebrow mb-2 block">
                   Course
@@ -106,7 +111,7 @@ export function EnquiryDialog({
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {trainer.courses.map((c) => (
+                    {activeCourses.map((c) => (
                       <SelectItem key={c.id} value={c.title}>
                         {c.title}
                       </SelectItem>
@@ -116,41 +121,6 @@ export function EnquiryDialog({
                     </SelectItem>
                   </SelectContent>
                 </Select>
-              </div>
-
-              <div>
-                <label htmlFor="enq-name" className="eyebrow mb-2 block">
-                  Your name
-                </label>
-                <input
-                  id="enq-name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className={FIELD}
-                  placeholder="Jordan Ellis"
-                  aria-invalid={Boolean(errors.name)}
-                />
-                {errors.name && (
-                  <p className="mt-1.5 text-micro text-error">{errors.name}</p>
-                )}
-              </div>
-
-              <div>
-                <label htmlFor="enq-email" className="eyebrow mb-2 block">
-                  Email
-                </label>
-                <input
-                  id="enq-email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className={FIELD}
-                  placeholder="you@email.com"
-                  aria-invalid={Boolean(errors.email)}
-                />
-                {errors.email && (
-                  <p className="mt-1.5 text-micro text-error">{errors.email}</p>
-                )}
               </div>
 
               <div>
@@ -164,12 +134,10 @@ export function EnquiryDialog({
                   rows={4}
                   className={`${FIELD} h-auto resize-none py-2.5`}
                   placeholder="I'm looking for a first lip filler course in the spring…"
-                  aria-invalid={Boolean(errors.message)}
+                  aria-invalid={Boolean(error)}
                 />
-                {errors.message && (
-                  <p className="mt-1.5 text-micro text-error">
-                    {errors.message}
-                  </p>
+                {error && (
+                  <p className="mt-1.5 text-micro text-error">{error}</p>
                 )}
               </div>
             </div>
@@ -178,12 +146,12 @@ export function EnquiryDialog({
               <span className="mt-0.5">
                 <VerifiedSeal size={16} />
               </span>
-              Your enquiry goes directly to the trainer through the Hub. No fees,
-              no middleman.
+              Your enquiry goes directly to the trainer through the Hub. No
+              fees, no middleman.
             </p>
 
-            <Button type="submit" className="mt-5 w-full">
-              Send enquiry
+            <Button type="submit" className="mt-5 w-full" disabled={pending}>
+              {pending ? "Sending…" : "Send enquiry"}
             </Button>
           </form>
         )}

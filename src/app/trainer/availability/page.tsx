@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { getRepository } from "@/lib/repository";
-import { DEMO_ENQUIRIES } from "@/lib/enquiries";
+import { listEnquiries } from "@/lib/enquiries";
 import { getUpcomingBookings } from "@/lib/trainer-insights";
 import { DashboardShell } from "@/components/dashboard/dashboard-shell";
 import { AvailabilityForm } from "@/components/dashboard/availability/availability-form";
@@ -21,7 +21,7 @@ export default async function TrainerAvailabilityPage() {
   const trainer = await getRepository().getBySlug("dr-amara-okafor");
   if (!trainer) notFound();
 
-  const upcomingBookings = getUpcomingBookings(DEMO_ENQUIRIES, new Date());
+  const upcomingBookings = getUpcomingBookings(listEnquiries(), new Date());
 
   return (
     <DashboardShell
