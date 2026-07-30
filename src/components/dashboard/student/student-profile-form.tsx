@@ -53,6 +53,7 @@ export function StudentProfileForm({ session }: { session: Session }) {
             ariaLabel="profile photo"
             onFileSelect={onPhotoFileSelect}
             onRemove={onPhotoRemove}
+            description="Your photo shows up here right away. It isn't saved to your account — this is a preview only."
           />
         </CardContent>
       </Card>
