@@ -30,6 +30,7 @@ export interface LoginFormProps {
     imageAlt: string;
     quotes: [ShowcaseQuote, ...ShowcaseQuote[]];
   };
+  footerLink?: { label: string; question: string; href: string };
 }
 
 export function LoginForm({
@@ -40,6 +41,7 @@ export function LoginForm({
   demoPassword,
   action,
   showcase,
+  footerLink,
 }: LoginFormProps) {
   const [state, formAction, pending] = useActionState(action, {});
   const emailRef = useRef<HTMLInputElement>(null);
@@ -77,7 +79,7 @@ export function LoginForm({
 
           <div className="rounded-card border border-linen bg-paper p-8 sm:p-10 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0">
             <p className="eyebrow !text-stone">
-              {role === "admin" ? "Admin" : "Trainer"} sign in
+              {role === "admin" ? "Admin" : role === "student" ? "Student" : "Trainer"} sign in
             </p>
             <h1 className="mt-2 font-display text-title text-ink">
               {heading}
@@ -158,6 +160,15 @@ export function LoginForm({
               </span>
               <span className="mt-1 block text-stone">Tap to autofill</span>
             </button>
+
+            {footerLink && (
+              <p className="mt-6 text-center text-small text-ink-soft">
+                {footerLink.question}{" "}
+                <Link href={footerLink.href} className="font-medium text-ink underline underline-offset-2">
+                  {footerLink.label}
+                </Link>
+              </p>
+            )}
           </div>
         </div>
       </div>

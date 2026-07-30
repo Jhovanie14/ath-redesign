@@ -3,7 +3,7 @@
 // real queries once bookings exist.
 //
 // newEnquiries and activeCourses are derived live from
-// DEMO_ENQUIRIES/enquiryStatus() in src/lib/enquiries.ts and
+// listEnquiries()/enquiryStatus() in src/lib/enquiries.ts and
 // trainer.courses respectively, subscription is derived live from
 // toSubscriptions() in src/lib/billing.ts, and the profile-views caption is
 // derived live from trainer.rating/trainer.reviewCount (all in

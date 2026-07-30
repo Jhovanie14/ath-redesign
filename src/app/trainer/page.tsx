@@ -3,7 +3,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { DEMO_TRAINER_STATS } from "@/lib/dashboard-stats";
-import { DEMO_ENQUIRIES, enquiryStatus } from "@/lib/enquiries";
+import { enquiryStatus, listEnquiries } from "@/lib/enquiries";
 import { getRepository } from "@/lib/repository";
 import { toSubscriptions } from "@/lib/billing";
 import { getRatingDistribution } from "@/lib/dashboard-charts";
@@ -48,13 +48,13 @@ export default async function TrainerDashboardPage() {
   const trainers = await getRepository().getAll();
 
   // Enquiry-derived — same source the Enquiries page reads.
-  const newEnquiryCount = DEMO_ENQUIRIES.filter(
+  const newEnquiryCount = listEnquiries().filter(
     (e) => enquiryStatus(e, now) === "new",
   ).length;
-  const awaitingReply = getAwaitingReply(DEMO_ENQUIRIES);
-  const upcomingBookings = getUpcomingBookings(DEMO_ENQUIRIES, now);
-  const enquiryActivity = getEnquiryActivity(DEMO_ENQUIRIES, now);
-  const enquiryFunnel = getEnquiryFunnel(DEMO_ENQUIRIES, now);
+  const awaitingReply = getAwaitingReply(listEnquiries());
+  const upcomingBookings = getUpcomingBookings(listEnquiries(), now);
+  const enquiryActivity = getEnquiryActivity(listEnquiries(), now);
+  const enquiryFunnel = getEnquiryFunnel(listEnquiries(), now);
 
   // Course-derived — same source the Courses page reads.
   const courseLineup = getCourseLineup(trainer?.courses ?? []);

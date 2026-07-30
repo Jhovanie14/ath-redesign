@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
-import { DEMO_ENQUIRIES } from "@/lib/enquiries";
+import { listEnquiries } from "@/lib/enquiries";
 import { DashboardShell } from "@/components/dashboard/dashboard-shell";
 import { EnquiriesList } from "@/components/dashboard/enquiries/enquiries-list";
 import { logoutTrainer } from "../actions";
@@ -32,7 +32,7 @@ export default async function TrainerEnquiriesPage() {
       </p>
 
       <div className="mt-8">
-        <EnquiriesList enquiries={DEMO_ENQUIRIES} now={now} />
+        <EnquiriesList enquiries={listEnquiries()} now={now} />
       </div>
     </DashboardShell>
   );

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
-import { DEMO_ENQUIRIES } from "@/lib/enquiries";
+import { getEnquiryById } from "@/lib/enquiries";
 import { DashboardShell } from "@/components/dashboard/dashboard-shell";
 import { EnquiryDetail } from "@/components/dashboard/enquiries/enquiry-detail";
 import { logoutTrainer } from "../../actions";
@@ -21,7 +21,7 @@ export default async function TrainerEnquiryDetailPage({
   }
 
   const { id } = await params;
-  const enquiry = DEMO_ENQUIRIES.find((e) => e.id === id);
+  const enquiry = getEnquiryById(id);
   if (!enquiry) notFound();
 
   const now = new Date();
