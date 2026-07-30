@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { findStudentAccount } from "@/lib/students";
-import { setSession } from "@/lib/auth";
+import { isSafeRedirect, setSession } from "@/lib/auth";
 import type { LoginFormState } from "@/components/auth/login-form";
 
 export async function loginStudent(
@@ -11,6 +11,7 @@ export async function loginStudent(
 ): Promise<LoginFormState> {
   const email = String(formData.get("email") ?? "");
   const password = String(formData.get("password") ?? "");
+  const next = formData.get("next");
 
   const session = findStudentAccount(email, password);
   if (!session) {
@@ -18,5 +19,5 @@ export async function loginStudent(
   }
 
   await setSession(session);
-  redirect("/student");
+  redirect(isSafeRedirect(next) ? next : "/student");
 }

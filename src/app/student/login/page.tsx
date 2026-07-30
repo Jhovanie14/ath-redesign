@@ -8,7 +8,13 @@ export const metadata: Metadata = {
   title: "Student sign in",
 };
 
-export default function StudentLoginPage() {
+export default async function StudentLoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ next?: string }>;
+}) {
+  const { next } = await searchParams;
+
   return (
     <LoginForm
       role="student"
@@ -17,10 +23,13 @@ export default function StudentLoginPage() {
       demoEmail={DEMO_CREDENTIALS.student.email}
       demoPassword={DEMO_CREDENTIALS.student.password}
       action={loginStudent}
+      next={next}
       footerLink={{
         question: "New here?",
         label: "Create an account",
-        href: "/student/register",
+        href: next
+          ? `/student/register?next=${encodeURIComponent(next)}`
+          : "/student/register",
       }}
       showcase={{
         imageSrc: "/images/how-it-works-hero.jpeg",
