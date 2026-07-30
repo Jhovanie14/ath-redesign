@@ -51,6 +51,7 @@ export const STUDENT_NAV: NavItem[] = [
   { label: "Saved", href: "/student/saved", icon: Heart },
   { label: "Reviews", href: "/student/reviews", icon: Star },
   { label: "Profile", href: "/student/profile", icon: User },
+  { label: "Settings", href: "/student/settings", icon: Settings },
 ];
 
 export function navForRole(role: Role): NavItem[] {

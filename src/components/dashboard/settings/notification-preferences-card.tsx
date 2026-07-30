@@ -38,6 +38,33 @@ export const TRAINER_NOTIFICATION_ROWS: NotificationRow[] = [
   },
 ];
 
+export const STUDENT_NOTIFICATION_ROWS: NotificationRow[] = [
+  {
+    id: "replies",
+    label: "Replies to your enquiries",
+    description: "Get an email when a trainer replies to your message.",
+    defaultOn: true,
+  },
+  {
+    id: "sessions",
+    label: "Session reminders",
+    description: "Get an email reminder as a booked course date approaches.",
+    defaultOn: true,
+  },
+  {
+    id: "saved-trainers",
+    label: "New courses from trainers you've saved",
+    description: "Get an email when a saved trainer adds a new course.",
+    defaultOn: false,
+  },
+  {
+    id: "marketing",
+    label: "Product updates & tips",
+    description: "Occasional emails about new features and best practices.",
+    defaultOn: false,
+  },
+];
+
 export function NotificationPreferencesCard({
   rows,
 }: {
